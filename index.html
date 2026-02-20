@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahma Islamic Centre — Winnipeg</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== HERO ===== */
+        .hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: url('masjid.png') center/cover no-repeat; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(170deg, rgba(6,16,32,0.88) 0%, rgba(11,31,58,0.72) 50%, rgba(6,16,32,0.85) 100%); }
+        .hero-pattern { position: absolute; top: 50%; left: 50%; width: 200%; height: 200%; transform: translate(-50%, -50%); background-image: url('islamic-pattern.png'); background-repeat: repeat; background-size: 420px; opacity: 0.07; pointer-events: none; z-index: 1; animation: patternRotate 80s linear infinite; }
+        .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 24px; animation: fadeUp 1.2s ease 0.5s both; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+        .hero-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+        .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 300; color: var(--white); line-height: 1.05; margin-bottom: 8px; letter-spacing: -0.01em; }
+        .hero-title em { font-style: italic; color: var(--gold-light); }
+        .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem, 2.5vw, 1.5rem); font-weight: 300; color: rgba(255,255,255,0.7); margin-bottom: 50px; font-style: italic; }
+        .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .hero-scroll { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; z-index: 2; }
+        .hero-scroll span { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+        .scroll-line { width: 1px; height: 50px; background: linear-gradient(var(--gold), transparent); animation: scrollAnim 2s ease-in-out infinite; }
+        @keyframes scrollAnim { 0%,100%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} }
+
+        /* ===== ABOUT (homepage) ===== */
+        .about-section { background: var(--cream); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-img-wrap { position: relative; }
+        .about-img-wrap img { width: 100%; display: block; filter: grayscale(15%); position: relative; z-index: 1; }
+        .about-img-wrap::before { content: ''; position: absolute; top: -20px; left: -20px; right: 20px; bottom: 20px; border: 1px solid var(--gold); opacity: 0.4; z-index: 0; pointer-events: none; }
+        .about-year { position: absolute; bottom: -20px; right: -20px; z-index: 2; background: var(--gold); color: var(--navy); padding: 18px 24px; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; text-align: center; line-height: 1.2; }
+        .about-year strong { display: block; font-size: 2rem; }
+        .about-text p { font-size: 1.05rem; line-height: 1.85; color: var(--muted); margin-bottom: 20px; }
+        .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--border); }
+        .stat-item { text-align: center; }
+        .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--navy); line-height: 1; display: block; }
+        .stat-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-top: 8px; display: block; }
+
+        /* ===== MISSION ===== */
+        .mission-section { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); padding: 110px 24px; position: relative; overflow: hidden; }
+        .mission-pattern { position: absolute; top: 50%; left: 50%; width: 160%; height: 160%; transform: translate(-50%,-50%); background-image: url('islamic-pattern.png'); background-repeat: repeat; background-size: 380px; opacity: 0.05; pointer-events: none; animation: patternRotate 80s linear infinite; }
+        .mission-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Cinzel', serif; font-size: 20vw; font-weight: 700; color: rgba(255,255,255,0.02); pointer-events: none; white-space: nowrap; letter-spacing: -0.05em; }
+        .mission-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; text-align: center; }
+        .mission-divider { display: flex; align-items: center; gap: 16px; margin: 40px auto; max-width: 300px; }
+        .mission-divider::before, .mission-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        .mission-gem { color: var(--gold); }
+        .mission-inner p { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-style: italic; color: rgba(255,255,255,0.75); line-height: 1.9; }
+
+        /* ===== DONATE (homepage) ===== */
+        .donate-section { background: var(--cream); padding: 110px 24px; }
+        .donate-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .donate-text p { font-size: 1.05rem; line-height: 1.8; color: var(--muted); margin-bottom: 36px; }
+        .donate-amount-preview { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 30px; }
+        .amount-pill { padding: 8px 20px; border: 1px solid var(--border); font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--navy); cursor: pointer; background: transparent; transition: all 0.3s; }
+        .amount-pill:hover, .amount-pill.selected { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+        .donate-form-box { background: var(--navy); padding: 50px 44px; }
+        .donate-form-box h3 { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 600; color: var(--white); letter-spacing: 0.1em; margin-bottom: 30px; }
+        .donate-input-row { display: flex; margin-bottom: 16px; }
+        .currency-tag { background: var(--gold); color: var(--navy); padding: 14px 18px; font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; flex-shrink: 0; }
+        .donate-input { flex: 1; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-left: none; color: var(--white); padding: 14px 18px; font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; outline: none; transition: border-color 0.3s; }
+        .donate-input:focus { border-color: var(--gold); }
+        .donate-input::placeholder { color: rgba(255,255,255,0.25); font-size: 1rem; }
+        .donate-submit { width: 100%; background: var(--gold); color: var(--navy); border: none; padding: 16px; font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-bottom: 14px; }
+        .donate-submit:hover { background: var(--gold-light); }
+        .secure-tag { font-size: 0.75rem; color: rgba(255,255,255,0.4); text-align: center; letter-spacing: 0.08em; }
+        .secure-tag i { color: #4ade80; margin-right: 6px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) { .about-grid, .donate-inner { grid-template-columns: 1fr; gap: 50px; } .about-img-wrap { max-width: 500px; } .about-stats { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .about-stats { grid-template-columns: 1fr; } .donate-form-box { padding: 36px 24px; } }
+    </style>
+</head>
+<body>
+
+    <div id="loader"><div class="loader-text">RAHMA</div><div class="loader-bar"><div class="loader-fill"></div></div></div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="closeMobile()">Home</a>
+        <a href="prayer-times.html" onclick="closeMobile()">Prayer Times</a>
+        <a href="activities.html" onclick="closeMobile()">Activities</a>
+        <a href="about.html" onclick="closeMobile()">About Us</a>
+        <a href="contact.html" onclick="closeMobile()">Contact</a>
+        <a href="donate.html" class="mobile-donate" onclick="closeMobile()">Donate</a>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="logo-wrap">
+                <img src="logo.png" alt="Rahma Logo" class="logo-img">
+                <div class="logo-text">Rahma Islamic Centre<span>Winnipeg, Canada</span></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="prayer-times.html">Prayer Times</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="donate.html" class="nav-donate">Donate</a>
+            <div class="hamburger" id="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Est. 2016 — Kildonan, Winnipeg</p>
+            <h1 class="hero-title">Welcome to<br><em>Rahma</em> Islamic Centre</h1>
+            <p class="hero-subtitle">A sanctuary of worship, learning &amp; community</p>
+            <div class="hero-ctas">
+                <a href="prayer-times.html" class="btn-primary">Prayer Times</a>
+                <a href="about.html" class="btn-outline">Learn More</a>
+            </div>
+        </div>
+        <div class="hero-scroll" onclick="document.getElementById('prayer').scrollIntoView({behavior:'smooth'})">
+            <span>Scroll</span><div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- PRAYER TIMES -->
+    <section class="prayer-section" id="prayer">
+        <div class="container">
+            <div class="prayer-top">
+                <div>
+                    <span class="section-label">Daily Schedule</span>
+                    <h2 class="section-title" style="color:var(--white);margin-bottom:0;">Today's <em style="color:var(--gold-light)">Prayer Times</em></h2>
+                </div>
+                <div class="prayer-live reveal">
+                    <div class="prayer-date-display" id="prayerDate">Loading date...</div>
+                    <div class="prayer-clock" id="currentTime">--:--</div>
+                </div>
+            </div>
+            <div class="prayer-cards reveal">
+                <div class="prayer-card-item" id="card-fajr"><i class="fas fa-moon prayer-icon"></i><div class="prayer-name">Fajr</div><div class="prayer-time-val loading" id="fajr-time">—</div></div>
+                <div class="prayer-card-item" id="card-dhuhr"><i class="fas fa-sun prayer-icon"></i><div class="prayer-name">Dhuhr</div><div class="prayer-time-val loading" id="dhuhr-time">—</div></div>
+                <div class="prayer-card-item" id="card-asr"><i class="fas fa-cloud-sun prayer-icon"></i><div class="prayer-name">Asr</div><div class="prayer-time-val loading" id="asr-time">—</div></div>
+                <div class="prayer-card-item" id="card-maghrib"><i class="fas fa-cloud-moon prayer-icon"></i><div class="prayer-name">Maghrib</div><div class="prayer-time-val loading" id="maghrib-time">—</div></div>
+                <div class="prayer-card-item" id="card-isha"><i class="fas fa-star prayer-icon"></i><div class="prayer-name">Isha</div><div class="prayer-time-val loading" id="isha-time">—</div></div>
+                <div class="prayer-card-item"><i class="fas fa-mosque prayer-icon"></i><div class="prayer-name">Jumu'ah</div><div class="prayer-time-val" style="font-size:1.1rem;">12:30 &amp; 1:20 pm</div></div>
+            </div>
+            <div class="prayer-location-bar reveal">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>574 Watt St, Winnipeg, MB R2K 4K1 &nbsp;|&nbsp; Jumu'ah @ Chalmers Community Centre — 480 Chalmers Ave</span>
+                <a href="prayer-times.html">Full Schedule →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about-section" style="padding:110px 24px;">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img-wrap reveal">
+                    <img src="mosque.jpg" alt="Rahma Community">
+                    <div class="about-year"><strong>2016</strong>Founded</div>
+                </div>
+                <div class="about-text">
+                    <span class="section-label reveal">Who We Are</span>
+                    <h2 class="section-title reveal">A Home for the <em>Muslim Community</em> in Winnipeg</h2>
+                    <div class="divider reveal"></div>
+                    <p class="reveal">Winnipeg Rahma Islamic Centre is a vibrant and inclusive Islamic center dedicated to serving the spiritual, educational, and social needs of Muslims in Winnipeg's Kildonan area.</p>
+                    <p class="reveal reveal-delay-1">We are committed to the teachings of the Quran and the Sunnah, striving to promote compassion and unity among our members and the broader community.</p>
+                    <div class="about-stats reveal reveal-delay-2">
+                        <div class="stat-item"><span class="stat-number" data-target="5">0</span><span class="stat-label">Daily Prayers</span></div>
+                        <div class="stat-item"><span class="stat-number" data-target="5">0</span><span class="stat-label">Programs</span></div>
+                        <div class="stat-item"><span class="stat-number" data-target="2016">0</span><span class="stat-label">Est. Year</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section style="background:var(--white);padding:90px 0;">
+        <div class="container" style="padding:0 24px;">
+            <div style="margin-bottom:50px;">
+                <span class="section-label reveal">What We Offer</span>
+                <h2 class="section-title reveal">Activities <em>&amp; Services</em></h2>
+                <div class="divider reveal"></div>
+            </div>
+            <div class="services-grid reveal">
+                <div class="service-item"><div class="service-img"><img src="sisters_-halaqa.webp" alt="Sisters Halaqa"></div><div class="service-body"><span class="service-num">01</span><h3>Sisters' Halaqa</h3><p>A dedicated Quran class for women, exploring its meanings and sharing spiritual reflections in a welcoming environment.</p><a href="activities.html" class="service-arrow">Learn more <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="service-item"><div class="service-img"><img src="Daily-five.png" alt="Daily Five Prayers"></div><div class="service-body"><span class="service-num">02</span><h3>Daily Five Prayers</h3><p>The masjid is open every day for all five prayers. Jumu'ah at Chalmers Community Centre at 12:30 pm &amp; 1:20 pm.</p><a href="prayer-times.html" class="service-arrow">Prayer times <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="service-item"><div class="service-img"><img src="kids-quran-class.png" alt="Kids Quran Class"></div><div class="service-body"><span class="service-num">03</span><h3>Kids Quran Class</h3><p>Weekend classes for all ages focusing on recitation, understanding, and memorization of the Holy Quran.</p><a href="activities.html" class="service-arrow">Learn more <i class="fas fa-arrow-right"></i></a></div></div>
+            </div>
+            <div class="services-grid services-grid-2 reveal" style="margin-top:1px;">
+                <div class="service-item"><div class="service-img"><img src="after-school-study-club.png" alt="Study Club"></div><div class="service-body"><span class="service-num">04</span><h3>After School Study Club</h3><p>A supportive environment for students to complete homework and strengthen academic skills.</p><a href="activities.html" class="service-arrow">Learn more <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="service-item"><div class="service-img"><img src="Quran-Hifz.png" alt="Quran Hifz"></div><div class="service-body"><span class="service-num">05</span><h3>Quran Hifz</h3><p>Structured memorization classes for those dedicated to preserving the Quran in their hearts.</p><a href="activities.html" class="service-arrow">Learn more <i class="fas fa-arrow-right"></i></a></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery-section">
+        <div class="container">
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:50px;flex-wrap:wrap;gap:16px;">
+                <div><span class="section-label reveal">Moments</span><h2 class="section-title reveal" style="color:var(--white);margin-bottom:0;">Community <em style="color:var(--gold-light)">Gallery</em></h2></div>
+            </div>
+            <div class="gallery-grid reveal">
+                <div class="gallery-item"><img src="mosque.jpg" alt="Community"><div class="gallery-item-overlay"></div></div>
+                <div class="gallery-item"><img src="mosque1.jpg" alt="Prayer Hall"><div class="gallery-item-overlay"></div></div>
+                <div class="gallery-item"><img src="mosque2.jpg" alt="Education"><div class="gallery-item-overlay"></div></div>
+                <div class="gallery-item"><img src="mosque3.jpg" alt="Gathering"><div class="gallery-item-overlay"></div></div>
+                <div class="gallery-item"><img src="mosque4.jpg" alt="Event"><div class="gallery-item-overlay"></div></div>
+                <div class="gallery-item"><img src="mosque5.jpg" alt="Eid"><div class="gallery-item-overlay"></div></div>
+                <div class="gallery-item"><img src="mosque6.jpg" alt="Youth"><div class="gallery-item-overlay"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISSION -->
+    <section class="mission-section">
+        <div class="mission-pattern"></div>
+        <div class="mission-bg-text">RAHMA</div>
+        <div class="mission-inner">
+            <span class="section-label reveal" style="display:block;text-align:center;">Our Purpose</span>
+            <h2 class="section-title reveal" style="color:var(--white);text-align:center;">Our <em style="color:var(--gold-light)">Mission</em></h2>
+            <div class="mission-divider reveal"><span class="mission-gem">✦</span></div>
+            <p class="reveal">"Our mission is to create an environment of spiritual growth, education, and social welfare that nurtures individuals and strengthens the community — inspiring all to live guided by Islamic principles."</p>
+            <div style="margin-top:40px;text-align:center;" class="reveal reveal-delay-2"><a href="about.html" class="btn-primary">Learn About Us</a></div>
+        </div>
+    </section>
+
+    <!-- DONATE -->
+    <section class="donate-section">
+        <div class="container">
+            <div class="donate-inner">
+                <div class="donate-text">
+                    <span class="section-label reveal">Make an Impact</span>
+                    <h2 class="section-title reveal">Support <em>Rahma</em><br>Islamic Centre</h2>
+                    <div class="divider reveal"></div>
+                    <p class="reveal">Your generous contributions help us maintain our facilities, expand educational programs, and support families in need across Winnipeg.</p>
+                    <div class="donate-amount-preview reveal">
+                        <button class="amount-pill" onclick="setAmount(10,this)">$10</button>
+                        <button class="amount-pill" onclick="setAmount(25,this)">$25</button>
+                        <button class="amount-pill selected" onclick="setAmount(50,this)">$50</button>
+                        <button class="amount-pill" onclick="setAmount(100,this)">$100</button>
+                        <button class="amount-pill" onclick="setAmount(250,this)">$250</button>
+                    </div>
+                </div>
+                <div class="donate-form-box reveal reveal-delay-2">
+                    <h3>Donate Today</h3>
+                    <div style="display:flex;gap:8px;margin-bottom:20px;">
+                        <button onclick="setCurrency('CAD')" id="btnCAD" style="flex:1;padding:10px;background:rgba(201,168,76,0.15);border:1px solid var(--gold);color:var(--gold);font-family:Cinzel,serif;font-size:0.75rem;letter-spacing:0.12em;cursor:pointer;transition:all 0.3s;">CAD</button>
+                        <button onclick="setCurrency('USD')" id="btnUSD" style="flex:1;padding:10px;background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);font-family:Cinzel,serif;font-size:0.75rem;letter-spacing:0.12em;cursor:pointer;transition:all 0.3s;">USD</button>
+                    </div>
+                    <div class="donate-input-row">
+                        <div class="currency-tag" id="currencyTag">CAD</div>
+                        <input type="number" class="donate-input" id="donateAmt" value="50" placeholder="Enter amount" min="1">
+                    </div>
+                    <button class="donate-submit" onclick="processDonation()">Donate Now →</button>
+                    <p class="secure-tag"><i class="fas fa-lock"></i>100% Secure &amp; Tax-Deductible</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter-section">
+        <div class="container"><div class="newsletter-inner">
+            <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events, prayer times &amp; announcements</p></div>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required id="nlEmail">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div></div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center dedicated to the spiritual, educational, and social needs of Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+                <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li><li><a href="activities.html">Activities &amp; Services</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+                <div class="footer-col"><h4>Programs</h4><ul><li><a href="activities.html">Sisters' Halaqa</a></li><li><a href="activities.html">Kids Quran Class</a></li><li><a href="activities.html">Quran Hifz</a></li><li><a href="activities.html">Study Club</a></li><li><a href="activities.html">Daily Prayers</a></li></ul></div>
+                <div class="footer-col"><h4>Contact</h4><div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div><div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div><div class="contact-li"><i class="fas fa-envelope"></i><span>info@rahmacentre.ca</span></div></div>
+            </div>
+            <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
+        </div>
+    </footer>
+
+    <script src="shared.js"></script>
+    <script>
+        // Clock
+        function updateTime() { document.getElementById('currentTime').textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true}); }
+        updateTime(); setInterval(updateTime, 1000);
+        document.getElementById('prayerDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+        // Prayer times
+        async function loadPrayerTimes() {
+            try {
+                const d = new Date();
+                const res = await fetch(`https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=49.8951&longitude=-97.1384&method=2`);
+                const data = await res.json();
+                if (data.code === 200) {
+                    const t = data.data.timings;
+                    ['fajr','dhuhr','asr','maghrib','isha'].forEach((id,i) => {
+                        const el = document.getElementById(id+'-time');
+                        el.textContent = formatTime(t[['Fajr','Dhuhr','Asr','Maghrib','Isha'][i]]);
+                        el.classList.remove('loading');
+                    });
+                    const now = new Date(), nm = now.getHours()*60+now.getMinutes();
+                    const keys = ['Fajr','Dhuhr','Asr','Maghrib','Isha'], ids=['fajr','dhuhr','asr','maghrib','isha'];
+                    let active = 'isha';
+                    keys.forEach((k,i) => { const [h,m]=t[k].split(':'); if(nm>=parseInt(h)*60+parseInt(m)) active=ids[i]; });
+                    ids.forEach(id => { const c=document.getElementById('card-'+id); if(c) c.classList.remove('active-prayer'); });
+                    const ac = document.getElementById('card-'+active); if(ac) ac.classList.add('active-prayer');
+                }
+            } catch(e) {
+                const fb=['5:30 AM','12:45 PM','3:30 PM','6:15 PM','7:45 PM'];
+                ['fajr','dhuhr','asr','maghrib','isha'].forEach((id,i)=>{ const el=document.getElementById(id+'-time'); el.textContent=fb[i]; el.classList.remove('loading'); });
+            }
+        }
+        loadPrayerTimes();
+
+        // Counter
+        function animateCount(el, target) {
+            const start = performance.now();
+            const update = (now) => { const p=Math.min((now-start)/1500,1),e=1-Math.pow(1-p,3); el.textContent=Math.round(e*target); if(p<1) requestAnimationFrame(update); };
+            requestAnimationFrame(update);
+        }
+        const sObs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){animateCount(e.target,parseInt(e.target.dataset.target));sObs.unobserve(e.target);} }); },{threshold:0.5});
+        document.querySelectorAll('[data-target]').forEach(el=>sObs.observe(el));
+
+        // Donate
+        let currentCurrency = 'CAD';
+        function setAmount(val, el) { document.getElementById('donateAmt').value=val; document.querySelectorAll('.amount-pill').forEach(p=>p.classList.remove('selected')); el.classList.add('selected'); }
+        function setCurrency(cur) {
+            currentCurrency=cur; document.getElementById('currencyTag').textContent=cur;
+            ['CAD','USD'].forEach(c=>{ const b=document.getElementById('btn'+c); b.style.background=c===cur?'rgba(201,168,76,0.15)':'transparent'; b.style.borderColor=c===cur?'var(--gold)':'rgba(255,255,255,0.15)'; b.style.color=c===cur?'var(--gold)':'rgba(255,255,255,0.5)'; });
+        }
+        function processDonation() { const a=parseFloat(document.getElementById('donateAmt').value); if(!a||a<=0){alert('Please enter a valid amount.');return;} window.location.href='donate.html'; }
+    </script>
+</body>
+</html>
