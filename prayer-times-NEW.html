@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light only">
+    <title>Prayer Times — Rahma Islamic Centre</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .today-widget { background: var(--navy); padding: 80px 24px; position: relative; overflow: hidden; }
+        .today-widget-pattern { position: absolute; top: 50%; left: 50%; width: 160%; height: 160%; transform: translate(-50%,-50%); background-image: url('islamic-pattern.png'); background-repeat: repeat; background-size: 350px; opacity: 0.05; pointer-events: none; }
+        .today-widget-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+        .today-widget h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--white); margin-bottom: 12px; }
+        .today-widget .loc { font-size: 0.9rem; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; margin-bottom: 50px; }
+        .today-prayers-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid var(--border); margin-bottom: 30px; background: rgba(255,255,255,0.03); }
+        .today-prayer-item { padding: 35px 20px; text-align: center; border-right: 1px solid rgba(201,168,76,0.15); }
+        .today-prayer-item:last-child { border-right: none; }
+        .today-prayer-item i { font-size: 2rem; color: var(--gold); margin-bottom: 16px; }
+        .today-prayer-item h3 { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.5); margin-bottom: 14px; text-transform: uppercase; }
+        .today-prayer-item .t-time { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 400; color: var(--white); }
+        
+        /* JUMU'AH AGRANDI */
+        .jumuah-notice { padding: 35px 40px; border: 2px solid var(--gold); background: rgba(201,168,76,0.08); margin-top: 20px; }
+        .jumuah-notice h3 { font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 16px; letter-spacing: 0.1em; }
+        .jumuah-notice p { font-size: 1.1rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 10px; }
+        .jumuah-notice strong { color: var(--gold-light); font-size: 1.2rem; }
+        
+        .schedule-section { background: var(--cream); padding: 80px 24px; }
+        .prayer-table-wrapper { overflow-x: auto; border: 1px solid var(--border); }
+        .prayer-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        @media (max-width: 700px) { .today-prayers-grid { grid-template-columns: repeat(2,1fr); } .today-prayer-item:nth-child(2n){ border-right:none; } }
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-text">RAHMA</div><div class="loader-bar"><div class="loader-fill"></div></div></div>
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="logo-wrap"><img src="logo.png" alt="Rahma Logo" class="logo-img"><div class="logo-text">Rahma Islamic Centre<span>Winnipeg, Canada</span></div></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="prayer-times.html" class="active">Prayer Times</a></li>
+                <li><a href="programs.html">Programs & Services</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="donate.html" class="nav-donate">Donate</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="page-header-pattern"></div><div class="page-header-overlay"></div>
+        <div class="page-header-content"><h1>Prayer <em>Times</em></h1></div>
+    </div>
+
+    <!-- WIDGET EN HAUT (inversé) -->
+    <div class="today-widget">
+        <div class="today-widget-pattern"></div>
+        <div class="today-widget-inner">
+            <h2>Today's Prayer Times</h2>
+            <p class="loc"><i class="fas fa-map-marker-alt"></i> 574 Watt St, Winnipeg, MB</p>
+            <div class="today-prayers-grid">
+                <div class="today-prayer-item"><i class="fas fa-moon"></i><h3>Fajr</h3><div class="t-time" id="t-fajr">—</div></div>
+                <div class="today-prayer-item"><i class="fas fa-sun"></i><h3>Dhuhr</h3><div class="t-time" id="t-dhuhr">—</div></div>
+                <div class="today-prayer-item"><i class="fas fa-cloud-sun"></i><h3>Asr</h3><div class="t-time" id="t-asr">—</div></div>
+                <div class="today-prayer-item"><i class="fas fa-cloud-moon"></i><h3>Maghrib</h3><div class="t-time" id="t-maghrib">—</div></div>
+                <div class="today-prayer-item"><i class="fas fa-star-and-crescent"></i><h3>Isha</h3><div class="t-time" id="t-isha">—</div></div>
+            </div>
+            
+            <!-- JUMU'AH AGRANDI -->
+            <div class="jumuah-notice">
+                <h3><i class="fas fa-mosque"></i> JUMU'AH PRAYER</h3>
+                <p><strong>Location:</strong> Chalmers Community Centre</p>
+                <p><strong>Address:</strong> 480 Chalmers Ave, Winnipeg, MB</p>
+                <p><strong>Times:</strong> <span style="color:var(--gold);font-weight:700;font-size:1.3rem">12:30 PM</span> & <span style="color:var(--gold);font-weight:700;font-size:1.3rem">1:20 PM</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CALENDRIER EN BAS -->
+    <section class="schedule-section">
+        <div class="container">
+            <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;margin-bottom:40px;text-align:center">Monthly Prayer <em style="color:var(--gold)">Schedule</em></h2>
+            <div style="display:flex;justify-content:space-between;margin-bottom:30px;flex-wrap:wrap;gap:16px">
+                <select id="monthPicker" style="padding:12px 40px 12px 20px;border:1px solid var(--border);background:var(--white);font-family:'Cinzel',serif">
+                    <option value="1">January</option><option value="2" selected>February</option><option value="3">March</option>
+                    <option value="4">April</option><option value="5">May</option><option value="6">June</option>
+                    <option value="7">July</option><option value="8">August</option><option value="9">September</option>
+                    <option value="10">October</option><option value="11">November</option><option value="12">December</option>
+                </select>
+            </div>
+            <div class="prayer-table-wrapper"><table class="prayer-table" id="prayerTable"></table></div>
+        </div>
+    </section>
+
+    <footer class="footer"><div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>Serving Muslims in Winnipeg since 2016.</p></div>
+            <div class="footer-col"><h4>Contact</h4><p>574 Watt St, Winnipeg, MB</p><p>+1 (431) 792-3791</p></div>
+        </div>
+    </div></footer>
+
+    <script>
+    // MAWAQIT/ALADHAN API INTEGRATION
+    async function loadTodayPrayers() {
+        try {
+            const res = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Winnipeg&country=Canada&method=2');
+            const data = await res.json();
+            if(data.code === 200) {
+                const t = data.data.timings;
+                document.getElementById('t-fajr').textContent = convert24to12(t.Fajr);
+                document.getElementById('t-dhuhr').textContent = convert24to12(t.Dhuhr);
+                document.getElementById('t-asr').textContent = convert24to12(t.Asr);
+                document.getElementById('t-maghrib').textContent = convert24to12(t.Maghrib);
+                document.getElementById('t-isha').textContent = convert24to12(t.Isha);
+            }
+        } catch(e) { console.error(e); }
+    }
+    
+    function convert24to12(time) {
+        const [h,m] = time.split(':');
+        const hour = parseInt(h);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const h12 = hour % 12 || 12;
+        return h12 + ':' + m + ' ' + ampm;
+    }
+    
+    async function loadMonthTable() {
+        const month = document.getElementById('monthPicker').value;
+        const year = 2026;
+        try {
+            const res = await fetch(`https://api.aladhan.com/v1/calendar/${year}/${month}?city=Winnipeg&country=Canada&method=2`);
+            const data = await res.json();
+            if(data.code === 200) {
+                let html = '<thead><tr><th colspan="7" style="background:var(--navy);color:var(--gold);padding:20px;font-size:2rem">February 2026</th></tr>';
+                html += '<tr><th>Date</th><th>Fajr</th><th>Dhuhr</th><th>Asr</th><th>Maghrib</th><th>Isha</th><th>Day</th></tr></thead><tbody>';
+                data.data.forEach(day => {
+                    const t = day.timings;
+                    const date = day.date.gregorian;
+                    html += `<tr><td>${date.day}</td><td>${convert24to12(t.Fajr)}</td><td>${convert24to12(t.Dhuhr)}</td><td>${convert24to12(t.Asr)}</td><td>${convert24to12(t.Maghrib)}</td><td>${convert24to12(t.Isha)}</td><td>${date.weekday.en.substr(0,3)}</td></tr>`;
+                });
+                html += '</tbody>';
+                document.getElementById('prayerTable').innerHTML = html;
+            }
+        } catch(e) { console.error(e); }
+    }
+    
+    window.addEventListener('DOMContentLoaded', function() {
+        loadTodayPrayers();
+        loadMonthTable();
+        document.getElementById('monthPicker').addEventListener('change', loadMonthTable);
+    });
+    </script>
+</body>
+</html>
