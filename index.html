@@ -295,49 +295,62 @@
         </div>
     </footer>
 
+    <!-- ═══ PRAYER WIDGET — script isolé, indépendant ═══ -->
+    <script>
+    try {
+        // Horloge
+        var _pt = document.getElementById('currentTime');
+        var _pd = document.getElementById('prayerDate');
+        if (_pd) _pd.textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+        function _tick(){ if(_pt) _pt.textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true}); }
+        _tick(); setInterval(_tick, 1000);
+
+        // Formatage 24h → 12h
+        function _fmt(raw){
+            var s=(raw||'').split(' ')[0].split(':');
+            var h=parseInt(s[0])||0, m=s[1]||'00';
+            return (h%12||12)+':'+m+' '+(h>=12?'PM':'AM');
+        }
+
+        // Affiche les heures dans les cartes
+        function _show(T){
+            var names=['fajr','dhuhr','asr','maghrib','isha'];
+            var keys =['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+            var nm=new Date().getHours()*60+new Date().getMinutes(), act='isha';
+            for(var i=0;i<names.length;i++){
+                var el=document.getElementById(names[i]+'-time');
+                if(el){ el.textContent=_fmt(T[keys[i]]); el.classList.remove('loading'); }
+                var p=(T[keys[i]]||'0:0').split(':');
+                if(nm>=parseInt(p[0])*60+parseInt(p[1])) act=names[i];
+            }
+            for(var j=0;j<names.length;j++){
+                var c=document.getElementById('card-'+names[j]);
+                if(c) c.classList.toggle('active-prayer', names[j]===act);
+            }
+        }
+
+        // Appel API Aladhan — fallback statique garanti
+        var _d=new Date();
+        var _url='https://api.aladhan.com/v1/timings/'+_d.getDate()+'-'+(_d.getMonth()+1)+'-'+_d.getFullYear()+'?latitude=49.8951&longitude=-97.1384&method=2';
+        var _xhr=new XMLHttpRequest();
+        _xhr.open('GET',_url,true);
+        _xhr.onload=function(){
+            try{
+                var data=JSON.parse(_xhr.responseText);
+                if(data.code===200&&data.data&&data.data.timings){ _show(data.data.timings); }
+                else{ _show({Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'}); }
+            }catch(e){ _show({Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'}); }
+        };
+        _xhr.onerror=function(){ _show({Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'}); };
+        _xhr.ontimeout=function(){ _show({Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'}); };
+        _xhr.timeout=8000;
+        _xhr.send();
+    }catch(e){}
+    </script>
+
     <script src="shared.js"></script>
     <script>
-        // Clock
-        function updateTime() { document.getElementById('currentTime').textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true}); }
-        updateTime(); setInterval(updateTime, 1000);
-        document.getElementById('prayerDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-        // ── Prayer times widget ──
-        (function() {
-            function fmt(raw) {
-                var t = (raw||'').split(' ')[0], p = t.split(':');
-                var h = parseInt(p[0])||0, m = p[1]||'00';
-                return (h%12||12) + ':' + m + ' ' + (h>=12?'PM':'AM');
-            }
-            function show(T) {
-                var ids = ['fajr','dhuhr','asr','maghrib','isha'];
-                var keys= ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
-                var nm  = new Date().getHours()*60 + new Date().getMinutes();
-                var act = 'isha';
-                ids.forEach(function(id, i) {
-                    var el = document.getElementById(id+'-time');
-                    if (!el) return;
-                    el.textContent = fmt(T[keys[i]]);
-                    el.classList.remove('loading');
-                    var p = (T[keys[i]]||'0:0').split(':');
-                    if (nm >= parseInt(p[0])*60 + parseInt(p[1])) act = id;
-                });
-                ids.forEach(function(id) {
-                    var c = document.getElementById('card-'+id);
-                    if (c) c.classList.toggle('active-prayer', id === act);
-                });
-            }
-            var d = new Date();
-            fetch('https://api.aladhan.com/v1/timings/' + d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getFullYear() + '?latitude=49.8951&longitude=-97.1384&method=2')
-                .then(function(r){ return r.json(); })
-                .then(function(data){
-                    if (data.code===200) { show(data.data.timings); }
-                    else { show({Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'}); }
-                })
-                .catch(function(){
-                    show({Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'});
-                });
-        })();
 
         // Counter
         function animateCount(el, target) {

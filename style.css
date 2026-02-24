@@ -59,7 +59,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 
 .logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; flex-shrink: 0; }
 .logo-img {
-  height: 46px; width: 46px;
+  height: 58px; width: 58px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid rgba(255,255,255,0.25);
