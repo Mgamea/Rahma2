@@ -5,12 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light only">
     <title>Programs & Services — Rahma Islamic Centre</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="closeMobile()">Home</a>
+        <a href="prayer-times.html" onclick="closeMobile()">Prayer Times</a>
+        <a href="programs.html" onclick="closeMobile()">Programs &amp; Services</a>
+        <a href="education.html" onclick="closeMobile()">Education</a>
+        <a href="events.html" onclick="closeMobile()">Events</a>
+        <a href="about.html" onclick="closeMobile()">About</a>
+        <a href="contact.html" onclick="closeMobile()">Contact</a>
+        <a href="donate.html" class="mobile-donate" onclick="closeMobile()">Donate</a>
+    </div>
     <div id="loader"><div class="loader-text">RAHMA</div><div class="loader-bar"><div class="loader-fill"></div></div></div>
     <nav class="navbar" id="navbar">
         <div class="navbar-inner">
@@ -20,6 +32,7 @@
                 <li><a href="activities.html" class="active">Programs</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li>
             </ul>
             <a href="donate.html" class="nav-donate">Donate</a>
+            <div class="hamburger" id="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
@@ -133,13 +146,18 @@
         </div>
     </section>
 
+        <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
+        <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
+    </div></div></section>
     <footer class="footer"><div class="container">
         <div class="footer-grid">
-            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p></div>
-            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li><li><a href="activities.html">Programs</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-            <div class="footer-col"><h4>Contact</h4><div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div><div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div></div>
+            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li><li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li><li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+            <div class="footer-col"><h4>Programs</h4><ul><li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li><li><a href="education.html">Hifdh Program</a></li><li><a href="programs.html">All Programs</a></li></ul></div>
+            <div class="footer-col"><h4>Contact</h4><div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div><div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div><div class="contact-li"><i class="fas fa-envelope"></i><span>info@rahmacentre.ca</span></div></div>
         </div>
-        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre.</span></div>
+        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
     </div></footer>
     <script src="shared.js"></script>
 </body>

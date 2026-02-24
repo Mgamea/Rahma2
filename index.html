@@ -285,43 +285,43 @@
                 <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center dedicated to the spiritual, educational, and social needs of Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
                 <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li><li><a href="activities.html">Activities &amp; Services</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
                 <div class="footer-col"><h4>Programs</h4><ul><li><a href="activities.html">Sisters' Halaqa</a></li><li><a href="activities.html">Kids Quran Class</a></li><li><a href="activities.html">Quran Hifz</a></li><li><a href="activities.html">Study Club</a></li><li><a href="activities.html">Daily Prayers</a></li></ul></div>
-                <div class="footer-col"><h4>Contact</h4><div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div><div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div><div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5a33343c351a283b32373b393f342e283f74393b">[email&#160;protected]</a></span></div></div>
+                <div class="footer-col"><h4>Contact</h4><div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div><div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div><div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:info@rahmacentre.ca" class="__cf_email__" data-cfemail="5a33343c351a283b32373b393f342e283f74393b">[email&#160;protected]</a></span></div></div>
             </div>
             <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    <script src="shared.js"></script>
     <script>
         // Clock
         function updateTime() { document.getElementById('currentTime').textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true}); }
         updateTime(); setInterval(updateTime, 1000);
         document.getElementById('prayerDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-        // Prayer times
+        // Prayer times — Mawaqit → Aladhan fallback
         async function loadPrayerTimes() {
-            try {
-                const d = new Date();
-                const res = await fetch(`https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=49.8951&longitude=-97.1384&method=2`);
-                const data = await res.json();
-                if (data.code === 200) {
-                    const t = data.data.timings;
-                    ['fajr','dhuhr','asr','maghrib','isha'].forEach((id,i) => {
-                        const el = document.getElementById(id+'-time');
-                        el.textContent = formatTime(t[['Fajr','Dhuhr','Asr','Maghrib','Isha'][i]]);
-                        el.classList.remove('loading');
-                    });
-                    const now = new Date(), nm = now.getHours()*60+now.getMinutes();
-                    const keys = ['Fajr','Dhuhr','Asr','Maghrib','Isha'], ids=['fajr','dhuhr','asr','maghrib','isha'];
-                    let active = 'isha';
-                    keys.forEach((k,i) => { const [h,m]=t[k].split(':'); if(nm>=parseInt(h)*60+parseInt(m)) active=ids[i]; });
-                    ids.forEach(id => { const c=document.getElementById('card-'+id); if(c) c.classList.remove('active-prayer'); });
-                    const ac = document.getElementById('card-'+active); if(ac) ac.classList.add('active-prayer');
-                }
-            } catch(e) {
-                const fb=['5:30 AM','12:45 PM','3:30 PM','6:15 PM','7:45 PM'];
-                ['fajr','dhuhr','asr','maghrib','isha'].forEach((id,i)=>{ const el=document.getElementById(id+'-time'); el.textContent=fb[i]; el.classList.remove('loading'); });
+            const MW_UUID = 'rahma-islamic-centre-winnipeg'; // ← replace with real UUID from mawaqit.net
+            let T = null;
+            // Try Mawaqit
+            for (const url of [`https://mawaqit.net/api/2.0/mosque/by-slug/${MW_UUID}/prayer-times`, `https://mawaqit.net/fr/${MW_UUID}?json=1`]) {
+                try {
+                    const r = await fetch(url, {signal:AbortSignal.timeout(5000)});
+                    if (r.ok) { const d=await r.json(); if(d.times&&d.times.length>=6){ T={Fajr:d.times[0],Dhuhr:d.times[2],Asr:d.times[3],Maghrib:d.times[4],Isha:d.times[5]}; break; } }
+                } catch(_) {}
             }
+            // Aladhan fallback
+            if (!T) {
+                try {
+                    const d=new Date(); const r=await fetch(`https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=49.8951&longitude=-97.1384&method=2`,{signal:AbortSignal.timeout(8000)});
+                    const data=await r.json(); if(data.code===200) T=data.data.timings;
+                } catch(_) {}
+            }
+            if (!T) T={Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'};
+            const keys=['Fajr','Dhuhr','Asr','Maghrib','Isha'], ids=['fajr','dhuhr','asr','maghrib','isha'];
+            const nm=new Date().getHours()*60+new Date().getMinutes(); let active='isha';
+            keys.forEach((k,i)=>{ const el=document.getElementById(ids[i]+'-time'); if(el){el.textContent=formatTime(T[k]);el.classList.remove('loading');} const[h,m]=T[k].split(':'); if(nm>=parseInt(h)*60+parseInt(m)) active=ids[i]; });
+            ids.forEach(id=>{ const c=document.getElementById('card-'+id); if(c) c.classList.remove('active-prayer'); });
+            const ac=document.getElementById('card-'+active); if(ac) ac.classList.add('active-prayer');
         }
         loadPrayerTimes();
 
