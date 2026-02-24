@@ -305,77 +305,42 @@
         updateTime(); setInterval(updateTime, 1000);
         document.getElementById('prayerDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-        // ── Inline formatTime (safe — doesn't depend on shared.js load order) ──
-        function fmt12(raw) {
-            if (!raw) return '—';
-            var t = (raw + '').split(' ')[0];
-            var parts = t.split(':');
-            var h = parseInt(parts[0], 10), m = parts[1];
-            var ap = h >= 12 ? 'PM' : 'AM';
-            h = h % 12 || 12;
-            return h + ':' + m + ' ' + ap;
-        }
-
-        // ── Display times into the cards ──
-        function displayPrayers(T) {
-            var map = { fajr:'Fajr', dhuhr:'Dhuhr', asr:'Asr', maghrib:'Maghrib', isha:'Isha' };
-            var ids = ['fajr','dhuhr','asr','maghrib','isha'];
-            var nm  = new Date().getHours()*60 + new Date().getMinutes();
-            var active = 'isha';
-            ids.forEach(function(id) {
-                var key = map[id];
-                var el  = document.getElementById(id+'-time');
-                if (el && T[key]) {
-                    el.textContent = fmt12(T[key]);
-                    el.classList.remove('loading');
-                    var parts = T[key].split(':');
-                    if (nm >= parseInt(parts[0])*60 + parseInt(parts[1])) active = id;
-                }
-            });
-            ids.forEach(function(id) {
-                var c = document.getElementById('card-'+id);
-                if (c) c.classList.toggle('active-prayer', id === active);
-            });
-        }
-
-        // ── Fetch from Aladhan (most reliable public API) ──
-        async function loadPrayerTimes() {
-            var T = null;
-
-            // 1. Try Aladhan API (primary — reliable, no CORS issues)
-            try {
-                var now = new Date();
-                var url = 'https://api.aladhan.com/v1/timings/'
-                    + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear()
-                    + '?latitude=49.8951&longitude=-97.1384&method=2';
-                var res  = await fetch(url);
-                var data = await res.json();
-                if (data.code === 200 && data.data && data.data.timings) {
-                    T = data.data.timings;
-                }
-            } catch(e) {}
-
-            // 2. Try Mawaqit (may be blocked by CORS in some browsers)
-            if (!T) {
-                try {
-                    var mwRes  = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
-                    var mwData = await mwRes.json();
-                    if (mwData.times && mwData.times.length >= 6) {
-                        T = { Fajr:mwData.times[0], Dhuhr:mwData.times[2], Asr:mwData.times[3], Maghrib:mwData.times[4], Isha:mwData.times[5] };
-                    }
-                } catch(e) {}
+        // ── Prayer times widget ──
+        (function() {
+            function fmt(raw) {
+                var t = (raw||'').split(' ')[0], p = t.split(':');
+                var h = parseInt(p[0])||0, m = p[1]||'00';
+                return (h%12||12) + ':' + m + ' ' + (h>=12?'PM':'AM');
             }
-
-            // 3. Static fallback — always works
-            if (!T) T = { Fajr:'05:30', Dhuhr:'12:45', Asr:'15:30', Maghrib:'18:15', Isha:'19:45' };
-
-            displayPrayers(T);
-        }
-
-        // Run immediately on page load
-        window.addEventListener('DOMContentLoaded', function() {
-            loadPrayerTimes();
-        });
+            function show(T) {
+                var ids = ['fajr','dhuhr','asr','maghrib','isha'];
+                var keys= ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+                var nm  = new Date().getHours()*60 + new Date().getMinutes();
+                var act = 'isha';
+                ids.forEach(function(id, i) {
+                    var el = document.getElementById(id+'-time');
+                    if (!el) return;
+                    el.textContent = fmt(T[keys[i]]);
+                    el.classList.remove('loading');
+                    var p = (T[keys[i]]||'0:0').split(':');
+                    if (nm >= parseInt(p[0])*60 + parseInt(p[1])) act = id;
+                });
+                ids.forEach(function(id) {
+                    var c = document.getElementById('card-'+id);
+                    if (c) c.classList.toggle('active-prayer', id === act);
+                });
+            }
+            var d = new Date();
+            fetch('https://api.aladhan.com/v1/timings/' + d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getFullYear() + '?latitude=49.8951&longitude=-97.1384&method=2')
+                .then(function(r){ return r.json(); })
+                .then(function(data){
+                    if (data.code===200) { show(data.data.timings); }
+                    else { show({Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'}); }
+                })
+                .catch(function(){
+                    show({Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'});
+                });
+        })();
 
         // Counter
         function animateCount(el, target) {
