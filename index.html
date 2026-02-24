@@ -30,11 +30,6 @@
           from { transform: rotate(0deg); }
           to   { transform: rotate(360deg); }
         }
-          25%  { background-position: 360px 180px; }
-          50%  { background-position: 720px 0px; }
-          75%  { background-position: 360px -180px; }
-          100% { background-position: 0px 0px; }
-        }
         @keyframes scrollAnim { 0%,100%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} }
 
         /* ===== ABOUT (homepage) ===== */
@@ -147,20 +142,20 @@
                     <span class="section-label">Daily Schedule</span>
                     <h2 class="section-title" style="color:var(--white);margin-bottom:0;">Today's <em style="color:var(--gold-light)">Prayer Times</em></h2>
                 </div>
-                <div class="prayer-live reveal">
+                <div class="prayer-live">
                     <div class="prayer-date-display" id="prayerDate">Loading date...</div>
                     <div class="prayer-clock" id="currentTime">--:--</div>
                 </div>
             </div>
-            <div class="prayer-cards reveal">
-                <div class="prayer-card-item" id="card-fajr"><i class="fas fa-moon prayer-icon"></i><div class="prayer-name">Fajr</div><div class="prayer-time-val loading" id="fajr-time">—</div></div>
-                <div class="prayer-card-item" id="card-dhuhr"><i class="fas fa-sun prayer-icon"></i><div class="prayer-name">Dhuhr</div><div class="prayer-time-val loading" id="dhuhr-time">—</div></div>
-                <div class="prayer-card-item" id="card-asr"><i class="fas fa-cloud-sun prayer-icon"></i><div class="prayer-name">Asr</div><div class="prayer-time-val loading" id="asr-time">—</div></div>
-                <div class="prayer-card-item" id="card-maghrib"><i class="fas fa-cloud-moon prayer-icon"></i><div class="prayer-name">Maghrib</div><div class="prayer-time-val loading" id="maghrib-time">—</div></div>
-                <div class="prayer-card-item" id="card-isha"><i class="fas fa-star prayer-icon"></i><div class="prayer-name">Isha</div><div class="prayer-time-val loading" id="isha-time">—</div></div>
+            <div class="prayer-cards">
+                <div class="prayer-card-item" id="card-fajr"><i class="fas fa-moon prayer-icon"></i><div class="prayer-name">Fajr</div><div class="prayer-time-val" id="fajr-time">—</div></div>
+                <div class="prayer-card-item" id="card-dhuhr"><i class="fas fa-sun prayer-icon"></i><div class="prayer-name">Dhuhr</div><div class="prayer-time-val" id="dhuhr-time">—</div></div>
+                <div class="prayer-card-item" id="card-asr"><i class="fas fa-cloud-sun prayer-icon"></i><div class="prayer-name">Asr</div><div class="prayer-time-val" id="asr-time">—</div></div>
+                <div class="prayer-card-item" id="card-maghrib"><i class="fas fa-cloud-moon prayer-icon"></i><div class="prayer-name">Maghrib</div><div class="prayer-time-val" id="maghrib-time">—</div></div>
+                <div class="prayer-card-item" id="card-isha"><i class="fas fa-star prayer-icon"></i><div class="prayer-name">Isha</div><div class="prayer-time-val" id="isha-time">—</div></div>
                 <div class="prayer-card-item"><i class="fas fa-mosque prayer-icon"></i><div class="prayer-name">Jumu'ah</div><div class="prayer-time-val" style="font-size:1.1rem;">12:30 &amp; 1:20 pm</div></div>
             </div>
-            <div class="prayer-location-bar reveal">
+            <div class="prayer-location-bar">
                 <i class="fas fa-map-marker-alt"></i>
                 <span>574 Watt St, Winnipeg, MB R2K 4K1 &nbsp;|&nbsp; Jumu'ah @ Chalmers Community Centre — 480 Chalmers Ave</span>
                 <a href="prayer-times.html">Full Schedule →</a>
