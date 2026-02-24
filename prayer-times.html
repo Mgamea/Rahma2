@@ -208,47 +208,32 @@ function addM(t, m) {
     return String(Math.floor(tot/60)%24).padStart(2,'0')+':'+String(tot%60).padStart(2,'0');
 }
 
-/* ─── LOAD TODAY (Mawaqit → Aladhan fallback) ─── */
+/* ─── LOAD TODAY — Aladhan primary (reliable) + Mawaqit fallback ─── */
 async function loadToday() {
-    let T = null;
+    var T = null;
 
-    /* ── 1. Mawaqit API ──
-       To connect to YOUR mosque's Mawaqit data:
-         1. Go to https://mawaqit.net
-         2. Search for "Rahma" or "Winnipeg"
-         3. Click your mosque → copy the UUID from the URL
-            e.g. https://mawaqit.net/en/rahma-islamic-centre--5f3b2a1c-xxxx
-                                                                ↑ this part
-         4. Replace MW_UUID below with it
-    */
-    const MW_UUID = 'rahma-islamic-centre-winnipeg'; // ← replace with real UUID
+    /* ── 1. Aladhan API — reliable, no CORS issues ── */
+    try {
+        var d = new Date();
+        var url = 'https://api.aladhan.com/v1/timings/'
+            + d.getDate() + '-' + (d.getMonth()+1) + '-' + d.getFullYear()
+            + '?latitude=49.8951&longitude=-97.1384&method=2';
+        var res  = await fetch(url);
+        var data = await res.json();
+        if (data.code === 200 && data.data && data.data.timings) {
+            T = { ...data.data.timings, _src: 'aladhan' };
+        }
+    } catch(e) {}
 
-    const mwEndpoints = [
-        `https://mawaqit.net/api/2.0/mosque/by-slug/${MW_UUID}/prayer-times`,
-        `https://mawaqit.net/fr/${MW_UUID}?json=1`,
-    ];
-    for (const url of mwEndpoints) {
-        try {
-            const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
-            if (r.ok) {
-                const d = await r.json();
-                // Mawaqit format: { times: ["HH:MM",...] }  [0]=Fajr [1]=Shuruq [2]=Dhuhr [3]=Asr [4]=Maghrib [5]=Isha
-                if (d.times && d.times.length >= 6) {
-                    T = { Fajr:d.times[0], Dhuhr:d.times[2], Asr:d.times[3], Maghrib:d.times[4], Isha:d.times[5], _src:'mawaqit' };
-                    break;
-                }
-            }
-        } catch(_) {}
-    }
-
-    /* ── 2. Aladhan fallback ── */
+    /* ── 2. Mawaqit fallback ── */
     if (!T) {
         try {
-            const d = new Date();
-            const r = await fetch(`https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=49.8951&longitude=-97.1384&method=2`, { signal:AbortSignal.timeout(8000) });
-            const data = await r.json();
-            if (data.code===200) T = { ...data.data.timings, _src:'aladhan' };
-        } catch(_) {}
+            var mwRes  = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
+            var mwData = await mwRes.json();
+            if (mwData.times && mwData.times.length >= 6) {
+                T = { Fajr:mwData.times[0], Dhuhr:mwData.times[2], Asr:mwData.times[3], Maghrib:mwData.times[4], Isha:mwData.times[5], _src:'mawaqit' };
+            }
+        } catch(e) {}
     }
 
     /* ── 3. Static last-resort ── */

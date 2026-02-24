@@ -105,7 +105,7 @@ async function loadMawaqitPrayers(opts = {}) {
   ];
   for (const url of mwUrls) {
     try {
-      const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
+      const r = await fetch(url);
       if (r.ok) {
         const d = await r.json();
         // Format: { times: ["HH:MM", ...] }  0=Fajr 1=Shuruq 2=Dhuhr 3=Asr 4=Maghrib 5=Isha
@@ -122,7 +122,7 @@ async function loadMawaqitPrayers(opts = {}) {
     try {
       const d = new Date();
       const url = `https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=49.8951&longitude=-97.1384&method=2`;
-      const r = await fetch(url, { signal: AbortSignal.timeout(8000) });
+      const r = await fetch(url);
       const data = await r.json();
       if (data.code === 200) timings = { ...data.data.timings, _src: 'aladhan' };
     } catch (_) {}

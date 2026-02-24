@@ -305,32 +305,77 @@
         updateTime(); setInterval(updateTime, 1000);
         document.getElementById('prayerDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-        // Prayer times — Mawaqit → Aladhan fallback
+        // ── Inline formatTime (safe — doesn't depend on shared.js load order) ──
+        function fmt12(raw) {
+            if (!raw) return '—';
+            var t = (raw + '').split(' ')[0];
+            var parts = t.split(':');
+            var h = parseInt(parts[0], 10), m = parts[1];
+            var ap = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            return h + ':' + m + ' ' + ap;
+        }
+
+        // ── Display times into the cards ──
+        function displayPrayers(T) {
+            var map = { fajr:'Fajr', dhuhr:'Dhuhr', asr:'Asr', maghrib:'Maghrib', isha:'Isha' };
+            var ids = ['fajr','dhuhr','asr','maghrib','isha'];
+            var nm  = new Date().getHours()*60 + new Date().getMinutes();
+            var active = 'isha';
+            ids.forEach(function(id) {
+                var key = map[id];
+                var el  = document.getElementById(id+'-time');
+                if (el && T[key]) {
+                    el.textContent = fmt12(T[key]);
+                    el.classList.remove('loading');
+                    var parts = T[key].split(':');
+                    if (nm >= parseInt(parts[0])*60 + parseInt(parts[1])) active = id;
+                }
+            });
+            ids.forEach(function(id) {
+                var c = document.getElementById('card-'+id);
+                if (c) c.classList.toggle('active-prayer', id === active);
+            });
+        }
+
+        // ── Fetch from Aladhan (most reliable public API) ──
         async function loadPrayerTimes() {
-            const MW_UUID = 'rahma-islamic-centre-winnipeg'; // ← replace with real UUID from mawaqit.net
-            let T = null;
-            // Try Mawaqit
-            for (const url of [`https://mawaqit.net/api/2.0/mosque/by-slug/${MW_UUID}/prayer-times`, `https://mawaqit.net/fr/${MW_UUID}?json=1`]) {
-                try {
-                    const r = await fetch(url, {signal:AbortSignal.timeout(5000)});
-                    if (r.ok) { const d=await r.json(); if(d.times&&d.times.length>=6){ T={Fajr:d.times[0],Dhuhr:d.times[2],Asr:d.times[3],Maghrib:d.times[4],Isha:d.times[5]}; break; } }
-                } catch(_) {}
-            }
-            // Aladhan fallback
+            var T = null;
+
+            // 1. Try Aladhan API (primary — reliable, no CORS issues)
+            try {
+                var now = new Date();
+                var url = 'https://api.aladhan.com/v1/timings/'
+                    + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear()
+                    + '?latitude=49.8951&longitude=-97.1384&method=2';
+                var res  = await fetch(url);
+                var data = await res.json();
+                if (data.code === 200 && data.data && data.data.timings) {
+                    T = data.data.timings;
+                }
+            } catch(e) {}
+
+            // 2. Try Mawaqit (may be blocked by CORS in some browsers)
             if (!T) {
                 try {
-                    const d=new Date(); const r=await fetch(`https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=49.8951&longitude=-97.1384&method=2`,{signal:AbortSignal.timeout(8000)});
-                    const data=await r.json(); if(data.code===200) T=data.data.timings;
-                } catch(_) {}
+                    var mwRes  = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
+                    var mwData = await mwRes.json();
+                    if (mwData.times && mwData.times.length >= 6) {
+                        T = { Fajr:mwData.times[0], Dhuhr:mwData.times[2], Asr:mwData.times[3], Maghrib:mwData.times[4], Isha:mwData.times[5] };
+                    }
+                } catch(e) {}
             }
-            if (!T) T={Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45'};
-            const keys=['Fajr','Dhuhr','Asr','Maghrib','Isha'], ids=['fajr','dhuhr','asr','maghrib','isha'];
-            const nm=new Date().getHours()*60+new Date().getMinutes(); let active='isha';
-            keys.forEach((k,i)=>{ const el=document.getElementById(ids[i]+'-time'); if(el){el.textContent=formatTime(T[k]);el.classList.remove('loading');} const[h,m]=T[k].split(':'); if(nm>=parseInt(h)*60+parseInt(m)) active=ids[i]; });
-            ids.forEach(id=>{ const c=document.getElementById('card-'+id); if(c) c.classList.remove('active-prayer'); });
-            const ac=document.getElementById('card-'+active); if(ac) ac.classList.add('active-prayer');
+
+            // 3. Static fallback — always works
+            if (!T) T = { Fajr:'05:30', Dhuhr:'12:45', Asr:'15:30', Maghrib:'18:15', Isha:'19:45' };
+
+            displayPrayers(T);
         }
-        loadPrayerTimes();
+
+        // Run immediately on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            loadPrayerTimes();
+        });
 
         // Counter
         function animateCount(el, target) {
