@@ -15,7 +15,7 @@
         .hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .hero-bg { position: absolute; inset: 0; background: url('masjid.png') center/cover no-repeat; }
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(170deg, rgba(6,16,32,0.88) 0%, rgba(11,31,58,0.72) 50%, rgba(6,16,32,0.85) 100%); }
-        .hero-pattern { position: absolute; inset: 0; background-image: url('islamic-pattern.png'); background-repeat: repeat; background-size: 360px; opacity: 0.07; pointer-events: none; z-index: 1; animation: patternDrift 70s linear infinite; }
+        .hero-pattern { position:absolute; inset:-60%; background-image: url('islamic-pattern.png'); background-repeat: repeat; background-size: 360px; opacity: 0.07; pointer-events: none; z-index: 1; animation: patternSpin 80s linear infinite; }
         .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 24px; animation: fadeUp 1.2s ease 0.5s both; }
         @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
         .hero-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
@@ -26,8 +26,10 @@
         .hero-scroll { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; z-index: 2; }
         .hero-scroll span { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
         .scroll-line { width: 1px; height: 50px; background: linear-gradient(var(--gold), transparent); animation: scrollAnim 2s ease-in-out infinite; }
-        @keyframes patternDrift {
-          0%   { background-position: 0px 0px; }
+        @keyframes patternSpin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
           25%  { background-position: 360px 180px; }
           50%  { background-position: 720px 0px; }
           75%  { background-position: 360px -180px; }
@@ -51,7 +53,7 @@
 
         /* ===== MISSION ===== */
         .mission-section { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); padding: 110px 24px; position: relative; overflow: hidden; }
-        .mission-pattern { position: absolute; inset:0; background-image: url('islamic-pattern.png'); background-repeat: repeat; background-size: 380px; opacity: 0.05; pointer-events: none; animation: patternDrift 70s linear infinite; }
+        .mission-pattern { position:absolute; inset:-60%; background-image: url('islamic-pattern.png'); background-repeat: repeat; background-size: 380px; opacity: 0.05; pointer-events: none; animation: patternSpin 80s linear infinite; }
         .mission-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Cinzel', serif; font-size: 20vw; font-weight: 700; color: rgba(255,255,255,0.02); pointer-events: none; white-space: nowrap; letter-spacing: -0.05em; }
         .mission-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; text-align: center; }
         .mission-divider { display: flex; align-items: center; gap: 16px; margin: 40px auto; max-width: 300px; }
