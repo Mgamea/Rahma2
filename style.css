@@ -281,3 +281,51 @@ section { padding: 80px 24px; }
   .page-header { padding: 20px 0 10px; }
   section { padding: 20px 0; }
 }
+
+/* ══════════════════════════════════════════
+   MOTIF ISLAMIQUE — toutes sections bleues
+   Div surdimensionné qui tourne lentement,
+   coupé par overflow:hidden du parent.
+══════════════════════════════════════════ */
+
+/* Mixin réutilisable : appliquer à chaque section */
+.prayer-section  { position: relative; overflow: hidden; }
+.gallery-section { position: relative; overflow: hidden; }
+.footer          { position: relative; overflow: hidden; }
+
+/* Pattern commun */
+.prayer-pattern,
+.gallery-pattern,
+.footer-pattern,
+.donate-box-pattern {
+  position: absolute;
+  inset: -60%;
+  background-image: url('islamic-pattern.png');
+  background-repeat: repeat;
+  background-size: 340px;
+  opacity: 0.06;
+  pointer-events: none;
+  transform-origin: center center;
+  animation: patternSpin 90s linear infinite;
+  z-index: 0;
+}
+
+/* Donate box — motif plus subtil */
+.donate-box-pattern {
+  opacity: 0.04;
+  background-size: 260px;
+  animation-duration: 70s;
+}
+
+/* S'assurer que le contenu passe au-dessus du motif */
+.prayer-section  .container,
+.gallery-section .container,
+.footer          .container {
+  position: relative;
+  z-index: 1;
+}
+
+.donate-form-box > *:not(.donate-box-pattern) {
+  position: relative;
+  z-index: 1;
+}
