@@ -13,7 +13,7 @@
     <style>
         /* ─── TODAY WIDGET ─── */
         .today-widget { background: var(--navy); padding: 70px 24px; position: relative; overflow: hidden; }
-        .today-widget-pattern { position:absolute; inset:-60%; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22200%22%20height%3D%22200%22%20viewBox%3D%220%200%20200%20200%22%3E%20%20%3Cdefs%3E%20%20%20%3Cpattern%20id%3D%22tile%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22200%22%20height%3D%22200%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%20%20%20%3C%21--%20Fond%20transparent%20--%3E%20%20%20%20%20%20%20%3C%21--%20%C3%89toile%20%C3%A0%208%20branches%20centrale%20%E2%80%94%20motif%20islamique%20classique%20--%3E%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23C9A84C%22%20stroke-width%3D%220.8%22%20opacity%3D%220.9%22%3E%20%20%20%20%20%20%20%20%20%3C%21--%20%C3%89toile%208%20branches%20au%20centre%20%28100%2C100%29%20--%3E%20%20%20%20%20%3Cpolygon%20points%3D%22100%2C72%20108%2C92%20128%2C92%20113%2C105%20119%2C125%20100%2C113%2081%2C125%2087%2C105%2072%2C92%2092%2C92%22%20/%3E%20%20%20%20%20%20%20%20%20%3C%21--%20Carr%C3%A9%20int%C3%A9rieur%20tourn%C3%A9%2045%C2%B0%20--%3E%20%20%20%20%20%3Crect%20x%3D%2286%22%20y%3D%2286%22%20width%3D%2228%22%20height%3D%2228%22%20transform%3D%22rotate%2845%20100%20100%29%22%20/%3E%20%20%20%20%20%20%20%20%20%3C%21--%20Carr%C3%A9%20ext%C3%A9rieur%20--%3E%20%20%20%20%20%3Crect%20x%3D%2272%22%20y%3D%2272%22%20width%3D%2256%22%20height%3D%2256%22%20transform%3D%22rotate%2822.5%20100%20100%29%22%20/%3E%20%20%20%20%20%20%20%20%20%3C%21--%20Lignes%20diagonales%20entrelac%C3%A9es%20--%3E%20%20%20%20%20%3Cline%20x1%3D%2272%22%20y1%3D%2272%22%20x2%3D%22128%22%20y2%3D%22128%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%22128%22%20y1%3D%2272%22%20x2%3D%2272%22%20y2%3D%22128%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%22100%22%20y1%3D%2265%22%20x2%3D%22100%22%20y2%3D%22135%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%2265%22%20y1%3D%22100%22%20x2%3D%22135%22%20y2%3D%22100%22%20/%3E%20%20%20%20%20%20%20%20%20%3C%21--%20Petites%20%C3%A9toiles%20aux%20coins%20%280%2C0%29%20--%3E%20%20%20%20%20%3Cpolygon%20points%3D%220%2C0%205%2C12%2018%2C12%208%2C19%2012%2C32%200%2C25%20-12%2C32%20-8%2C19%20-18%2C12%20-5%2C12%22%20transform%3D%22translate%280%2C0%29%22%20/%3E%20%20%20%20%20%3Cpolygon%20points%3D%220%2C0%205%2C12%2018%2C12%208%2C19%2012%2C32%200%2C25%20-12%2C32%20-8%2C19%20-18%2C12%20-5%2C12%22%20transform%3D%22translate%28200%2C0%29%22%20/%3E%20%20%20%20%20%3Cpolygon%20points%3D%220%2C0%205%2C12%2018%2C12%208%2C19%2012%2C32%200%2C25%20-12%2C32%20-8%2C19%20-18%2C12%20-5%2C12%22%20transform%3D%22translate%280%2C200%29%22%20/%3E%20%20%20%20%20%3Cpolygon%20points%3D%220%2C0%205%2C12%2018%2C12%208%2C19%2012%2C32%200%2C25%20-12%2C32%20-8%2C19%20-18%2C12%20-5%2C12%22%20transform%3D%22translate%28200%2C200%29%22%20/%3E%20%20%20%20%20%20%20%20%20%3C%21--%20Petites%20%C3%A9toiles%20aux%20milieux%20des%20bords%20--%3E%20%20%20%20%20%3Cpolygon%20points%3D%220%2C0%205%2C12%2018%2C12%208%2C19%2012%2C32%200%2C25%20-12%2C32%20-8%2C19%20-18%2C12%20-5%2C12%22%20transform%3D%22translate%28100%2C0%29%22%20/%3E%20%20%20%20%20%3Cpolygon%20points%3D%220%2C0%205%2C12%2018%2C12%208%2C19%2012%2C32%200%2C25%20-12%2C32%20-8%2C19%20-18%2C12%20-5%2C12%22%20transform%3D%22translate%28100%2C200%29%22%20/%3E%20%20%20%20%20%3Cpolygon%20points%3D%220%2C0%205%2C12%2018%2C12%208%2C19%2012%2C32%200%2C25%20-12%2C32%20-8%2C19%20-18%2C12%20-5%2C12%22%20transform%3D%22translate%280%2C100%29%22%20/%3E%20%20%20%20%20%3Cpolygon%20points%3D%220%2C0%205%2C12%2018%2C12%208%2C19%2012%2C32%200%2C25%20-12%2C32%20-8%2C19%20-18%2C12%20-5%2C12%22%20transform%3D%22translate%28200%2C100%29%22%20/%3E%20%20%20%20%20%20%20%20%20%3C%21--%20Lignes%20de%20connexion%20entre%20%C3%A9toiles%20--%3E%20%20%20%20%20%3Cline%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%2272%22%20y2%3D%2272%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%22200%22%20y1%3D%220%22%20x2%3D%22128%22%20y2%3D%2272%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%220%22%20y1%3D%22200%22%20x2%3D%2272%22%20y2%3D%22128%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%22200%22%20y1%3D%22200%22%20x2%3D%22128%22%20y2%3D%22128%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%22100%22%20y1%3D%220%22%20x2%3D%22100%22%20y2%3D%2272%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%22100%22%20y1%3D%22200%22%20x2%3D%22100%22%20y2%3D%22128%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%220%22%20y1%3D%22100%22%20x2%3D%2272%22%20y2%3D%22100%22%20/%3E%20%20%20%20%20%3Cline%20x1%3D%22200%22%20y1%3D%22100%22%20x2%3D%22128%22%20y2%3D%22100%22%20/%3E%20%20%20%20%20%20%20%20%20%3C%21--%20Cercle%20d%C3%A9coratif%20central%20--%3E%20%20%20%20%20%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%228%22%20/%3E%20%20%20%20%20%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%2222%22%20stroke-dasharray%3D%224%204%22%20/%3E%20%20%20%20%3C/g%3E%20%20%20%3C/pattern%3E%20%20%3C/defs%3E%20%20%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22url%28%23tile%29%22%20/%3E%20%3C/svg%3E%20"); background-repeat: repeat; background-size: 380px; opacity: 0.05; animation: patternSpin 80s linear infinite; }
+        .today-widget-pattern { position:absolute; inset:-60%; border: 1px solid rgba(201,168,76,0.15);   opacity: 0.05; animation: patternSpin 80s linear infinite; }
         .today-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
 
         .today-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
@@ -97,7 +97,7 @@
 
 <!-- PAGE HEADER -->
 <div class="page-header">
-    <div class="page-header-pattern"></div><div class="page-header-overlay"></div>
+    <div class="spinning-square"></div><div class="page-header-overlay"></div>
     <div class="page-header-content">
         <span class="page-header-eyebrow">Winnipeg, MB · ISNA Method</span>
         <h1>Prayer <em>Times</em></h1>
@@ -106,7 +106,7 @@
 
 <!-- TODAY WIDGET -->
 <div class="today-widget">
-    <div class="today-widget-pattern"></div>
+    <div class="spinning-square"></div>
     <div class="today-inner">
         <div class="today-top">
             <div>
@@ -186,7 +186,7 @@
         <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
         <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li><li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li><li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
         <div class="footer-col"><h4>Programs</h4><ul><li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li><li><a href="education.html">Hifdh Program</a></li><li><a href="programs.html">All Programs</a></li></ul></div>
-        <div class="footer-col"><h4>Contact</h4><div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div><div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div><div class="contact-li"><i class="fas fa-envelope"></i><span>info@rahmacentre.ca</span></div></div>
+        <div class="footer-col"><h4>Contact</h4><div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div><div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div><div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div></div>
     </div>
     <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
 </div></footer>
@@ -304,12 +304,4 @@ async function loadMonth() {
 }
 
 /* ─── INIT ─── */
-window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('monthPicker').value = new Date().getMonth()+1;
-    loadToday();
-    loadMonth();
-    document.getElementById('monthPicker').addEventListener('change', loadMonth);
-});
-</script>
-</body>
-</html>
+window.addEventListener('DOMContentLoaded', 
