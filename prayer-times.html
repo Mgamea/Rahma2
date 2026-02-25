@@ -54,7 +54,7 @@
         /* ─── SCHEDULE SECTION ─── */
         .schedule-section { background: var(--cream); padding: 70px 24px; }
         .sched-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 14px; }
-        .month-sel { padding: 11px 42px 11px 18px; border: 1px solid var(--border); background: var(--white); color: var(--navy); font-family: 'Cinzel', serif; font-size: 0.82rem; letter-spacing: 0.06em; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23C9A84C' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; min-width: 190px; }
+        .month-sel { padding: 11px 42px 11px 18px; border: 1px solid var(--border); background: var(--white); color: var(--navy); font-family: 'Cinzel', serif; font-size: 0.82rem; letter-spacing: 0.06em; outline: none; cursor: pointer; appearance: none; border: 1px solid rgba(201,168,76,0.15); background-repeat: no-repeat; background-position: right 14px center; min-width: 190px; }
         .print-btn { display: flex; align-items: center; gap: 9px; padding: 11px 20px; background: var(--navy); color: var(--gold); border: 1px solid var(--border); font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.12em; cursor: pointer; transition: all 0.3s; }
         .print-btn:hover { background: var(--navy-mid); }
         .table-wrap { overflow-x: auto; border: 1px solid var(--border); }
@@ -97,7 +97,7 @@
 
 <!-- PAGE HEADER -->
 <div class="page-header">
-    <div class="spinning-square"></div><div class="page-header-overlay"></div>
+    <div class="page-header-pattern"></div><div class="page-header-overlay"></div>
     <div class="page-header-content">
         <span class="page-header-eyebrow">Winnipeg, MB · ISNA Method</span>
         <h1>Prayer <em>Times</em></h1>
@@ -106,7 +106,7 @@
 
 <!-- TODAY WIDGET -->
 <div class="today-widget">
-    <div class="spinning-square"></div>
+    <div class="today-widget-pattern"></div>
     <div class="today-inner">
         <div class="today-top">
             <div>
@@ -302,6 +302,17 @@ async function loadMonth() {
         tbl.innerHTML = '<tbody><tr><td colspan="7" style="padding:30px;text-align:center;color:var(--muted)">Unable to load schedule. Check your internet connection.</td></tr></tbody>';
     }
 }
-
 /* ─── INIT ─── */
-window.addEventListener('DOMContentLoaded', 
+window.addEventListener('DOMContentLoaded', function() {
+    /* Sélectionner le mois courant par défaut */
+    const now = new Date();
+    document.getElementById('monthPicker').value = now.getMonth() + 1;
+    /* Charger les horaires du jour et le tableau mensuel */
+    loadToday();
+    loadMonth();
+    /* Recharger le tableau quand on change de mois */
+    document.getElementById('monthPicker').addEventListener('change', loadMonth);
+});
+</script>
+</body>
+</html>

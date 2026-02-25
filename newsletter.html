@@ -168,7 +168,7 @@
 
     <!-- PAGE HEADER -->
     <div class="page-header">
-        <div class="spinning-square"></div>
+        <div class="page-header-pattern"></div>
         <div class="page-header-overlay"></div>
         <div class="page-header-content">
             <span class="page-header-eyebrow">Stay Informed &amp; Connected</span>
@@ -197,7 +197,7 @@
                 </div>
 
                 <div class="nl-form-box reveal reveal-delay-2">
-                    <div class="spinning-square"></div>
+                    <div class="nl-form-pattern"></div>
                     <div class="nl-form-inner">
                         <h3>Subscribe to Our Newsletter</h3>
                         <p class="nl-sub">Free. Unsubscribe anytime.</p>
@@ -306,12 +306,25 @@
             </div>
         </div>
     </footer>
-
     <script src="shared.js"></script>
     <script>
+        /* Formulaire newsletter — feedback à la soumission */
         document.getElementById('newsletterForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('nlBtn');
-            btn.textContent = 'Subscribing…'; btn.disabled = true;
+            btn.textContent = 'Subscribing…';
+            btn.disabled = true;
             setTimeout(() => {
-                btn.textContent = '✓ Y
+                btn.textContent = '✓ You\'re Subscribed!';
+                btn.classList.add('success');
+                setTimeout(() => {
+                    btn.textContent = 'Subscribe Now →';
+                    btn.classList.remove('success');
+                    btn.disabled = false;
+                    this.reset();
+                }, 3000);
+            }, 1200);
+        });
+    </script>
+</body>
+</html>

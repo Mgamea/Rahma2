@@ -74,7 +74,7 @@
     </nav>
 
     <div class="page-header">
-        <div class="spinning-square"></div><div class="page-header-overlay"></div>
+        <div class="page-header-pattern"></div><div class="page-header-overlay"></div>
         <div class="page-header-content"><span class="page-header-eyebrow">Every Contribution Matters</span><h1>Support <em>Rahma</em></h1></div>
     </div>
 
@@ -135,10 +135,33 @@
         </div>
         <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
     </div></footer>
-
     <script src="shared.js"></script>
     <script>
         let cur = 'CAD';
-        function setCur(c) { cur=c; document.getElementById('curTag').textContent=c; ['CAD','USD'].forEach(x=>{ const b=document.getElementById('btn'+x); b.classList.toggle('active',x===c); }); }
-        function setAmt(v,el) { document.getElementById('donateAmt').value=v; document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('selected')); el.classList.add('selected'); }
-        function clearAmts() { document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('selected'))
+        function setCur(c) {
+            cur = c;
+            document.getElementById('curTag').textContent = c;
+            ['CAD','USD'].forEach(x => {
+                document.getElementById('btn'+x).classList.toggle('active', x === c);
+            });
+        }
+        function setAmt(v, el) {
+            document.getElementById('donateAmt').value = v;
+            document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+        function clearAmts() {
+            document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('selected'));
+        }
+        function processDonate() {
+            const amt = parseFloat(document.getElementById('donateAmt').value);
+            if (!amt || amt <= 0) {
+                alert('Please enter a valid donation amount.');
+                return;
+            }
+            /* Rediriger vers PayPal ou afficher confirmation */
+            alert('Thank you for your generous donation of ' + cur + ' $' + amt.toFixed(2) + '!\nPlease contact us at rahmaislamiccentre@gmail.com to complete your donation.');
+        }
+    </script>
+</body>
+</html>

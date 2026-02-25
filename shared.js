@@ -10,11 +10,11 @@
 ============================================================ */
 
 /* ---------- LOADER ---------- */
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     const l = document.getElementById('loader');
     if (l) l.classList.add('hidden');
-  }, 1600);
+  }, 600);
 });
 
 /* ---------- NAVBAR ---------- */

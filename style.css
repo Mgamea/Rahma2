@@ -1,43 +1,11 @@
 /* ============================================================
-   RAHMA ISLAMIC CENTRE — style.css  v4
-   Auteur  : Devodez Solutions
-   Révision: 2026-02
-   ─────────────────────────────────────────────────────────────
-   TABLE DES MATIÈRES
-   01. Reset & Variables CSS
-   02. Éléments de base (html, body, scrollbar)
-   03. Loader (écran de chargement)
-   04. Navbar (barre de navigation fixe)
-   05. Menu mobile
-   06. En-tête des pages intérieures (page-header)
-   07. Utilitaires de section (container, section-label…)
-   08. Boutons (btn-primary, btn-outline)
-   09. Newsletter strip (bande dorée)
-   10. Footer
-   11. Animation reveal (fade-in au scroll)
-   12. Section Prières (homepage)
-   13. Formulaires partagés
-   14. Cartes de services
-   15. Galerie photos
-   16. Cartes Contact
-   17. Tableau des horaires (prayer-times.html)
-   18. Carré décoratif tournant (fond des sections bleues)
-   19. Responsive (breakpoints 1100px / 960px / 600px)
-   20. Impression
+   RAHMA ISLAMIC CENTRE — style.css  v3
+   Global theme: spacing fixed, nav fixed, mobile fixed
 ============================================================ */
 
-
-/* ─────────────────────────────────────────────────────────
-   01. RESET & VARIABLES CSS
-───────────────────────────────────────────────────────── */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* Palette principale */
   --navy:        #0B1F3A;
   --navy-mid:    #122a4e;
   --navy-light:  #1a3a66;
@@ -51,1047 +19,305 @@
   --border:      rgba(201,168,76,0.25);
 }
 
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
 
-/* ─────────────────────────────────────────────────────────
-   02. ÉLÉMENTS DE BASE
-───────────────────────────────────────────────────────── */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  overflow-x: hidden;
-}
-
-/* Scrollbar personnalisée (WebKit) */
-::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--navy); }
 ::-webkit-scrollbar-thumb { background: var(--gold); }
 
-
-/* ─────────────────────────────────────────────────────────
-   03. LOADER
-   Écran bleu marine affiché jusqu'à la fin du chargement.
-   La classe .hidden est ajoutée via JS après 1,6 s.
-───────────────────────────────────────────────────────── */
+/* ===== LOADER ===== */
 #loader {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
+  position: fixed; inset: 0; z-index: 99999;
   background: var(--navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 20px;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 20px;
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
-
-#loader.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-/* Texte animé "RAHMA" */
-.loader-text {
-  font-family: 'Cinzel', serif;
-  color: var(--gold);
-  font-size: 1.4rem;
-  letter-spacing: 0.3em;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-/* Barre de progression */
-.loader-bar {
-  width: 200px;
-  height: 2px;
-  background: rgba(201,168,76,0.2);
-  overflow: hidden;
-}
-
-.loader-fill {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  animation: fillBar 1.8s ease forwards;
-}
-
+#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-text { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.4rem; letter-spacing: 0.3em; animation: pulse 1.5s ease-in-out infinite; }
+.loader-bar { width: 200px; height: 2px; background: rgba(201,168,76,0.2); overflow: hidden; }
+.loader-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold-light)); animation: fillBar 1.8s ease forwards; }
 @keyframes fillBar { to { width: 100%; } }
-@keyframes pulse   { 0%,100%{opacity:.5} 50%{opacity:1} }
+@keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
 
-
-/* ─────────────────────────────────────────────────────────
-   04. NAVBAR
-   Position fixe, transparente en haut / foncée au scroll.
-   La classe .scrolled est ajoutée via JS dès scrollY > 60px.
-───────────────────────────────────────────────────────── */
+/* ===== NAVBAR ===== */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  padding: 0 40px;
+  position: fixed; top: 0; left: 0; width: 100%;
+  z-index: 1000; padding: 0 40px;
   transition: all 0.4s ease;
 }
-
 .navbar-inner {
-  max-width: 1300px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  max-width: 1300px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 22px 0;
   border-bottom: 1px solid transparent;
   transition: all 0.4s ease;
 }
+.navbar.scrolled { background: rgba(11,31,58,0.97); backdrop-filter: blur(20px); }
+.navbar.scrolled .navbar-inner { padding: 14px 0; border-bottom-color: var(--border); }
 
-/* État "scrollé" : fond semi-opaque avec flou */
-.navbar.scrolled {
-  background: rgba(11,31,58,0.97);
-  backdrop-filter: blur(20px);
-}
-.navbar.scrolled .navbar-inner {
-  padding: 14px 0;
-  border-bottom-color: var(--border);
-}
-
-/* Logo */
-.logo-wrap {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
+.logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; flex-shrink: 0; }
 .logo-img {
-  height: 58px;
-  width: 58px;
+  height: 58px; width: 58px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid rgba(255,255,255,0.25);
   flex-shrink: 0;
 }
+.logo-text { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600; color: var(--white); letter-spacing: 0.08em; line-height: 1.3; }
+.logo-text span { display: block; font-size: 0.62rem; font-weight: 400; color: var(--gold); letter-spacing: 0.2em; }
 
-.logo-text {
-  font-family: 'Cinzel', serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--white);
-  letter-spacing: 0.08em;
-  line-height: 1.3;
-}
+.nav-links { display: flex; list-style: none; gap: 1.6rem; align-items: center; }
+.nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.8); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; position: relative; transition: color 0.3s; white-space: nowrap; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-.logo-text span {
-  display: block;
-  font-size: 0.62rem;
-  font-weight: 400;
-  color: var(--gold);
-  letter-spacing: 0.2em;
-}
+.nav-donate { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 24px; font-family: 'Cinzel', serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; cursor: pointer; text-transform: uppercase; transition: all 0.3s; text-decoration: none; flex-shrink: 0; }
+.nav-donate:hover { background: var(--gold); color: var(--navy); }
 
-/* Liens de navigation */
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 1.6rem;
-  align-items: center;
-}
-
-.nav-links a {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  position: relative;
-  transition: color 0.3s;
-  white-space: nowrap;
-}
-
-/* Soulignement animé au survol */
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--gold);
-  transition: width 0.3s;
-}
-
-.nav-links a:hover,
-.nav-links a.active       { color: var(--gold-light); }
-.nav-links a:hover::after,
-.nav-links a.active::after { width: 100%; }
-
-/* Bouton "Donate" dans la nav */
-.nav-donate {
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  padding: 10px 24px;
-  font-family: 'Cinzel', serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: all 0.3s;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.nav-donate:hover {
-  background: var(--gold);
-  color: var(--navy);
-}
-
-/* Icône hamburger (mobile) */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  cursor: pointer;
-  flex-shrink: 0;
-  padding: 4px;
-}
-
-.hamburger span {
-  width: 26px;
-  height: 1.5px;
-  background: var(--gold);
-  display: block;
-  transition: all 0.3s;
-}
-
-/* Animation croix quand actif */
+.hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; flex-shrink: 0; padding: 4px; }
+.hamburger span { width: 26px; height: 1.5px; background: var(--gold); display: block; transition: all 0.3s; }
 .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
-
-/* ─────────────────────────────────────────────────────────
-   05. MENU MOBILE
-   Overlay plein écran, affiché quand .active est présent.
-───────────────────────────────────────────────────────── */
+/* ===== MOBILE MENU ===== */
 .mobile-menu {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 999;
+  display: none; position: fixed; inset: 0; z-index: 999;
   background: var(--navy);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
+  flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
 }
-
 .mobile-menu.active { display: flex; }
+.mobile-menu a { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--white); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
+.mobile-menu a:hover { color: var(--gold); }
+.mobile-menu .mobile-donate { color: var(--gold) !important; }
 
-.mobile-menu a {
-  font-family: 'Cinzel', serif;
-  font-size: 1.3rem;
-  color: var(--white);
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  transition: color 0.3s;
-}
-
-.mobile-menu a:hover         { color: var(--gold); }
-.mobile-menu .mobile-donate  { color: var(--gold) !important; }
-
-
-/* ─────────────────────────────────────────────────────────
-   06. EN-TÊTE DES PAGES INTÉRIEURES (page-header)
-   Fond marine avec carré tournant en arrière-plan et
-   un overlay dégradé semi-transparent.
-───────────────────────────────────────────────────────── */
+/* ===== PAGE HEADER (inner pages) ===== */
 .page-header {
   position: relative;
-  /* Le padding-top doit dépasser la hauteur de la navbar (~86px) */
+  /* padding-top must clear the fixed navbar (~86px) + visual space */
   padding: 150px 24px 80px;
   background: var(--navy);
   overflow: hidden;
   text-align: center;
 }
-
-/*
-  Carré bleu tournant — élément décoratif pur.
-  Un seul grand carré (inset:-60%) qui pivote lentement
-  grâce à patternSpin. Pas de SVG, pas de motif.
-*/
 .page-header-pattern {
-  position: absolute;
-  inset: -60%;
-  border: 1px solid rgba(201,168,76,0.18);
-  pointer-events: none;
+  position: absolute; inset: -60%;
+  border: 1px solid rgba(201,168,76,0.15);
+   
+  opacity: 0.08; pointer-events: none;
+  animation: patternSpin 80s linear infinite;
   transform-origin: center center;
-  animation: patternSpin 90s linear infinite;
-  z-index: 0;
 }
-
-/* Animation de rotation continue (partagée avec tous les carrés) */
 @keyframes patternSpin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
+.page-header-overlay { position: absolute; inset: 0; background: linear-gradient(170deg, rgba(6,16,32,0.65) 0%, rgba(11,31,58,0.45) 100%); }
+.page-header-content { position: relative; z-index: 2; }
+.page-header-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; }
+.page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 6vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.1; }
+.page-header h1 em { font-style: italic; color: var(--gold-light); }
 
-.page-header-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(170deg, rgba(6,16,32,0.65) 0%, rgba(11,31,58,0.45) 100%);
-}
+/* ===== SECTION UTILITIES ===== */
+/* Sections inside pages get consistent, tighter padding */
+section { padding: 80px 24px; }
+.container { max-width: 1200px; margin: 0 auto; }
 
-.page-header-content        { position: relative; z-index: 2; }
-.page-header-eyebrow {
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 14px;
-  display: block;
-}
+.section-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.15; color: var(--navy); margin-bottom: 24px; }
+.section-title em { font-style: italic; color: var(--navy-light); }
+.divider { width: 60px; height: 1px; background: var(--gold); margin-bottom: 36px; }
 
-.page-header h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.6rem, 6vw, 5rem);
-  font-weight: 300;
-  color: var(--white);
-  line-height: 1.1;
-}
+/* ===== BUTTONS ===== */
+.btn-primary { background: var(--gold); color: var(--navy); padding: 14px 42px; font-family: 'Cinzel', serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s; }
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(201,168,76,0.35); }
+.btn-outline { background: transparent; color: var(--white); padding: 14px 42px; font-family: 'Cinzel', serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.4); cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s; }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
-.page-header h1 em {
-  font-style: italic;
-  color: var(--gold-light);
-}
-
-
-/* ─────────────────────────────────────────────────────────
-   07. UTILITAIRES DE SECTION
-───────────────────────────────────────────────────────── */
-section         { padding: 80px 24px; }
-.container      { max-width: 1200px; margin: 0 auto; }
-
-.section-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 14px;
-  display: block;
-}
-
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--navy);
-  margin-bottom: 24px;
-}
-
-.section-title em {
-  font-style: italic;
-  color: var(--navy-light);
-}
-
-/* Séparateur doré de 60px */
-.divider {
-  width: 60px;
-  height: 1px;
-  background: var(--gold);
-  margin-bottom: 36px;
-}
-
-
-/* ─────────────────────────────────────────────────────────
-   08. BOUTONS
-───────────────────────────────────────────────────────── */
-/* Bouton principal doré */
-.btn-primary {
-  background: var(--gold);
-  color: var(--navy);
-  padding: 14px 42px;
-  font-family: 'Cinzel', serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.3s;
-}
-
-.btn-primary:hover {
-  background: var(--gold-light);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(201,168,76,0.35);
-}
-
-/* Bouton contour blanc (sur fonds sombres) */
-.btn-outline {
-  background: transparent;
-  color: var(--white);
-  padding: 14px 42px;
-  font-family: 'Cinzel', serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  border: 1px solid rgba(255,255,255,0.4);
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.3s;
-}
-
-.btn-outline:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
-
-/* ─────────────────────────────────────────────────────────
-   09. NEWSLETTER STRIP
-   Bande dorée avec formulaire d'abonnement.
-───────────────────────────────────────────────────────── */
-.newsletter-section {
-  background: var(--gold);
-  padding: 70px 24px;
-}
-
-.newsletter-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.newsletter-text h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.2rem;
-  font-weight: 300;
-  color: var(--navy);
-  margin-bottom: 8px;
-}
-
-.newsletter-text p {
-  color: rgba(11,31,58,0.7);
-  font-size: 0.95rem;
-}
-
-.newsletter-form {
-  display: flex;
-  gap: 0;
-  flex: 1;
-  max-width: 460px;
-}
-
-.newsletter-input {
-  flex: 1;
-  padding: 14px 20px;
-  border: none;
-  outline: none;
-  background: var(--navy);
-  color: var(--white);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.92rem;
-}
-
-.newsletter-input::placeholder {
-  color: rgba(255,255,255,0.35);
-}
-
-.newsletter-btn {
-  padding: 14px 24px;
-  background: var(--navy);
-  border: none;
-  color: var(--gold);
-  cursor: pointer;
-  font-family: 'Cinzel', serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.15em;
-  font-weight: 600;
-  transition: all 0.3s;
-  white-space: nowrap;
-}
-
+/* ===== NEWSLETTER STRIP ===== */
+.newsletter-section { background: var(--gold); padding: 70px 24px; }
+.newsletter-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+.newsletter-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--navy); margin-bottom: 8px; }
+.newsletter-text p { color: rgba(11,31,58,0.7); font-size: 0.95rem; }
+.newsletter-form { display: flex; gap: 0; flex: 1; max-width: 460px; }
+.newsletter-input { flex: 1; padding: 14px 20px; border: none; outline: none; background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.92rem; }
+.newsletter-input::placeholder { color: rgba(255,255,255,0.35); }
+.newsletter-btn { padding: 14px 24px; background: var(--navy); border: none; color: var(--gold); cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.15em; font-weight: 600; transition: all 0.3s; white-space: nowrap; }
 .newsletter-btn:hover { background: #0a1729; }
 
-
-/* ─────────────────────────────────────────────────────────
-   10. FOOTER
-───────────────────────────────────────────────────────── */
-.footer {
-  background: var(--navy);
-  border-top: 1px solid var(--border);
-  padding: 65px 24px 28px;
-  /* Nécessaire pour que le carré tournant soit coupé */
-  position: relative;
-  overflow: hidden;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 44px;
-  margin-bottom: 50px;
-  /* Passe au-dessus du carré tournant */
-  position: relative;
-  z-index: 1;
-}
-
-.footer-brand .logo-text-footer {
-  font-family: 'Cinzel', serif;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: var(--white);
-  letter-spacing: 0.08em;
-  display: block;
-  margin-bottom: 16px;
-}
-
-.footer-brand p {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.42);
-  line-height: 1.8;
-  margin-bottom: 22px;
-}
-
-/* Icônes réseaux sociaux */
-.footer-social       { display: flex; gap: 10px; }
-.footer-social a {
-  width: 34px;
-  height: 34px;
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,0.45);
-  font-size: 0.8rem;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-.footer-social a:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
-/* Colonnes de liens */
-.footer-col h4 {
-  font-family: 'Cinzel', serif;
-  font-size: 0.72rem;
-  color: var(--gold);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.footer-col ul          { list-style: none; }
-.footer-col ul li       { margin-bottom: 10px; }
-.footer-col ul li a {
-  font-size: 0.83rem;
-  color: rgba(255,255,255,0.48);
-  text-decoration: none;
-  transition: color 0.3s;
-}
+/* ===== FOOTER ===== */
+.footer { background: var(--navy); border-top: 1px solid var(--border); padding: 65px 24px 28px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 50px; }
+.footer-brand .logo-text-footer { font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: 600; color: var(--white); letter-spacing: 0.08em; display: block; margin-bottom: 16px; }
+.footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.42); line-height: 1.8; margin-bottom: 22px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a { width: 34px; height: 34px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.45); font-size: 0.8rem; text-decoration: none; transition: all 0.3s; }
+.footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+.footer-col h4 { font-family: 'Cinzel', serif; font-size: 0.72rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { font-size: 0.83rem; color: rgba(255,255,255,0.48); text-decoration: none; transition: color 0.3s; }
 .footer-col ul li a:hover { color: var(--gold-light); }
+.footer-col .contact-li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.83rem; color: rgba(255,255,255,0.48); margin-bottom: 12px; }
+.footer-col .contact-li i { color: var(--gold); margin-top: 3px; flex-shrink: 0; }
+.footer-bottom { padding-top: 26px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: rgba(255,255,255,0.28); flex-wrap: wrap; gap: 10px; }
 
-/* Infos de contact dans le footer */
-.footer-col .contact-li {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  font-size: 0.83rem;
-  color: rgba(255,255,255,0.48);
-  margin-bottom: 12px;
-}
-.footer-col .contact-li i      { color: var(--gold); margin-top: 3px; flex-shrink: 0; }
-.footer-col .contact-li a      { color: rgba(255,255,255,0.48); text-decoration: none; }
-.footer-col .contact-li a:hover{ color: var(--gold-light); }
-
-/* Barre de copyright */
-.footer-bottom {
-  padding-top: 26px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.76rem;
-  color: rgba(255,255,255,0.28);
-  flex-wrap: wrap;
-  gap: 10px;
-  position: relative;
-  z-index: 1;
-}
-
-
-/* ─────────────────────────────────────────────────────────
-   11. ANIMATION REVEAL (fade-in au scroll)
-   Géré par IntersectionObserver dans shared.js.
-   La classe .visible est ajoutée quand l'élément est visible.
-───────────────────────────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Délais de cascade pour les enfants successifs */
+/* ===== REVEAL ANIMATION ===== */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-delay-1 { transition-delay: 0.1s; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
 
-
-/* ─────────────────────────────────────────────────────────
-   12. SECTION PRIÈRES (homepage)
-───────────────────────────────────────────────────────── */
-.prayer-section {
-  background: var(--navy);
-  padding: 80px 24px;
-  /* Nécessaire pour que le carré tournant soit coupé */
-  position: relative;
-  overflow: hidden;
-}
-
-.prayer-section .container { position: relative; z-index: 1; }
-
-.prayer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 50px;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.prayer-date-display {
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.45);
-  margin-bottom: 6px;
-}
-
-.prayer-clock {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.8rem;
-  font-weight: 300;
-  color: var(--gold-light);
-  line-height: 1;
-}
-
-/* Grille des 6 colonnes (5 prières + Jumu'ah) */
-.prayer-cards {
-  display: grid;
-  grid-template-columns: repeat(6,1fr);
-  gap: 0;
-  border: 1px solid var(--border);
-}
-
-.prayer-card-item {
-  padding: 28px 16px;
-  text-align: center;
-  border-right: 1px solid var(--border);
-  position: relative;
-  transition: all 0.3s;
-}
-
+/* ===== PRAYER SECTION (homepage) ===== */
+.prayer-section { background: var(--navy); padding: 80px 24px; }
+.prayer-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; flex-wrap: wrap; gap: 20px; }
+.prayer-date-display { font-size: 0.78rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
+.prayer-clock { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--gold-light); line-height: 1; }
+.prayer-cards { display: grid; grid-template-columns: repeat(6,1fr); gap: 0; border: 1px solid var(--border); }
+.prayer-card-item { padding: 28px 16px; text-align: center; border-right: 1px solid var(--border); position: relative; transition: all 0.3s; }
 .prayer-card-item:last-child { border-right: none; }
-.prayer-card-item:hover       { background: rgba(201,168,76,0.06); }
-
-/* Carte de la prière en cours — ligne dorée en haut */
+.prayer-card-item:hover { background: rgba(201,168,76,0.06); }
 .prayer-card-item.active-prayer { background: rgba(201,168,76,0.1); }
-.prayer-card-item.active-prayer::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--gold);
-}
-
-.prayer-icon {
-  font-size: 1.3rem;
-  color: var(--gold);
-  margin-bottom: 12px;
-  display: block;
-  opacity: 0.8;
-}
-
-.prayer-name {
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  color: rgba(255,255,255,0.55);
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-.prayer-time-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-weight: 400;
-  color: var(--white);
-  line-height: 1;
-}
-
-/* État "chargement" pendant l'appel API */
-.prayer-time-val.loading {
-  color: rgba(255,255,255,0.28);
-  font-size: 1.1rem;
-}
-
-.prayer-location-bar {
-  margin-top: 22px;
-  padding: 14px 22px;
-  background: rgba(201,168,76,0.07);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.55);
-  flex-wrap: wrap;
-}
-
+.prayer-card-item.active-prayer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+.prayer-icon { font-size: 1.3rem; color: var(--gold); margin-bottom: 12px; display: block; opacity: 0.8; }
+.prayer-name { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.55); text-transform: uppercase; margin-bottom: 10px; }
+.prayer-time-val { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--white); line-height: 1; }
+.prayer-time-val.loading { color: rgba(255,255,255,0.28); font-size: 1.1rem; }
+.prayer-location-bar { margin-top: 22px; padding: 14px 22px; background: rgba(201,168,76,0.07); border: 1px solid var(--border); display: flex; align-items: center; gap: 12px; font-size: 0.8rem; color: rgba(255,255,255,0.55); flex-wrap: wrap; }
 .prayer-location-bar i { color: var(--gold); }
-
-.prayer-location-bar a {
-  color: var(--gold);
-  text-decoration: none;
-  margin-left: auto;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-}
-
+.prayer-location-bar a { color: var(--gold); text-decoration: none; margin-left: auto; font-size: 0.75rem; letter-spacing: 0.1em; }
 .prayer-location-bar a:hover { text-decoration: underline; }
 
-
-/* ─────────────────────────────────────────────────────────
-   13. FORMULAIRES PARTAGÉS
-───────────────────────────────────────────────────────── */
+/* ===== FORMS (shared) ===== */
 .form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 13px 17px; border: 1px solid rgba(201,168,76,0.2); background: var(--white); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.92rem; outline: none; transition: border-color 0.3s; border-radius: 0; }
+.form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
+.form-group textarea { resize: vertical; min-height: 120px; }
 
-.form-group label {
-  display: block;
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 100%;
-  padding: 13px 17px;
-  border: 1px solid rgba(201,168,76,0.2);
-  background: var(--white);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.92rem;
-  outline: none;
-  transition: border-color 0.3s;
-  border-radius: 0; /* Pas d'arrondi — style épuré */
-}
-
-.form-group input:focus,
-.form-group textarea:focus { border-color: var(--gold); }
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-
-/* ─────────────────────────────────────────────────────────
-   14. CARTES DE SERVICES
-───────────────────────────────────────────────────────── */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 1px;
-  background: rgba(0,0,0,0.08);
-  border: 1px solid rgba(0,0,0,0.08);
-  margin-bottom: 1px;
-}
-
-/* Variante 2 colonnes centrée */
-.services-grid-2 {
-  grid-template-columns: repeat(2,1fr);
-  max-width: 800px;
-  margin: 0 auto;
-}
-
+/* ===== SERVICE CARDS ===== */
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.08); margin-bottom: 1px; }
+.services-grid-2 { grid-template-columns: repeat(2,1fr); max-width: 800px; margin: 0 auto; }
 .service-item { background: var(--white); overflow: hidden; }
-
-.service-img {
-  height: 260px;
-  overflow: hidden;
-}
-
-.service-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: var(--cream);
-  transition: transform 0.6s;
-}
-
+.service-img { height: 260px; overflow: hidden; }
+.service-img img { width: 100%; height: 100%; object-fit: contain; background: var(--cream); transition: transform 0.6s; }
 .service-item:hover .service-img img { transform: scale(1.05); }
-
 .service-body { padding: 26px 28px 30px; }
-
-.service-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.82rem;
-  color: var(--gold);
-  letter-spacing: 0.2em;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.service-body h3 {
-  font-family: 'Cinzel', serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--navy);
-  margin-bottom: 10px;
-  letter-spacing: 0.05em;
-}
-
-.service-body p {
-  font-size: 0.88rem;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.service-arrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.73rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold);
-  text-decoration: none;
-  margin-top: 16px;
-  transition: gap 0.3s;
-}
-
+.service-num { font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 8px; display: block; }
+.service-body h3 { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 10px; letter-spacing: 0.05em; }
+.service-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+.service-arrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.73rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-decoration: none; margin-top: 16px; transition: gap 0.3s; }
 .service-arrow:hover { gap: 14px; }
 
-
-/* ─────────────────────────────────────────────────────────
-   15. GALERIE PHOTOS
-───────────────────────────────────────────────────────── */
-.gallery-section {
-  background: var(--navy);
-  padding: 80px 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.gallery-section .container { position: relative; z-index: 1; }
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  grid-template-rows: 210px 210px;
-  gap: 4px;
-}
-
-/* Photos agrandies */
+/* ===== GALLERY ===== */
+.gallery-section { background: var(--navy); padding: 80px 0; }
+.gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); grid-template-rows: 210px 210px; gap: 4px; }
+.gallery-item { overflow: hidden; position: relative; cursor: pointer; }
 .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
 .gallery-item:nth-child(6) { grid-column: span 2; }
-
-.gallery-item {
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s, filter 0.4s;
-  filter: brightness(0.82);
-}
-
-.gallery-item:hover img {
-  transform: scale(1.08);
-  filter: brightness(1);
-}
-
-.gallery-item-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(transparent, rgba(11,31,58,0.65));
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s, filter 0.4s; filter: brightness(0.82); }
+.gallery-item:hover img { transform: scale(1.08); filter: brightness(1); }
+.gallery-item-overlay { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(11,31,58,0.65)); opacity: 0; transition: opacity 0.4s; }
 .gallery-item:hover .gallery-item-overlay { opacity: 1; }
 
-
-/* ─────────────────────────────────────────────────────────
-   16. CARTES CONTACT
-───────────────────────────────────────────────────────── */
-.contact-detail {
-  display: flex;
-  gap: 18px;
-  margin-bottom: 20px;
-  padding: 22px;
-  background: var(--white);
-  border: 1px solid rgba(201,168,76,0.15);
-  transition: border-color 0.3s;
-}
-
+/* ===== CONTACT CARDS ===== */
+.contact-detail { display: flex; gap: 18px; margin-bottom: 20px; padding: 22px; background: var(--white); border: 1px solid rgba(201,168,76,0.15); transition: border-color 0.3s; }
 .contact-detail:hover { border-color: var(--gold); }
-
-.contact-icon-wrap {
-  width: 46px;
-  height: 46px;
-  background: var(--navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
+.contact-icon-wrap { width: 46px; height: 46px; background: var(--navy); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .contact-icon-wrap i { color: var(--gold); font-size: 1rem; }
-
-.contact-detail h3 {
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  color: var(--gold);
-  margin-bottom: 5px;
-  text-transform: uppercase;
-}
-
-.contact-detail p,
-.contact-detail a {
-  font-size: 0.92rem;
-  color: var(--muted);
-  text-decoration: none;
-  line-height: 1.6;
-}
-
+.contact-detail h3 { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 5px; text-transform: uppercase; }
+.contact-detail p, .contact-detail a { font-size: 0.92rem; color: var(--muted); text-decoration: none; line-height: 1.6; }
 .contact-detail a:hover { color: var(--navy); }
 
-
-/* ─────────────────────────────────────────────────────────
-   17. TABLEAU DES HORAIRES (prayer-times.html)
-───────────────────────────────────────────────────────── */
-.prayer-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 650px;
-}
-
-/* Titre du mois */
-.prayer-table thead .month-row th {
-  background: var(--navy);
-  color: var(--gold);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
-  font-weight: 300;
-  padding: 22px;
-  letter-spacing: 0.08em;
-  text-align: center;
-}
-
-/* En-têtes de colonnes */
-.prayer-table thead tr:last-child th {
-  background: var(--navy-mid);
-  color: rgba(255,255,255,0.7);
-  font-family: 'Cinzel', serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  padding: 12px 10px;
-  text-align: center;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-/* Cellules du corps */
-.prayer-table tbody td {
-  padding: 10px 8px;
-  text-align: center;
-  font-size: 0.84rem;
-  color: var(--text);
-  border-bottom: 1px solid rgba(201,168,76,0.1);
-}
-
-.prayer-table tbody tr:hover     { background: rgba(201,168,76,0.04); }
-.prayer-table tbody .friday-row  { background: rgba(201,168,76,0.06); }
-.prayer-table tbody .today-row   { background: rgba(201,168,76,0.14); font-weight: 600; }
-
-/* Pied de tableau */
-.prayer-table tfoot td {
-  background: var(--navy);
-  color: rgba(255,255,255,0.45);
-  font-size: 0.78rem;
-  padding: 14px;
-  text-align: center;
-}
-
+/* ===== PRAYER TABLE (schedule page) ===== */
+.prayer-table { width: 100%; border-collapse: collapse; min-width: 650px; }
+.prayer-table thead .month-row th { background: var(--navy); color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; padding: 22px; letter-spacing: 0.08em; text-align: center; }
+.prayer-table thead tr:last-child th { background: var(--navy-mid); color: rgba(255,255,255,0.7); font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.12em; padding: 12px 10px; text-align: center; border: 1px solid rgba(255,255,255,0.08); }
+.prayer-table tbody td { padding: 10px 8px; text-align: center; font-size: 0.84rem; color: var(--text); border-bottom: 1px solid rgba(201,168,76,0.1); }
+.prayer-table tbody tr:hover { background: rgba(201,168,76,0.04); }
+.prayer-table tbody .friday-row { background: rgba(201,168,76,0.06); }
+.prayer-table tbody .today-row { background: rgba(201,168,76,0.14); font-weight: 600; }
+.prayer-table tfoot td { background: var(--navy); color: rgba(255,255,255,0.45); font-size: 0.78rem; padding: 14px; text-align: center; }
 .prayer-table tfoot strong { color: var(--gold); }
 
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .prayer-cards { grid-template-columns: repeat(3,1fr); }
+  .prayer-card-item:nth-child(3) { border-right: none; }
+  .prayer-card-item:nth-child(n+4) { border-top: 1px solid var(--border); }
+  .prayer-card-item:nth-child(6) { border-right: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 960px) {
+  .nav-links { display: none !important; }
+  .nav-donate { display: none !important; }
+  .hamburger { display: flex !important; }
+  .navbar { padding: 0 20px; }
+  .prayer-top { flex-direction: column; align-items: flex-start; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
+  .gallery-item:nth-child(1), .gallery-item:nth-child(6) { grid-column: span 1; grid-row: span 1; }
+}
+@media (max-width: 600px) {
+  section { padding: 60px 16px; }
+  .page-header { padding: 130px 20px 60px; }
+  .prayer-cards { grid-template-columns: repeat(2,1fr); }
+  .prayer-card-item { border-top: 1px solid var(--border); }
+  .prayer-card-item:nth-child(1), .prayer-card-item:nth-child(2) { border-top: none; }
+  .prayer-card-item:nth-child(2n) { border-right: none; }
+  .services-grid, .services-grid-2 { grid-template-columns: 1fr; max-width: 100%; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+  .newsletter-inner { flex-direction: column; align-items: flex-start; }
+  .newsletter-form { width: 100%; max-width: 100%; }
+}
+@media print {
+  .navbar, #loader, .mobile-menu, .newsletter-section, .footer { display: none !important; }
+  .page-header { padding: 20px 0 10px; }
+  section { padding: 20px 0; }
+}
 
-/* ─────────────────────────────────────────────────────────
-   18. CARRÉ DÉCORATIF TOURNANT
-   Un seul grand div sans contenu ni motif SVG.
-   Il est positionné en inset:-60% (déborde de tous les côtés)
-   dans son parent qui a overflow:hidden.
-   L'animation patternSpin (définie en section 06) le fait
-   pivoter lentement — effet subtil, purement décoratif.
+/* ══════════════════════════════════════════
+   MOTIF ISLAMIQUE — toutes sections bleues
+   Div surdimensionné qui tourne lentement,
+   coupé par overflow:hidden du parent.
+══════════════════════════════════════════ */
 
-   Sections qui l'utilisent :
-   .prayer-section   → via .spinning-square
-   .gallery-section  → via .spinning-square
-   .footer           → via .spinning-square
-   Chaque section doit avoir position:relative et overflow:hidden.
-───────────────────────────────────────────────────────── */
+/* Mixin réutilisable : appliquer à chaque section */
+.prayer-section  { position: relative; overflow: hidden; }
+.gallery-section { position: relative; overflow: hidden; }
+.footer          { position: relative; overflow: hidden; }
 
-/* Carré tournant partagé — classe utilitaire */
-.spinning-square {
+/* Pattern commun */
+.prayer-pattern,
+.gallery-pattern,
+.footer-pattern,
+.donate-box-pattern {
   position: absolute;
   inset: -60%;
   border: 1px solid rgba(201,168,76,0.15);
+  
+  
+  opacity: 0.06;
   pointer-events: none;
   transform-origin: center center;
   animation: patternSpin 90s linear infinite;
   z-index: 0;
 }
 
-/* Variante légèrement plus rapide pour le footer */
-.footer .spinning-square {
+/* Donate box — motif plus subtil */
+.donate-box-pattern {
+  opacity: 0.04;
+  
   animation-duration: 70s;
-  border-color: rgba(201,168,76,0.1);
 }
 
-/* On s'assure que le contenu reste au-dessus du carré */
+/* S'assurer que le contenu passe au-dessus du motif */
 .prayer-section  .container,
 .gallery-section .container,
 .footer          .container {
@@ -1099,67 +325,7 @@ section         { padding: 80px 24px; }
   z-index: 1;
 }
 
-
-/* ─────────────────────────────────────────────────────────
-   19. RESPONSIVE
-───────────────────────────────────────────────────────── */
-
-/* Tablettes paysage (≤ 1100px) */
-@media (max-width: 1100px) {
-  .prayer-cards            { grid-template-columns: repeat(3,1fr); }
-  .prayer-card-item:nth-child(3) { border-right: none; }
-  .prayer-card-item:nth-child(n+4) { border-top: 1px solid var(--border); }
-  .prayer-card-item:nth-child(6) { border-right: none; }
-  .footer-grid             { grid-template-columns: 1fr 1fr; }
-}
-
-/* Tablettes portrait (≤ 960px) */
-@media (max-width: 960px) {
-  /* On cache la nav desktop, on montre le hamburger */
-  .nav-links  { display: none !important; }
-  .nav-donate { display: none !important; }
-  .hamburger  { display: flex !important; }
-  .navbar     { padding: 0 20px; }
-
-  .prayer-top     { flex-direction: column; align-items: flex-start; }
-  .services-grid  { grid-template-columns: 1fr 1fr; }
-  .gallery-grid   { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
-  .gallery-item:nth-child(1),
-  .gallery-item:nth-child(6) { grid-column: span 1; grid-row: span 1; }
-}
-
-/* Mobiles (≤ 600px) */
-@media (max-width: 600px) {
-  section            { padding: 60px 16px; }
-  .page-header       { padding: 130px 20px 60px; }
-
-  .prayer-cards      { grid-template-columns: repeat(2,1fr); }
-  .prayer-card-item  { border-top: 1px solid var(--border); }
-  .prayer-card-item:nth-child(1),
-  .prayer-card-item:nth-child(2) { border-top: none; }
-  .prayer-card-item:nth-child(2n) { border-right: none; }
-
-  .services-grid,
-  .services-grid-2   { grid-template-columns: 1fr; max-width: 100%; }
-  .gallery-grid      { grid-template-columns: 1fr; }
-  .footer-grid       { grid-template-columns: 1fr; gap: 30px; }
-
-  .newsletter-inner  { flex-direction: column; align-items: flex-start; }
-  .newsletter-form   { width: 100%; max-width: 100%; }
-}
-
-
-/* ─────────────────────────────────────────────────────────
-   20. IMPRESSION
-   Supprime tous les éléments non essentiels à l'impression.
-───────────────────────────────────────────────────────── */
-@media print {
-  .navbar,
-  #loader,
-  .mobile-menu,
-  .newsletter-section,
-  .footer           { display: none !important; }
-
-  .page-header      { padding: 20px 0 10px; }
-  section           { padding: 20px 0; }
+.donate-form-box > *:not(.donate-box-pattern) {
+  position: relative;
+  z-index: 1;
 }

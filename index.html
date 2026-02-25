@@ -119,7 +119,7 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
-        <div class="spinning-square"></div>
+        <div class="hero-pattern"></div>
         <div class="hero-content">
             <p class="hero-eyebrow">Est. 2016 — Kildonan, Winnipeg</p>
             <h1 class="hero-title">Welcome to<br><em>Rahma</em> Islamic Centre</h1>
@@ -136,7 +136,7 @@
 
     <!-- PRAYER TIMES -->
     <section class="prayer-section" id="prayer">
-        <div class="spinning-square"></div>
+        <div class="prayer-pattern"></div>
         <div class="container">
             <div class="prayer-top">
                 <div>
@@ -210,7 +210,7 @@
 
     <!-- GALLERY -->
     <section class="gallery-section">
-        <div class="spinning-square"></div>
+        <div class="gallery-pattern"></div>
         <div class="container">
             <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:50px;flex-wrap:wrap;gap:16px;">
                 <div><span class="section-label reveal">Moments</span><h2 class="section-title reveal" style="color:var(--white);margin-bottom:0;">Community <em style="color:var(--gold-light)">Gallery</em></h2></div>
@@ -229,7 +229,7 @@
 
     <!-- MISSION -->
     <section class="mission-section">
-        <div class="spinning-square"></div>
+        <div class="mission-pattern"></div>
         <div class="mission-bg-text">RAHMA</div>
         <div class="mission-inner">
             <span class="section-label reveal" style="display:block;text-align:center;">Our Purpose</span>
@@ -257,7 +257,7 @@
                         <button class="amount-pill" onclick="setAmount(250,this)">$250</button>
                     </div>
                 </div>
-                <div class="donate-form-box reveal reveal-delay-2" style="position:relative;overflow:hidden;"><div class="spinning-square"></div>
+                <div class="donate-form-box reveal reveal-delay-2" style="position:relative;overflow:hidden;"><div class="donate-box-pattern"></div>
                     <h3>Donate Today</h3>
                     <div style="display:flex;gap:8px;margin-bottom:20px;">
                         <button onclick="setCurrency('CAD')" id="btnCAD" style="flex:1;padding:10px;background:rgba(201,168,76,0.15);border:1px solid var(--gold);color:var(--gold);font-family:Cinzel,serif;font-size:0.75rem;letter-spacing:0.12em;cursor:pointer;transition:all 0.3s;">CAD</button>
@@ -286,7 +286,7 @@
     </section>
 
     <footer class="footer">
-        <div class="spinning-square"></div>
+        <div class="footer-pattern"></div>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center dedicated to the spiritual, educational, and social needs of Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
@@ -350,23 +350,51 @@
         _xhr.send();
     }catch(e){}
     </script>
-
     <script src="shared.js"></script>
     <script>
-
-
-        // Counter
+        /* ── Compteurs animés (About section) ── */
         function animateCount(el, target) {
             const start = performance.now();
-            const update = (now) => { const p=Math.min((now-start)/1500,1),e=1-Math.pow(1-p,3); el.textContent=Math.round(e*target); if(p<1) requestAnimationFrame(update); };
+            const update = (now) => {
+                const p = Math.min((now - start) / 1500, 1);
+                const e = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(e * target);
+                if (p < 1) requestAnimationFrame(update);
+            };
             requestAnimationFrame(update);
         }
-        const sObs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){animateCount(e.target,parseInt(e.target.dataset.target));sObs.unobserve(e.target);} }); },{threshold:0.5});
-        document.querySelectorAll('[data-target]').forEach(el=>sObs.observe(el));
+        const sObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    animateCount(e.target, parseInt(e.target.dataset.target));
+                    sObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('[data-target]').forEach(el => sObs.observe(el));
 
-        // Donate
+        /* ── Widget Donate (homepage) ── */
         let currentCurrency = 'CAD';
-        function setAmount(val, el) { document.getElementById('donateAmt').value=val; document.querySelectorAll('.amount-pill').forEach(p=>p.classList.remove('selected')); el.classList.add('selected'); }
+        function setAmount(val, el) {
+            document.getElementById('donateAmt').value = val;
+            document.querySelectorAll('.amount-pill').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+        }
         function setCurrency(cur) {
-            currentCurrency=cur; document.getElementById('currencyTag').textContent=cur;
-            ['CAD','USD'].forEach(c=>{ const b=document.getElementById('btn'+c); b.style.background=c===cur?'rgba(201,168,76,0.15)':'transpa
+            currentCurrency = cur;
+            document.getElementById('currencyTag').textContent = cur;
+            ['CAD','USD'].forEach(c => {
+                const b = document.getElementById('btn' + c);
+                b.style.background = c === cur ? 'rgba(201,168,76,0.15)' : 'transparent';
+                b.style.borderColor = c === cur ? 'var(--gold)' : 'rgba(255,255,255,0.15)';
+                b.style.color       = c === cur ? 'var(--gold)'  : 'rgba(255,255,255,0.5)';
+            });
+        }
+        function processDonate() {
+            const amt = parseFloat(document.getElementById('donateAmt').value);
+            if (!amt || amt <= 0) { alert('Please enter a valid amount.'); return; }
+            alert('Thank you! ' + currentCurrency + ' $' + amt.toFixed(2) + ' — please contact rahmaislamiccentre@gmail.com to complete your donation.');
+        }
+    </script>
+</body>
+</html>

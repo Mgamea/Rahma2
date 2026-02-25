@@ -58,7 +58,7 @@
     </nav>
 
     <div class="page-header">
-        <div class="spinning-square"></div><div class="page-header-overlay"></div>
+        <div class="page-header-pattern"></div><div class="page-header-overlay"></div>
         <div class="page-header-content"><span class="page-header-eyebrow">We'd Love to Hear From You</span><h1>Contact <em>Us</em></h1></div>
     </div>
 
@@ -113,12 +113,30 @@
 
     <footer class="footer"><div class="container">
         <div class="footer-grid">
-            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+            <div class="footer-brand"><span class="logo-text-footer">Rahma lass="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
             <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li><li><a href="activities.html">Activities</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
             <div class="footer-col"><h4>Programs</h4><ul><li><a href="activities.html">Sisters' Halaqa</a></li><li><a href="activities.html">Kids Quran Class</a></li><li><a href="activities.html">Quran Hifz</a></li><li><a href="activities.html">Study Club</a></li></ul></div>
             <div class="footer-col"><h4>Contact</h4><div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div><div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div><div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div></div>
         </div>
         <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
     </div></footer>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-
+    <script src="shared.js"></script>
+    <script>
+        /* Formulaire de contact — feedback visuel à la soumission */
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const orig = btn.textContent;
+            btn.textContent = 'Sent! ✓';
+            btn.classList.add('success');
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.textContent = orig;
+                btn.classList.remove('success');
+                btn.disabled = false;
+                this.reset();
+            }, 3500);
+        });
+    </script>
+</body>
+</html>
