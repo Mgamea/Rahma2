@@ -313,7 +313,7 @@ section { padding: 80px 24px; }
 /* Donate box — motif plus subtil */
 .donate-box-pattern {
   opacity: 0.04;
-  
+  background-size: 260px;
   animation-duration: 70s;
 }
 
@@ -328,4 +328,82 @@ section { padding: 80px 24px; }
 .donate-form-box > *:not(.donate-box-pattern) {
   position: relative;
   z-index: 1;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   NAV ACTIVE — lien de la page courante toujours souligné
+   La classe .active est posée automatiquement par shared.js
+   via window.location.pathname. Elle peut aussi être statique dans
+   le HTML de chaque page (<a class="active">).
+═══════════════════════════════════════════════════════════════════ */
+
+/* Bureau : trait doré sous le lien actif */
+.nav-links a.active {
+  color: var(--gold-light) !important;
+}
+.nav-links a.active::after {
+  width: 100% !important;
+  background: var(--gold) !important;
+  opacity: 1 !important;
+}
+
+/* Mobile : lien actif en or */
+.mobile-menu a.active {
+  color: var(--gold) !important;
+  border-left: 2px solid var(--gold);
+  padding-left: 14px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOTIF ISLAMIQUE — fond des sections claires (non-bleues)
+
+   Le fichier pattern.png doit être placé dans le même dossier
+   que style.css (à la racine du site).
+
+   Sections SOMBRES (navy) : pas de motif PNG, elles gardent leur
+   propre animation tournante dorée.
+   Sections CLAIRES (blanc / crème) : motif PNG en overlay subtil.
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── Fond général du body : crème + motif ── */
+body {
+  background-color: var(--cream);
+  background-image: url('pattern.png');
+  background-repeat: repeat;
+  background-size: 400px auto;
+  background-attachment: fixed;
+}
+
+/* ── Sections sombres : PAS de motif PNG ──
+   On surcharge background-image pour les zones navy. */
+.hero,
+.page-header,
+.prayer-section,
+.gallery-section,
+.newsletter-section,
+.today-widget,
+.footer {
+  background-image: none !important;
+}
+
+/* ── Sections avec fond inline blanc/crème
+   (certaines pages mettent style="background:#fff")
+   On les cible via la classe .white-section ajoutée par shared.js ── */
+.white-section {
+  background-color: #ffffff;
+  background-image: url('pattern.png') !important;
+  background-repeat: repeat !important;
+  background-size: 400px auto !important;
+  background-attachment: fixed !important;
+}
+
+/* ── Tableau planning (prayer-times) — fond blanc avec motif ── */
+.schedule-section {
+  background-color: var(--cream);
+  background-image: url('pattern.png') !important;
+  background-repeat: repeat !important;
+  background-size: 400px auto !important;
+  background-attachment: fixed !important;
 }
