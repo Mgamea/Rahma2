@@ -85,7 +85,7 @@
     <div id="loader"><div class="loader-text">RAHMA</div><div class="loader-bar"><div class="loader-fill"></div></div></div>
 
         <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html" onclick="closeMobile()">Home</a>
+        <a href="index.html" class="active" onclick="closeMobile()">Home</a>
         <a href="prayer-times.html" onclick="closeMobile()">Prayer Times</a>
         <a href="programs.html" onclick="closeMobile()">Programs & Services</a>
         <a href="education.html" onclick="closeMobile()">Education</a>
@@ -102,7 +102,7 @@
                 <div class="logo-text">Rahma Islamic Centre<span>Winnipeg, Canada</span></div>
             </a>
                         <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="prayer-times.html">Prayer Times</a></li>
                 <li><a href="programs.html">Programs & Services</a></li>
                 <li><a href="education.html">Education</a></li>
@@ -189,7 +189,7 @@
     </section>
 
     <!-- SERVICES -->
-    <section style="background:var(--white);padding:90px 0;">
+    <section style="background:var(--white);padding:90px 0;background-image:url('pattern.png');background-size:400px auto;background-repeat:repeat;background-attachment:fixed;">
         <div class="container" style="padding:0 24px;">
             <div style="margin-bottom:50px;">
                 <span class="section-label reveal">What We Offer</span>
@@ -313,7 +313,7 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#8ffdeee7e2eee6fce3eee2e6ececeae1fbfdeacfe8e2eee6e3a1ece0e2"><span class="__cf_email__" data-cfemail="3b495a53565a5248575a565258585e554f495e7b5c565a525715585456">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
         <div class="footer-bottom">
@@ -321,7 +321,7 @@
             <span>Powered by Devodez Solutions</span>
         </div>
     </div></footer>
-    <script src="shared.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
 
     <script>
         /* Compteurs animés */
@@ -332,7 +332,4 @@
         let currentCurrency='CAD';
         function setAmount(val,el){document.getElementById('donateAmt').value=val;document.querySelectorAll('.amount-pill').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');}
         function setCurrency(cur){currentCurrency=cur;document.getElementById('currencyTag').textContent=cur;['CAD','USD'].forEach(c=>{const b=document.getElementById('btn'+c);b.style.background=c===cur?'rgba(201,168,76,0.15)':'transparent';b.style.borderColor=c===cur?'var(--gold)':'rgba(255,255,255,0.15)';b.style.color=c===cur?'var(--gold)':'rgba(255,255,255,0.5)';});}
-        function processDonate(){const amt=parseFloat(document.getElementById('donateAmt').value);if(!amt||amt<=0){alert('Please enter a valid amount.');return;}alert('Thank you! '+currentCurrency+' $'+amt.toFixed(2)+' — contact rahmaislamiccentre@gmail.com to complete your donation.');}
-    </script>
-</body>
-</html>
+        function processDonate(){const amt=parseFloat(docum

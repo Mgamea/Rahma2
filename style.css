@@ -331,53 +331,43 @@ section { padding: 80px 24px; }
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   NAV ACTIVE — lien de la page courante toujours souligné
-   La classe .active est posée automatiquement par shared.js
-   via window.location.pathname. Elle peut aussi être statique dans
-   le HTML de chaque page (<a class="active">).
-═══════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   NAV — LIEN ACTIF (classe .active posée statiquement dans le HTML)
+   Le trait doré reste visible en permanence sur la page courante.
+═══════════════════════════════════════════════════════════════ */
 
-/* Bureau : trait doré sous le lien actif */
 .nav-links a.active {
   color: var(--gold-light) !important;
 }
 .nav-links a.active::after {
   width: 100% !important;
   background: var(--gold) !important;
-  opacity: 1 !important;
 }
-
-/* Mobile : lien actif en or */
 .mobile-menu a.active {
   color: var(--gold) !important;
   border-left: 2px solid var(--gold);
-  padding-left: 14px;
+  padding-left: 12px;
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   MOTIF ISLAMIQUE — fond des sections claires (non-bleues)
+/* ═══════════════════════════════════════════════════════════════
+   MOTIF ISLAMIQUE — fond des sections claires
+   pattern.png doit être à la racine du site (même dossier que style.css).
 
-   Le fichier pattern.png doit être placé dans le même dossier
-   que style.css (à la racine du site).
+   - body               : fond crème + motif en tuilage fixe
+   - sections sombres   : background-image:none (écrase le motif)
+   - sections claires avec fond blanc/crème défini en style inline :
+     le motif est ajouté directement dans leur attribut style (HTML)
+═══════════════════════════════════════════════════════════════ */
 
-   Sections SOMBRES (navy) : pas de motif PNG, elles gardent leur
-   propre animation tournante dorée.
-   Sections CLAIRES (blanc / crème) : motif PNG en overlay subtil.
-═══════════════════════════════════════════════════════════════════ */
-
-/* ── Fond général du body : crème + motif ── */
 body {
-  background-color: var(--cream);
   background-image: url('pattern.png');
   background-repeat: repeat;
   background-size: 400px auto;
   background-attachment: fixed;
 }
 
-/* ── Sections sombres : PAS de motif PNG ──
-   On surcharge background-image pour les zones navy. */
+/* Sections sombres → pas de motif */
 .hero,
 .page-header,
 .prayer-section,
@@ -388,22 +378,10 @@ body {
   background-image: none !important;
 }
 
-/* ── Sections avec fond inline blanc/crème
-   (certaines pages mettent style="background:#fff")
-   On les cible via la classe .white-section ajoutée par shared.js ── */
-.white-section {
-  background-color: #ffffff;
-  background-image: url('pattern.png') !important;
-  background-repeat: repeat !important;
-  background-size: 400px auto !important;
-  background-attachment: fixed !important;
-}
-
-/* ── Tableau planning (prayer-times) — fond blanc avec motif ── */
+/* Schedule section (prayer-times) → fond crème + motif */
 .schedule-section {
-  background-color: var(--cream);
-  background-image: url('pattern.png') !important;
-  background-repeat: repeat !important;
-  background-size: 400px auto !important;
-  background-attachment: fixed !important;
+  background-image: url('pattern.png');
+  background-repeat: repeat;
+  background-size: 400px auto;
+  background-attachment: fixed;
 }

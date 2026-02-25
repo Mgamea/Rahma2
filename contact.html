@@ -37,7 +37,7 @@
         <a href="education.html" onclick="closeMobile()">Education</a>
         <a href="events.html" onclick="closeMobile()">Events</a>
         <a href="about.html" onclick="closeMobile()">About</a>
-        <a href="contact.html" onclick="closeMobile()">Contact</a>
+        <a href="contact.html" class="active" onclick="closeMobile()">Contact</a>
         <a href="donate.html" class="mobile-donate" onclick="closeMobile()">Donate</a>
     </div>
     <nav class="navbar" id="navbar">
@@ -50,7 +50,7 @@
                 <li><a href="education.html">Education</a></li>
                 <li><a href="events.html">Events</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
             <a href="donate.html" class="nav-donate">Donate</a>
             <div class="hamburger" id="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="contact-detail">
                         <div class="contact-icon-wrap"><i class="fas fa-envelope"></i></div>
-                        <div><h3>Email</h3><p><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></p></div>
+                        <div><h3>Email</h3><p><a href="/cdn-cgi/l/email-protection#7301121b1e121a001f121e1a1010161d07011633141e121a1f5d101c1e"><span class="__cf_email__" data-cfemail="512330393c3038223d303c383232343f25233411363c30383d7f323e3c">[email&#160;protected]</span></a></p></div>
                     </div>
                     <div class="contact-detail">
                         <div class="contact-icon-wrap"><i class="fas fa-mosque"></i></div>
@@ -143,7 +143,7 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#c9bba8a1a4a8a0baa5a8a4a0aaaaaca7bdbbac89aea4a8a0a5e7aaa6a4"><span class="__cf_email__" data-cfemail="7301121b1e121a001f121e1a1010161d07011633141e121a1f5d101c1e">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
         <div class="footer-bottom">
@@ -151,16 +151,7 @@
             <span>Powered by Devodez Solutions</span>
         </div>
     </div></footer>
-    <script src="shared.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
 
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            const orig = btn.textContent;
-            btn.textContent = 'Sent! ✓'; btn.classList.add('success'); btn.disabled = true;
-            setTimeout(() => { btn.textContent=orig; btn.classList.remove('success'); btn.disabled=false; this.reset(); }, 3500);
-        });
-    </script>
-</body>
-</html>
+        document.getElementById('contactForm').addEventListener('submit', f

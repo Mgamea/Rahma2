@@ -1,5 +1,7 @@
 /* ============================================================
-   RAHMA ISLAMIC CENTRE — shared.js  v4
+   RAHMA ISLAMIC CENTRE — shared.js  v5
+   La classe .active dans la nav est définie STATIQUEMENT
+   dans chaque page HTML — aucune détection JS n'est nécessaire.
 ============================================================ */
 
 /* ---------- LOADER ---------- */
@@ -35,20 +37,12 @@ function closeMobile() {
   document.body.style.overflow = '';
 }
 
-/* ---------- NAV ACTIVE — lien de la page courante souligné ---------- */
-document.addEventListener('DOMContentLoaded', function() {
-  var page = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(function(link) {
-    var href = (link.getAttribute('href') || '').split('/').pop();
-    var match = (href === page) || (page === '' && href === 'index.html');
-    link.classList.toggle('active', match);
-  });
-});
-
 /* ---------- REVEAL ON SCROLL ---------- */
 document.addEventListener('DOMContentLoaded', function() {
   var obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+    entries.forEach(function(e) {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
   }, { threshold: 0.07 });
   document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 });
@@ -104,7 +98,9 @@ async function loadMawaqitPrayers(opts) {
   if (!timings) {
     try {
       var now = new Date();
-      var url = 'https://api.aladhan.com/v1/timings/' + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear() + '?latitude=49.8951&longitude=-97.1384&method=2';
+      var url = 'https://api.aladhan.com/v1/timings/'
+        + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear()
+        + '?latitude=49.8951&longitude=-97.1384&method=2';
       var res = await fetch(url);
       var data = await res.json();
       if (data.code === 200) { timings = Object.assign({}, data.data.timings, { _src:'aladhan' }); }
@@ -119,7 +115,8 @@ async function loadMawaqitPrayers(opts) {
   if (badge) {
     var colors = { mawaqit:'#4ade80', aladhan:'#fbbf24', static:'#9ca3af' };
     var labels = { mawaqit:'Mawaqit.net ✓', aladhan:'Aladhan API', static:'Horaires statiques' };
-    badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + colors[timings._src] + ';margin-right:8px"></span>' + labels[timings._src];
+    badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'
+      + colors[timings._src] + ';margin-right:8px"></span>' + labels[timings._src];
   }
 
   var keyMap = { fajr:'Fajr', dhuhr:'Dhuhr', asr:'Asr', maghrib:'Maghrib', isha:'Isha' };
@@ -128,20 +125,35 @@ async function loadMawaqitPrayers(opts) {
   if (opts.timeIds) {
     Object.keys(opts.timeIds).forEach(function(key) {
       var el = document.getElementById(opts.timeIds[key]);
-      if (el && timings[keyMap[key]]) { el.textContent = formatTime(timings[keyMap[key]]); el.classList.remove('loading'); }
+      if (el && timings[keyMap[key]]) {
+        el.textContent = formatTime(timings[keyMap[key]]);
+        el.classList.remove('loading');
+      }
     });
   }
   if (opts.iqamahIds) {
     Object.keys(opts.iqamahIds).forEach(function(key) {
       var el = document.getElementById(opts.iqamahIds[key]);
-      if (el && timings[keyMap[key]]) el.textContent = 'Iqamah : ' + formatTime(_addMins(timings[keyMap[key]], iqOff[key]));
+      if (el && timings[keyMap[key]]) {
+        el.textContent = 'Iqamah : ' + formatTime(_addMins(timings[keyMap[key]], iqOff[key]));
+      }
     });
   }
   if (opts.cardIds) {
-    var n = new Date(), nm = n.getHours()*60+n.getMinutes();
-    var ks=['Fajr','Dhuhr','Asr','Maghrib','Isha'], is=['fajr','dhuhr','asr','maghrib','isha'], active='isha';
-    ks.forEach(function(k,i){ if(timings[k]){var p=timings[k].split(':').map(Number);if(nm>=p[0]*60+p[1])active=is[i];}});
-    is.forEach(function(id){ var c=document.getElementById(opts.cardIds[id]); if(c)c.classList.toggle('active-prayer',id===active); });
+    var n = new Date(), nm = n.getHours()*60 + n.getMinutes();
+    var ks = ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+    var is = ['fajr','dhuhr','asr','maghrib','isha'];
+    var active = 'isha';
+    ks.forEach(function(k, i) {
+      if (timings[k]) {
+        var p = timings[k].split(':').map(Number);
+        if (nm >= p[0]*60+p[1]) active = is[i];
+      }
+    });
+    is.forEach(function(id) {
+      var c = document.getElementById(opts.cardIds[id]);
+      if (c) c.classList.toggle('active-prayer', id === active);
+    });
   }
   return timings;
 }
