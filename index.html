@@ -275,61 +275,87 @@
     </section>
 
     <!-- NEWSLETTER -->
-
     <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
         <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
-        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-            <input type="email" class="newsletter-input" placeholder="Your email address" required>
-            <button type="submit" class="newsletter-btn">Subscribe</button>
-        </form>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
     </div></div></section>
-
     <footer class="footer"><div class="container">
         <div class="footer-grid">
-            <div class="footer-brand">
-                <span class="logo-text-footer">Rahma Islamic Centre</span>
-                <p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
             <div class="footer-col"><h4>Navigation</h4><ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="prayer-times.html">Prayer Times</a></li>
-                <li><a href="programs.html">Programs &amp; Services</a></li>
-                <li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
+                <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
-                <li><a href="education.html">Quran Classes</a></li>
-                <li><a href="education.html">Arabic Classes</a></li>
-                <li><a href="education.html">Hifdh Program</a></li>
-                <li><a href="programs.html">All Programs</a></li>
+                <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
+                <li><a href="education.html">Hifdh Program</a></li><li><a href="programs.html">All Programs</a></li>
             </ul></div>
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#8ffdeee7e2eee6fce3eee2e6ececeae1fbfdeacfe8e2eee6e3a1ece0e2"><span class="__cf_email__" data-cfemail="3b495a53565a5248575a565258585e554f495e7b5c565a525715585456">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
-            <span>Powered by Devodez Solutions</span>
-        </div>
+        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
     </div></footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
-
+    <script src="shared.js"></script>
+    
     <script>
-        /* Compteurs animés */
-        function animateCount(el,target){const s=performance.now();const u=(n)=>{const p=Math.min((n-s)/1500,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*target);if(p<1)requestAnimationFrame(u);};requestAnimationFrame(u);}
-        const sObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animateCount(e.target,parseInt(e.target.dataset.target));sObs.unobserve(e.target);}});},{threshold:0.5});
-        document.querySelectorAll('[data-target]').forEach(el=>sObs.observe(el));
-        /* Widget Donate */
-        let currentCurrency='CAD';
-        function setAmount(val,el){document.getElementById('donateAmt').value=val;document.querySelectorAll('.amount-pill').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');}
-        function setCurrency(cur){currentCurrency=cur;document.getElementById('currencyTag').textContent=cur;['CAD','USD'].forEach(c=>{const b=document.getElementById('btn'+c);b.style.background=c===cur?'rgba(201,168,76,0.15)':'transparent';b.style.borderColor=c===cur?'var(--gold)':'rgba(255,255,255,0.15)';b.style.color=c===cur?'var(--gold)':'rgba(255,255,255,0.5)';});}
-        function processDonate(){const amt=parseFloat(docum
+    /* ── Prayer times on homepage via Mawaqit → Aladhan fallback ── */
+    (async function loadHomePrayer() {
+        var T = null;
+        try {
+            var r = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
+            if (r.ok) {
+                var d = await r.json();
+                if (d.times && d.times.length >= 6)
+                    T = { fajr:d.times[0], dhuhr:d.times[2], asr:d.times[3], maghrib:d.times[4], isha:d.times[5] };
+            }
+        } catch(e) {}
+        if (!T) {
+            try {
+                var now = new Date();
+                var url = 'https://api.aladhan.com/v1/timings/' + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear() + '?latitude=49.8951&longitude=-97.1384&method=2';
+                var res = await fetch(url);
+                var data = await res.json();
+                if (data.code === 200) {
+                    var ti = data.data.timings;
+                    T = { fajr:ti.Fajr, dhuhr:ti.Dhuhr, asr:ti.Asr, maghrib:ti.Maghrib, isha:ti.Isha };
+                }
+            } catch(e) {}
+        }
+        if (!T) T = { fajr:'05:30', dhuhr:'12:45', asr:'15:30', maghrib:'18:15', isha:'19:45' };
+        function fmt(raw) {
+            var t = raw.split(' ')[0].split(':');
+            var h = parseInt(t[0]), m = t[1], ap = h >= 12 ? 'PM' : 'AM';
+            return (h%12||12) + ':' + m + ' ' + ap;
+        }
+        var ids = { fajr:'fajr-time', dhuhr:'dhuhr-time', asr:'asr-time', maghrib:'maghrib-time', isha:'isha-time' };
+        var cardIds = { fajr:'card-fajr', dhuhr:'card-dhuhr', asr:'card-asr', maghrib:'card-maghrib', isha:'card-isha' };
+        var nm = new Date().getHours()*60 + new Date().getMinutes(), active = 'card-isha';
+        Object.keys(T).forEach(function(k) {
+            var el = document.getElementById(ids[k]);
+            if (el) el.textContent = fmt(T[k]);
+            var parts = T[k].split(':').map(Number);
+            if (nm >= parts[0]*60+parts[1]) active = cardIds[k];
+        });
+        Object.values(cardIds).forEach(function(id) {
+            var c = document.getElementById(id);
+            if (c) c.classList.toggle('active-prayer', id === active);
+        });
+    })();
+    </script>
+    <script>
+        /* Animated counters */
+        function animateCount(el,target){var s=performance.now();(function u(n){var p=Math.min((n-s)/1500,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*target);if(p<1)requestAnimationFrame(u);})()}
+        var sObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){animateCount(e.target,parseInt(e.target.dataset.target));sObs.unobserve(e.target);}})},{threshold:0.5});
+        document.querySelectorAll('[data-target]').forEach(function(el){sObs.observe(el);});
+        /* Donate widget */
+        var currentCurrency='CAD';
+        function setAmount(val,el){document.getElementById('donateAmt').value=val;document.querySelectorAll('.amount-pill').forEach(function(p){p.classList.remove('selected');});el.classList.add('selected');}
+        function setCurrency(cur){currentCurrency=cur;document.getElementById('currencyTag').textContent=cur;['CAD','USD'].forEach(function(c){var b=document.getElementById('btn'+c);b.style.background=c===cur?'rgba(201,168,76,0.15)':'transparent';b.style.borderColor=c===cur?'var(--gold)':'rgba(255,255,255,0.15)';b.style.color=c===cur?'var(--gold)':'rgba(255,255,255,0.5)';}); }
+        function processDonate(){var amt=parseFloat(document.getElementById('donateAmt').value);if(!amt||amt<=0){alert('Please enter a valid amount.');return;}alert('Thank you! '+currentCurrency+' $'+amt.toFixed(2)+'\nContact: rahmaislamiccentre@gmail.com');}
+    </script>
+</body>
+</html>

@@ -54,7 +54,7 @@
         <a href="events.html" onclick="closeMobile()">Events</a>
         <a href="about.html" onclick="closeMobile()">About</a>
         <a href="contact.html" onclick="closeMobile()">Contact</a>
-        <a href="donate.html" class="mobile-donate" onclick="closeMobile()">Donate</a>
+        <a href="donate.html" class="active" class="mobile-donate" onclick="closeMobile()">Donate</a>
     </div>
     <nav class="navbar" id="navbar">
         <div class="navbar-inner">
@@ -120,59 +120,41 @@
             </div>
         </div>
     </section>
-
     <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
         <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
-        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-            <input type="email" class="newsletter-input" placeholder="Your email address" required>
-            <button type="submit" class="newsletter-btn">Subscribe</button>
-        </form>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
     </div></div></section>
-
     <footer class="footer"><div class="container">
         <div class="footer-grid">
-            <div class="footer-brand">
-                <span class="logo-text-footer">Rahma Islamic Centre</span>
-                <p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
             <div class="footer-col"><h4>Navigation</h4><ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="prayer-times.html">Prayer Times</a></li>
-                <li><a href="programs.html">Programs &amp; Services</a></li>
-                <li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
+                <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
-                <li><a href="education.html">Quran Classes</a></li>
-                <li><a href="education.html">Arabic Classes</a></li>
-                <li><a href="education.html">Hifdh Program</a></li>
-                <li><a href="programs.html">All Programs</a></li>
+                <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
+                <li><a href="education.html">Hifdh Program</a></li><li><a href="programs.html">All Programs</a></li>
             </ul></div>
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#6e1c0f06030f071d020f03070d0d0b001a1c0b2e09030f0702400d0103"><span class="__cf_email__" data-cfemail="80f2e1e8ede1e9f3ece1ede9e3e3e5eef4f2e5c0e7ede1e9ecaee3efed">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
-            <span>Powered by Devodez Solutions</span>
-        </div>
+        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
     </div></footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
-
+    <script src="shared.js"></script>
     <script>
-        let cur = 'CAD';
-        function setCur(c) { cur=c; document.getElementById('curTag').textContent=c; ['CAD','USD'].forEach(x=>{document.getElementById('btn'+x).classList.toggle('active',x===c);}); }
-        function setAmt(v,el) { document.getElementById('donateAmt').value=v; document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('selected')); el.classList.add('selected'); }
-        function clearAmts() { document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('selected')); }
+        var cur = 'CAD';
+        function setCur(c) { cur=c; document.getElementById('curTag').textContent=c; ['CAD','USD'].forEach(function(x){ document.getElementById('btn'+x).classList.toggle('active',x===c); }); }
+        function setAmt(v,el) { document.getElementById('donateAmt').value=v; document.querySelectorAll('.amt-btn').forEach(function(b){b.classList.remove('selected');}); el.classList.add('selected'); }
+        function clearAmts() { document.querySelectorAll('.amt-btn').forEach(function(b){b.classList.remove('selected');}); }
         function processDonate() {
-            const amt=parseFloat(document.getElementById('donateAmt').value);
-            if(!amt||amt<=
+            var amt = parseFloat(document.getElementById('donateAmt').value);
+            if (!amt||amt<=0) { alert('Please enter a valid donation amount.'); return; }
+            alert('Thank you! ' + cur + ' $' + amt.toFixed(2) + '\nContact: rahmaislamiccentre@gmail.com');
+        }
+    </script>
+</body>
+</html>

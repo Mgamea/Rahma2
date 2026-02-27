@@ -253,57 +253,41 @@
     </section>
 
     <!-- NEWSLETTER STRIP -->
-
     <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
         <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
-        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-            <input type="email" class="newsletter-input" placeholder="Your email address" required>
-            <button type="submit" class="newsletter-btn">Subscribe</button>
-        </form>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
     </div></div></section>
-
     <footer class="footer"><div class="container">
         <div class="footer-grid">
-            <div class="footer-brand">
-                <span class="logo-text-footer">Rahma Islamic Centre</span>
-                <p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
             <div class="footer-col"><h4>Navigation</h4><ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="prayer-times.html">Prayer Times</a></li>
-                <li><a href="programs.html">Programs &amp; Services</a></li>
-                <li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
+                <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
-                <li><a href="education.html">Quran Classes</a></li>
-                <li><a href="education.html">Arabic Classes</a></li>
-                <li><a href="education.html">Hifdh Program</a></li>
-                <li><a href="programs.html">All Programs</a></li>
+                <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
+                <li><a href="education.html">Hifdh Program</a></li><li><a href="programs.html">All Programs</a></li>
             </ul></div>
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#afddcec7c2cec6dcc3cec2c6cccccac1dbddcaefc8c2cec6c381ccc0c2"><span class="__cf_email__" data-cfemail="314350595c5058425d505c585252545f45435471565c50585d1f525e5c">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
-            <span>Powered by Devodez Solutions</span>
-        </div>
+        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
     </div></footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
-
+    <script src="shared.js"></script>
     <script>
         document.getElementById('newsletterForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = document.getElementById('nlBtn');
-            btn.textContent='Subscribing…'; btn.disabled=true;
-            setTimeout(()=>{ btn.textContent="✓ 
+            var btn = document.getElementById('nlBtn');
+            btn.textContent = 'Subscribing…'; btn.disabled = true;
+            setTimeout(function() {
+                btn.textContent = '✓ You're Subscribed!'; btn.classList.add('success');
+                setTimeout(function() { btn.textContent='Subscribe Now →'; btn.classList.remove('success'); btn.disabled=false; e.target.reset(); }, 3000);
+            }, 1200);
+        });
+    </script>
+</body>
+</html>
