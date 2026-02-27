@@ -89,7 +89,7 @@
                     </div>
                     <div class="contact-detail">
                         <div class="contact-icon-wrap"><i class="fas fa-envelope"></i></div>
-                        <div><h3>Email</h3><p><a href="/cdn-cgi/l/email-protection#7301121b1e121a001f121e1a1010161d07011633141e121a1f5d101c1e"><span class="__cf_email__" data-cfemail="512330393c3038223d303c383232343f25233411363c30383d7f323e3c">[email&#160;protected]</span></a></p></div>
+                        <div><h3>Email</h3><p><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></p></div>
                     </div>
                     <div class="contact-detail">
                         <div class="contact-icon-wrap"><i class="fas fa-mosque"></i></div>
@@ -105,53 +105,38 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2569.8635743394447!2d-97.13384!3d49.895100000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52ea7156c33d8f6f%3A0x5e6f7b0e2e4a5f0a!2s574%20Watt%20St%2C%20Winnipeg%2C%20MB%20R2K%204K1!5e0!3m2!1sen!2sca!4v1234567890" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
-
     <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
         <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
-        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-            <input type="email" class="newsletter-input" placeholder="Your email address" required>
-            <button type="submit" class="newsletter-btn">Subscribe</button>
-        </form>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
     </div></div></section>
-
     <footer class="footer"><div class="container">
         <div class="footer-grid">
-            <div class="footer-brand">
-                <span class="logo-text-footer">Rahma Islamic Centre</span>
-                <p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
             <div class="footer-col"><h4>Navigation</h4><ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="prayer-times.html">Prayer Times</a></li>
-                <li><a href="programs.html">Programs &amp; Services</a></li>
-                <li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
+                <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
-                <li><a href="education.html">Quran Classes</a></li>
-                <li><a href="education.html">Arabic Classes</a></li>
-                <li><a href="education.html">Hifdh Program</a></li>
-                <li><a href="programs.html">All Programs</a></li>
+                <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
+                <li><a href="education.html">Hifdh Program</a></li><li><a href="programs.html">All Programs</a></li>
             </ul></div>
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#c9bba8a1a4a8a0baa5a8a4a0aaaaaca7bdbbac89aea4a8a0a5e7aaa6a4"><span class="__cf_email__" data-cfemail="7301121b1e121a001f121e1a1010161d07011633141e121a1f5d101c1e">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
-            <span>Powered by Devodez Solutions</span>
-        </div>
+        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
     </div></footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
-
+    <script src="shared.js"></script>
     <script>
-        document.getElementById('contactForm').addEventListener('submit', f
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var btn = document.getElementById('submitBtn'), orig = btn.textContent;
+            btn.textContent = 'Sent! ✓'; btn.classList.add('success'); btn.disabled = true;
+            setTimeout(function() { btn.textContent=orig; btn.classList.remove('success'); btn.disabled=false; e.target.reset(); }, 3500);
+        });
+    </script>
+</body>
+</html>
