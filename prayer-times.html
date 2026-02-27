@@ -213,15 +213,127 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#f280939a9f939b819e939f9b9191979c868097b2959f939b9edc919d9f"><span class="__cf_email__" data-cfemail="9ae8fbf2f7fbf3e9f6fbf7f3f9f9fff4eee8ffdafdf7fbf3f6b4f9f5f7">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
         <div class="footer-bottom">
             <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
             <span>Powered by Devodez Solutions</span>
         </div>
-    </div></footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    </div></footer><script src="shared.js"></script>
+    <script src="shared.js"></script>
     <script>
+/* ─── LIVE CLOCK ─── */
+(function tick() {
+    document.getElementById('todayClock').textContent =
+        new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', hour12:true });
+    setTimeout(tick, 1000);
+})();
+document.getElementById('todayDate').textContent =
+    new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+/* ─── ADD MINUTES ─── */
+function addM(t, m) {
+    const [h, mn] = t.split(':').map(Number), tot = h*60+mn+m;
+    return String(Math.floor(tot/60)%24).padStart(2,'0')+':'+String(tot%60).padStart(2,'0');
+}
+
+/* ─── LOAD TODAY ─── */
+async function loadToday() {
+    var T = null;
+    try {
+        var d = new Date();
+        var url = 'https://api.aladhan.com/v1/timings/'
+            + d.getDate() + '-' + (d.getMonth()+1) + '-' + d.getFullYear()
+            + '?latitude=49.8951&longitude=-97.1384&method=2';
+        var res = await fetch(url);
+        var data = await res.json();
+        if (data.code === 200 && data.data && data.data.timings) {
+            T = { ...data.data.timings, _src: 'aladhan' };
+        }
+    } catch(e) {}
+
+    if (!T) {
+        try {
+            var mwRes = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
+            var mwData = await mwRes.json();
+            if (mwData.times && mwData.times.length >= 6) {
+                T = { Fajr:mwData.times[0], Dhuhr:mwData.times[2], Asr:mwData.times[3], Maghrib:mwData.times[4], Isha:mwData.times[5], _src:'mawaqit' };
+            }
+        } catch(e) {}
+    }
+
+    if (!T) T = { Fajr:'05:30', Dhuhr:'12:45', Asr:'15:30', Maghrib:'18:15', Isha:'19:45', _src:'static' };
+
+    const colors = { mawaqit:'#4ade80', aladhan:'#fbbf24', static:'#9ca3af' };
+    const labels = { mawaqit:'Mawaqit.net ✓', aladhan:'Aladhan API', static:'Static fallback' };
+    document.getElementById('apiBadge').innerHTML =
+        `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${colors[T._src]}"></span>&nbsp;${labels[T._src]}`;
+
+    const prayers = [
+        { key:'Fajr',    id:'t-fajr',    card:'tp-fajr',    iq:'iq-fajr',    off:20 },
+        { key:'Dhuhr',   id:'t-dhuhr',   card:'tp-dhuhr',   iq:'iq-dhuhr',   off:20 },
+        { key:'Asr',     id:'t-asr',     card:'tp-asr',     iq:'iq-asr',     off:15 },
+        { key:'Maghrib', id:'t-maghrib', card:'tp-maghrib', iq:'iq-maghrib', off:5  },
+        { key:'Isha',    id:'t-isha',    card:'tp-isha',    iq:'iq-isha',    off:15 },
+    ];
+    const nm = new Date().getHours()*60 + new Date().getMinutes();
+    let active = 'tp-isha';
+    prayers.forEach(p => {
+        if (!T[p.key]) return;
+        const el = document.getElementById(p.id);
+        if (el) { el.textContent = formatTime(T[p.key]); el.classList.remove('loading'); }
+        const iq = document.getElementById(p.iq);
+        if (iq) iq.textContent = 'Iqamah: ' + formatTime(addM(T[p.key], p.off));
+        const [h,m] = T[p.key].split(':').map(Number);
+        if (nm >= h*60+m) active = p.card;
+    });
+    prayers.forEach(p => {
+        const c = document.getElementById(p.card);
+        if (c) c.classList.toggle('active-prayer', p.card===active);
+    });
+}
+
+/* ─── MONTHLY TABLE ─── */
+async function loadMonth() {
+    const mo = parseInt(document.getElementById('monthPicker').value);
+    const yr = new Date().getFullYear();
+    const MONTHS = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
+    const tbl = document.getElementById('prayerTable');
+    tbl.innerHTML = '<tbody><tr><td colspan="7" style="padding:36px;text-align:center;color:var(--muted)"><i class="fas fa-spinner fa-spin" style="color:var(--gold);font-size:1.3rem;display:block;margin-bottom:10px"></i>Loading…</td></tr></tbody>';
+    try {
+        const r = await fetch(`https://api.aladhan.com/v1/calendar/${yr}/${mo}?latitude=49.8951&longitude=-97.1384&method=2`);
+        const data = await r.json();
+        if (data.code!==200) throw new Error('bad');
+        const today=new Date(), td=today.getDate(), tm=today.getMonth()+1, ty=today.getFullYear();
+        let h = `<thead>
+            <tr class="month-row"><th colspan="7">${MONTHS[mo]} ${yr}</th></tr>
+            <tr><th>Date</th><th>Day</th><th>Fajr</th><th>Dhuhr / Jumu'ah</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr>
+        </thead><tbody>`;
+        data.data.forEach(day => {
+            const g=day.date.gregorian, ti=day.timings;
+            const fri = g.weekday.en==='Friday';
+            const isToday = parseInt(g.day)===td && mo===tm && parseInt(g.year)===ty;
+            const cls = isToday ? 'today-row' : fri ? 'friday-row' : '';
+            const dhuhr = fri
+                ? `<span style="color:var(--gold);font-weight:700">Jumu'ah<br><small style="font-weight:400;opacity:.8">12:30 / 1:20 PM</small></span>`
+                : formatTime(ti.Dhuhr);
+            h += `<tr class="${cls}"><td><strong>${g.day}</strong></td><td>${g.weekday.en.slice(0,3)}</td><td>${formatTime(ti.Fajr)}</td><td>${dhuhr}</td><td>${formatTime(ti.Asr)}</td><td>${formatTime(ti.Maghrib)}</td><td>${formatTime(ti.Isha)}</td></tr>`;
+        });
+        h += `</tbody><tfoot><tr><td colspan="7"><strong>Jumu'ah</strong> @ Chalmers Community Centre — 480 Chalmers Ave &nbsp;|&nbsp; <strong style="color:var(--gold)">12:30 PM &amp; 1:20 PM</strong></td></tr></tfoot>`;
+        tbl.innerHTML = h;
+    } catch(_) {
+        tbl.innerHTML = '<tbody><tr><td colspan="7" style="padding:30px;text-align:center;color:var(--muted)">Unable to load schedule. Check your internet connection.</td></tr></tbody>';
+    }
+}
+
 /* ─── INIT ─── */
-window.addEventListener('DOMContentLoa
+window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('monthPicker').value = new Date().getMonth() + 1;
+    loadToday();
+    loadMonth();
+    document.getElementById('monthPicker').addEventListener('change', loadMonth);
+});
+</script>
+</body>
+</html>
