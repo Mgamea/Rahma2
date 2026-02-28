@@ -201,7 +201,7 @@
     </div></footer>
     <script src="shared.js"></script>
     <script>
-/* ─── LIVE CLOCK ─── */
+/* ─── LIVE CLOCK + DATE (appellé immédiatement, DOM déjà parsé car script en bas) ─── */
 (function tick(){
     var el=document.getElementById('todayClock');
     if(el) el.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});
@@ -233,15 +233,15 @@ async function loadToday(){
     if(!T) T={Fajr:'05:30',Dhuhr:'12:45',Asr:'15:30',Maghrib:'18:15',Isha:'19:45',_src:'static'};
 
     var colors={mawaqit:'#4ade80',aladhan:'#fbbf24',static:'#9ca3af'};
-    var labels={mawaqit:'Mawaqit ✓',aladhan:'Aladhan API',static:'Static'};
+    var labels={mawaqit:'Mawaqit ✓',aladhan:'Aladhan API',static:'Static fallback'};
     var badge=document.getElementById('apiBadge');
-    if(badge) badge.innerHTML='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colors[T._src]+'"></span>&nbsp;'+labels[T._src];
+    if(badge) badge.innerHTML='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colors[T._src]+';margin-right:8px"></span>'+labels[T._src];
 
     var prayers=[
         {key:'Fajr',   id:'t-fajr',   card:'tp-fajr',   iq:'iq-fajr',   off:20},
         {key:'Dhuhr',  id:'t-dhuhr',  card:'tp-dhuhr',  iq:'iq-dhuhr',  off:20},
         {key:'Asr',    id:'t-asr',    card:'tp-asr',    iq:'iq-asr',    off:15},
-        {key:'Maghrib',id:'t-maghrib',card:'tp-maghrib',iq:'iq-maghrib',off:5},
+        {key:'Maghrib',id:'t-maghrib',card:'tp-maghrib',iq:'iq-maghrib',off:5 },
         {key:'Isha',   id:'t-isha',   card:'tp-isha',   iq:'iq-isha',   off:15},
     ];
     var nm=new Date().getHours()*60+new Date().getMinutes(),active='tp-isha';
@@ -260,7 +260,7 @@ async function loadToday(){
     });
 }
 
-/* ─── MONTHLY TABLE ─── */
+/* ─── TABLEAU MENSUEL ─── */
 async function loadMonth(){
     var mo=parseInt(document.getElementById('monthPicker').value),yr=new Date().getFullYear();
     var MONTHS=['','January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -272,28 +272,43 @@ async function loadMonth(){
         var data=await r.json();
         if(data.code!==200)throw new Error();
         var today=new Date(),td=today.getDate(),tm=today.getMonth()+1,ty=today.getFullYear();
-        var h='<thead><tr class="month-row"><th colspan="7">'+MONTHS[mo]+' '+yr+'</th></tr><tr><th>Date</th><th>Day</th><th>Fajr</th><th>Dhuhr / Jumu'ah</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr></thead><tbody>';
+        var h='<thead><tr class="month-row"><th colspan="7">'+MONTHS[mo]+' '+yr+'</th></tr>'
+            +'<tr><th>Date</th><th>Day</th><th>Fajr</th><th>Dhuhr / Jumu'ah</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr></thead><tbody>';
         data.data.forEach(function(day){
             var g=day.date.gregorian,ti=day.timings;
             var fri=g.weekday.en==='Friday';
             var isToday=parseInt(g.day)===td&&mo===tm&&parseInt(g.year)===ty;
             var cls=isToday?'today-row':fri?'friday-row':'';
-            var dhuhr=fri?'<span style="color:var(--gold);font-weight:700">Jumu'ah<br><small style="font-weight:400;opacity:.8">12:30 / 1:20 PM</small></span>':formatTime(ti.Dhuhr);
-            h+='<tr class="'+cls+'"><td><strong>'+g.day+'</strong></td><td>'+g.weekday.en.slice(0,3)+'</td><td>'+formatTime(ti.Fajr)+'</td><td>'+dhuhr+'</td><td>'+formatTime(ti.Asr)+'</td><td>'+formatTime(ti.Maghrib)+'</td><td>'+formatTime(ti.Isha)+'</td></tr>';
+            var dhuhr=fri
+                ?'<span style="color:var(--gold);font-weight:700">Jumu'ah<br><small style="font-weight:400;opacity:.8">12:30 / 1:20 PM</small></span>'
+                :formatTime(ti.Dhuhr);
+            h+='<tr class="'+cls+'"><td><strong>'+g.day+'</strong></td>'
+              +'<td>'+g.weekday.en.slice(0,3)+'</td>'
+              +'<td>'+formatTime(ti.Fajr)+'</td>'
+              +'<td>'+dhuhr+'</td>'
+              +'<td>'+formatTime(ti.Asr)+'</td>'
+              +'<td>'+formatTime(ti.Maghrib)+'</td>'
+              +'<td>'+formatTime(ti.Isha)+'</td></tr>';
         });
-        h+='</tbody><tfoot><tr><td colspan="7"><strong>Jumu'ah</strong> @ Chalmers Community Centre — 480 Chalmers Ave &nbsp;|&nbsp; <strong style="color:var(--gold)">12:30 PM &amp; 1:20 PM</strong></td></tr></tfoot>';
+        h+='</tbody><tfoot><tr><td colspan="7"><strong>Jumu'ah</strong> @ Chalmers Community Centre'
+          +' — 480 Chalmers Ave &nbsp;|&nbsp; <strong style="color:var(--gold)">12:30 PM &amp; 1:20 PM</strong>'
+          +'</td></tr></tfoot>';
         tbl.innerHTML=h;
     }catch(e){
-        tbl.innerHTML='<tbody><tr><td colspan="7" style="padding:30px;text-align:center;color:var(--muted)">Unable to load schedule. Please check your connection.</td></tr></tbody>';
+        tbl.innerHTML='<tbody><tr><td colspan="7" style="padding:30px;text-align:center;color:var(--muted)">'
+          +'Unable to load schedule. Please check your connection.</td></tr></tbody>';
     }
 }
 
-/* ─── INIT ─── */
-window.addEventListener('DOMContentLoaded', function(){
-    document.getElementById('monthPicker').value=new Date().getMonth()+1;
+/* ─── INIT — après chargement du DOM ─── */
+window.addEventListener('DOMContentLoaded',function(){
+    var picker=document.getElementById('monthPicker');
+    if(picker){
+        picker.value=new Date().getMonth()+1;
+        picker.addEventListener('change',loadMonth);
+    }
     loadToday();
     loadMonth();
-    document.getElementById('monthPicker').addEventListener('change',loadMonth);
 });
 </script>
 </body>

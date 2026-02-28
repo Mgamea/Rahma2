@@ -275,27 +275,40 @@
     </section>
 
     <!-- NEWSLETTER -->
-    <!-- QR CODE INSCRIPTION -->
-    <section style="background:#FAF6EE;padding:70px 24px;text-align:center;background-image:url('pattern.png');background-size:400px auto;background-repeat:repeat;background-attachment:fixed;">
-        <div class="container" style="max-width:600px;margin:0 auto;">
-            <span class="section-label">Quick Registration</span>
-            <h2 class="section-title" style="color:var(--navy);margin-bottom:16px;">Scan to <em>Register</em></h2>
-            <p style="color:var(--muted);font-size:0.95rem;line-height:1.7;margin-bottom:36px;">
-                Scan this QR code with your phone to quickly register for our programs and classes.
-            </p>
-            <div style="display:inline-block;background:#fff;padding:20px;border-radius:12px;box-shadow:0 8px 40px rgba(11,31,58,0.12);border:2px solid rgba(201,168,76,0.2);">
-                <img src="qr-register.jpeg" alt="QR Code Registration" style="width:220px;height:220px;display:block;">
+    
+    <!-- NEWSLETTER + QR FUSIONNÉS -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div style="display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;">
+
+                <!-- Colonne gauche : newsletter -->
+                <div>
+                    <div class="newsletter-inner" style="flex-direction:column;align-items:flex-start;text-align:left;gap:20px;">
+                        <div class="newsletter-text">
+                            <h3>Stay Connected</h3>
+                            <p>Subscribe to get updates on events &amp; announcements</p>
+                        </div>
+                        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)" style="width:100%;max-width:480px;">
+                            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Colonne droite : QR code -->
+                <div style="text-align:center;padding-left:40px;border-left:1px solid rgba(201,168,76,0.25);">
+                    <p style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;">Quick Registration</p>
+                    <div style="display:inline-block;background:#fff;padding:12px;border-radius:8px;">
+                        <img src="qr-register.jpeg" alt="QR Code Registration" style="width:130px;height:130px;display:block;">
+                    </div>
+                    <p style="margin-top:12px;font-size:0.75rem;color:rgba(255,255,255,0.45);">
+                        <i class="fas fa-mobile-alt" style="color:var(--gold);margin-right:6px;"></i>Scan to register
+                    </p>
+                </div>
+
             </div>
-            <p style="margin-top:20px;font-size:0.82rem;color:var(--muted);letter-spacing:0.05em;">
-                <i class="fas fa-mobile-alt" style="color:var(--gold);margin-right:8px;"></i>
-                Point your camera at the QR code to get started
-            </p>
         </div>
     </section>
-    <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
-        <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
-        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
-    </div></div></section>
     <footer class="footer"><div class="container">
         <div class="footer-grid">
             <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
@@ -387,8 +400,7 @@
     /* ── Widget Don ── */
     var currentCurrency = 'CAD';
     function setAmount(val,el) { document.getElementById('donateAmt').value=val; document.querySelectorAll('.amount-pill').forEach(function(p){p.classList.remove('selected');});el.classList.add('selected'); }
-    function setCurrency(cur) { currentCurrency=cur; document.getElementById('currencyTag').textContent=cur; ['CAD','USD'].forEach(function(c){ var b=document.getElementById('btn'+c); b.style.background=c===cur?'rgba(201,168,76,0.15)':'transparent'; b.style.borderColor=c===cur?'var(--gold)':'rgba(255,255,255,0.15)'; b.style.color=c===cur?'var(--gold)':'rgba(255,255,255,0.5)'; }); }
-    function processDonate() { var amt=parseFloat(document.getElementById('donateAmt').value); if(!amt||amt<=0){alert('Please enter a valid amount.');return;} alert('Thank you! '+currentCurrency+' $'+amt.toFixed(2)+'\nContact: rahmaislamiccentre@gmail.com'); }
+    function setCurrency(cur) { currentCurrency=cur; document.getElementById('currencyTag').textContent=cur; ['CAD','USD'].forEach(function(c){ var b=document.getElementById('btn'+c); b.style.background=c===cur?'rgba(201,168,76,0.15)':'transparent'; b.style.borderColor=c===cur?'var(--gold)':'rgba(255,255,255,0.15)'; b.style.color=c===cur?'var(--gold)':'rgba(255,255,255,0.5)'; }); }    function processDonate() { var amt=parseFloat(document.getElementById('donateAmt').value); if(!amt||amt<=0){alert('Please enter a valid amount.');return;} alert('Thank you! '+currentCurrency+' $'+amt.toFixed(2)+'\nContact: rahmaislamiccentre@gmail.com'); }
     </script>
 </body>
 </html>
