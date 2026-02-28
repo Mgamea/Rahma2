@@ -203,14 +203,21 @@
     <script>
 /* ─── LIVE CLOCK ─── */
 (function tick(){
-    document.getElementById('todayClock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});
+    var el=document.getElementById('todayClock');
+    if(el) el.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});
     setTimeout(tick,1000);
 })();
-document.getElementById('todayDate').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+(function(){
+    var el=document.getElementById('todayDate');
+    if(el) el.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+})();
 
-function addM(t,m){var p=t.split(':').map(Number),tot=p[0]*60+p[1]+m;return String(Math.floor(tot/60)%24).padStart(2,'0')+':'+String(tot%60).padStart(2,'0');}
+function addM(t,m){
+    var p=t.split(':').map(Number),tot=p[0]*60+p[1]+m;
+    return String(Math.floor(tot/60)%24).padStart(2,'0')+':'+String(tot%60).padStart(2,'0');
+}
 
-/* ─── LOAD TODAY — Mawaqit primary, Aladhan fallback ─── */
+/* ─── LOAD TODAY — Mawaqit → Aladhan fallback ─── */
 async function loadToday(){
     var T=null;
     try{
@@ -227,7 +234,8 @@ async function loadToday(){
 
     var colors={mawaqit:'#4ade80',aladhan:'#fbbf24',static:'#9ca3af'};
     var labels={mawaqit:'Mawaqit ✓',aladhan:'Aladhan API',static:'Static'};
-    document.getElementById('apiBadge').innerHTML='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colors[T._src]+'"></span>&nbsp;'+labels[T._src];
+    var badge=document.getElementById('apiBadge');
+    if(badge) badge.innerHTML='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colors[T._src]+'"></span>&nbsp;'+labels[T._src];
 
     var prayers=[
         {key:'Fajr',   id:'t-fajr',   card:'tp-fajr',   iq:'iq-fajr',   off:20},
@@ -243,12 +251,12 @@ async function loadToday(){
         if(el){el.textContent=formatTime(T[p.key]);el.classList.remove('loading');}
         var iq=document.getElementById(p.iq);
         if(iq) iq.textContent='Iqamah: '+formatTime(addM(T[p.key],p.off));
-        var parts=T[p.key].split(':').map(Number);
-        if(nm>=parts[0]*60+parts[1]) active=p.card;
+        var pp=T[p.key].split(':').map(Number);
+        if(nm>=pp[0]*60+pp[1]) active=p.card;
     });
     prayers.forEach(function(p){
-        var c=document.getElementById(p.card);
-        if(c) c.classList.toggle('active-prayer',p.card===active);
+        var el=document.getElementById(p.card);
+        if(el) el.classList.toggle('active-prayer',p.card===active);
     });
 }
 
@@ -257,11 +265,12 @@ async function loadMonth(){
     var mo=parseInt(document.getElementById('monthPicker').value),yr=new Date().getFullYear();
     var MONTHS=['','January','February','March','April','May','June','July','August','September','October','November','December'];
     var tbl=document.getElementById('prayerTable');
-    tbl.innerHTML='<tbody><tr><td colspan="7" style="padding:36px;text-align:center;color:var(--muted)"><i class="fas fa-spinner fa-spin" style="color:var(--gold);font-size:1.3rem;display:block;margin-bottom:10px"></i>Loading…</td></tr></tbody>';
+    if(!tbl)return;
+    tbl.innerHTML='<tbody><tr><td colspan="7" style="padding:36px;text-align:center"><i class="fas fa-spinner fa-spin" style="color:var(--gold);font-size:1.3rem;display:block;margin-bottom:10px"></i>Loading…</td></tr></tbody>';
     try{
         var r=await fetch('https://api.aladhan.com/v1/calendar/'+yr+'/'+mo+'?latitude=49.8951&longitude=-97.1384&method=2');
         var data=await r.json();
-        if(data.code!==200) throw new Error();
+        if(data.code!==200)throw new Error();
         var today=new Date(),td=today.getDate(),tm=today.getMonth()+1,ty=today.getFullYear();
         var h='<thead><tr class="month-row"><th colspan="7">'+MONTHS[mo]+' '+yr+'</th></tr><tr><th>Date</th><th>Day</th><th>Fajr</th><th>Dhuhr / Jumu'ah</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr></thead><tbody>';
         data.data.forEach(function(day){
@@ -275,11 +284,12 @@ async function loadMonth(){
         h+='</tbody><tfoot><tr><td colspan="7"><strong>Jumu'ah</strong> @ Chalmers Community Centre — 480 Chalmers Ave &nbsp;|&nbsp; <strong style="color:var(--gold)">12:30 PM &amp; 1:20 PM</strong></td></tr></tfoot>';
         tbl.innerHTML=h;
     }catch(e){
-        tbl.innerHTML='<tbody><tr><td colspan="7" style="padding:30px;text-align:center;color:var(--muted)">Unable to load schedule.</td></tr></tbody>';
+        tbl.innerHTML='<tbody><tr><td colspan="7" style="padding:30px;text-align:center;color:var(--muted)">Unable to load schedule. Please check your connection.</td></tr></tbody>';
     }
 }
 
-window.addEventListener('DOMContentLoaded',function(){
+/* ─── INIT ─── */
+window.addEventListener('DOMContentLoaded', function(){
     document.getElementById('monthPicker').value=new Date().getMonth()+1;
     loadToday();
     loadMonth();

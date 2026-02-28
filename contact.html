@@ -127,15 +127,11 @@
                 <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. ed.</span><span>Powered by Devodez Solutions</span></div></div></footer>
+        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
+    </div></footer>
     <script src="shared.js"></script>
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var btn=document.getElementById('submitBtn'), orig=btn.textContent;
-            btn.textContent='Sent! ✓'; btn.classList.add('success'); btn.disabled=true;
-            setTimeout(function(){btn.textContent=orig;btn.classList.remove('success');btn.disabled=false;e.target.reset();},3500);
-        });
+        document.getElementById('contactForm') && document.getElementById('contactForm').addEventListener('submit', function(e){e.preventDefault();var btn=document.getElementById('submitBtn'),orig=btn.textContent;btn.textContent='Sent! ✓';btn.classList.add('success');btn.disabled=true;setTimeout(function(){btn.textContent=orig;btn.classList.remove('success');btn.disabled=false;e.target.reset();},3500);});
     </script>
 </body>
 </html>

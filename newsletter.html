@@ -279,16 +279,14 @@
     </div></footer>
     <script src="shared.js"></script>
     <script>
-        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+        document.getElementById('newsletterForm') && document.getElementById('newsletterForm').addEventListener('submit', function(e) {
             e.preventDefault();
             var btn = document.getElementById('nlBtn');
             btn.textContent = 'Subscribing…'; btn.disabled = true;
             setTimeout(function() {
-                btn.textContent = '✓ You're Subbtn.textContent='Subscribing…'; btn.disabled=true;
-            setTimeout(function(){
-                btn.textContent='✓ You\'re Subscribed!'; btn.classList.add('success');
-                setTimeout(function(){btn.textContent='Subscribe Now →';btn.classList.remove('success');btn.disabled=false;e.target.reset();},3000);
-            },1200);
+                btn.textContent = '✓ You're Subscribed!'; btn.classList.add('success');
+                setTimeout(function() { btn.textContent='Subscribe Now →'; btn.classList.remove('success'); btn.disabled=false; e.target.reset(); }, 3000);
+            }, 1200);
         });
     </script>
 </body>
