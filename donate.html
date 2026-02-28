@@ -142,19 +142,14 @@
                 <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
-    </div></footer>
+        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. ed.</span><span>Powered by Devodez Solutions</span></div></div></footer>
     <script src="shared.js"></script>
     <script>
-        var cur = 'CAD';
-        function setCur(c) { cur=c; document.getElementById('curTag').textContent=c; ['CAD','USD'].forEach(function(x){ document.getElementById('btn'+x).classList.toggle('active',x===c); }); }
-        function setAmt(v,el) { document.getElementById('donateAmt').value=v; document.querySelectorAll('.amt-btn').forEach(function(b){b.classList.remove('selected');}); el.classList.add('selected'); }
-        function clearAmts() { document.querySelectorAll('.amt-btn').forEach(function(b){b.classList.remove('selected');}); }
-        function processDonate() {
-            var amt = parseFloat(document.getElementById('donateAmt').value);
-            if (!amt||amt<=0) { alert('Please enter a valid donation amount.'); return; }
-            alert('Thank you! ' + cur + ' $' + amt.toFixed(2) + '\nContact: rahmaislamiccentre@gmail.com');
-        }
+        var cur='CAD';
+        function setCur(x){cur=x;document.getElementById('curTag').textContent=x;['CAD','USD'].forEach(function(v){document.getElementById('btn'+v).classList.toggle('active',v===x);});}
+        function setAmt(v,el){document.getElementById('donateAmt').value=v;document.querySelectorAll('.amt-btn').forEach(function(b){b.classList.remove('selected');});el.classList.add('selected');}
+        function clearAmts(){document.querySelectorAll('.amt-btn').forEach(function(b){b.classList.remove('selected');});}
+        function processDonate(){var amt=parseFloat(document.getElementById('donateAmt').value);if(!amt||amt<=0){alert('Please enter a valid amount.');return;}alert('Thank you! '+cur+' $'+amt.toFixed(2)+'\nContact: rahmaislamiccentre@gmail.com');}
     </script>
 </body>
 </html>
