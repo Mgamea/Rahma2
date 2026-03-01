@@ -340,10 +340,8 @@ async function loadMonth() {
             + '</td></tr></tbody>';
     }
 }
-
-/* ── 6. INIT ── */
+/* INIT */
 window.addEventListener('DOMContentLoaded', function() {
-    /* Fixer le mois au mois actuel */
     var picker = document.getElementById('monthPicker');
     if (picker) {
         picker.value = new Date().getMonth() + 1;
