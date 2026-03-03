@@ -79,6 +79,85 @@
         @media (max-width: 900px) { .about-grid, .donate-inner { grid-template-columns: 1fr; gap: 50px; } .about-img-wrap { max-width: 500px; } .about-stats { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 600px) { .about-stats { grid-template-columns: 1fr; } .donate-form-box { padding: 36px 24px; } }
     </style>
+
+    <!-- DROPDOWN NAV CSS -->
+    <style>
+    /* ── nav-links: chaque li devient relatif pour ancrer le dropdown ── */
+    .nav-links li { position: relative; }
+
+    /* ── Le dropdown ── */
+    .nav-drop {
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: calc(100% + 14px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+        min-width: 210px;
+        background: rgba(11,31,58,0.97);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(201,168,76,0.25);
+        border-top: 2px solid var(--gold);
+        z-index: 2000;
+        transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+        padding: 8px 0;
+    }
+
+    /* Petit pont invisible pour éviter le gap hover */
+    .nav-links li::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 14px;
+    }
+
+
+    /* Afficher au hover */
+    .nav-links li:hover > .nav-drop {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Items dans le dropdown */
+    .nav-drop a {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        font-family: 'DM Sans', sans-serif !important;
+        font-size: 0.76rem !important;
+        font-weight: 400 !important;
+        color: rgba(255,255,255,0.72) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.06em !important;
+        white-space: nowrap;
+        text-decoration: none;
+        transition: all 0.2s !important;
+        border-bottom: 1px solid rgba(201,168,76,0.07);
+    }
+    .nav-drop a:last-child { border-bottom: none; }
+    .nav-drop a::after { display: none !important; }  /* Supprimer la ligne soulignée du nav global */
+    .nav-drop a i {
+        width: 16px;
+        color: var(--gold);
+        font-size: 0.72rem;
+        opacity: 0.85;
+        flex-shrink: 0;
+    }
+    .nav-drop a:hover {
+        background: rgba(201,168,76,0.09) !important;
+        color: var(--gold-light) !important;
+        padding-left: 26px !important;
+    }
+    .nav-drop a:hover i { opacity: 1; }
+    </style>
+    <!-- /DROPDOWN NAV CSS -->
 </head>
 <body>
 
@@ -103,12 +182,12 @@
             </a>
                         <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="prayer-times.html">Prayer Times</a></li>
-                <li><a href="programs.html">Programs & Services</a></li>
-                <li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="prayer-times.html">Prayer Times</a><div class="nav-drop"><a href="prayer-times.html#prayer"><i class="fas fa-clock"></i>Today's Prayer Times</a><a href="prayer-times.html#schedule"><i class="fas fa-calendar-alt"></i>Monthly Schedule</a><a href="prayer-times.html#jumuah"><i class="fas fa-mosque"></i>Jumu'ah Info</a></div></li>
+                <li><a href="programs.html">Programs & Services</a><div class="nav-drop"><a href="programs.html"><i class="fas fa-th-large"></i>All Programs</a><a href="activities.html"><i class="fas fa-running"></i>Activities & Classes</a><a href="programs.html#foodbank"><i class="fas fa-hand-holding-heart"></i>Food Bank</a><a href="programs.html#counseling"><i class="fas fa-comments"></i>Spiritual Counseling</a></div></li>
+                <li><a href="education.html">Education</a><div class="nav-drop"><a href="education.html"><i class="fas fa-book-open"></i>All Classes</a><a href="education.html#adult-quran"><i class="fas fa-quran"></i>Adult Quran Class</a><a href="education.html#kids-quran"><i class="fas fa-child"></i>Kids Quran Class</a><a href="education.html#hifdh"><i class="fas fa-star"></i>Hifdh Program</a><a href="education.html#arabic"><i class="fas fa-language"></i>Arabic Class</a></div></li>
+                <li><a href="events.html">Events</a><div class="nav-drop"><a href="events.html"><i class="fas fa-calendar-star"></i>Upcoming Events</a><a href="events.html#ramadan"><i class="fas fa-moon"></i>Ramadan Programs</a><a href="events.html#eid"><i class="fas fa-gift"></i>Eid Celebrations</a><a href="newsletter.html"><i class="fas fa-envelope"></i>Newsletter</a></div></li>
+                <li><a href="about.html">About</a><div class="nav-drop"><a href="about.html#intro"><i class="fas fa-users"></i>Who We Are</a><a href="about.html#mission"><i class="fas fa-bullseye"></i>Our Mission</a><a href="about.html#values"><i class="fas fa-heart"></i>Core Values</a><a href="about.html#gallery"><i class="fas fa-images"></i>Gallery</a></div></li>
+                <li><a href="contact.html">Contact</a><div class="nav-drop"><a href="contact.html#form"><i class="fas fa-paper-plane"></i>Send a Message</a><a href="contact.html#location"><i class="fas fa-map-marker-alt"></i>Location & Hours</a><a href="donate.html"><i class="fas fa-hand-holding-usd"></i>Donate</a></div></li>
             </ul>
             <a href="donate.html" class="nav-donate">Donate</a>
             <div class="hamburger" id="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
@@ -324,16 +403,17 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#0270636a6f636b716e636f6b6161676c76706742656f636b6e2c616d6f"><span class="__cf_email__" data-cfemail="780a19101519110b141915111b1b1d160c0a1d381f15191114561b1715">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
         <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
     </div></footer>
+    
     <script src="shared.js"></script>
     <script>
     window.addEventListener('DOMContentLoaded', function() {
 
-        /* ── Horloge et date en temps réel ── */
+        /* ── Horloge et date ── */
         function updateClock() {
             var now = new Date();
             var timeEl = document.getElementById('currentTime');
@@ -344,63 +424,92 @@
         updateClock();
         setInterval(updateClock, 1000);
 
-        /* ── Heures de prière — Mawaqit → Aladhan fallback ── */
-        (async function() {
-            var T = null;
-            try {
-                var r = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
-                if (r.ok) {
-                    var d = await r.json();
-                    if (d.times && d.times.length >= 6)
-                        T = {fajr:d.times[0], dhuhr:d.times[2], asr:d.times[3], maghrib:d.times[4], isha:d.times[5]};
-                }
-            } catch(e) {}
-            if (!T) { try {
-                var now = new Date();
-                var url = 'https://api.aladhan.com/v1/timings/'+now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear()+'?latitude=49.8951&longitude=-97.1384&method=2';
-                var res = await fetch(url), data = await res.json();
-                if (data.code===200) { var ti=data.data.timings; T={fajr:ti.Fajr, dhuhr:ti.Dhuhr, asr:ti.Asr, maghrib:ti.Maghrib, isha:ti.Isha}; }
-            } catch(e) {} }
-            if (!T) T = {fajr:'05:30', dhuhr:'12:45', asr:'15:30', maghrib:'18:15', isha:'19:45'};
+        /* ── Heures de prière ── */
+        var STATIC = {fajr:'6:12 AM', dhuhr:'12:41 PM', asr:'3:34 PM', maghrib:'6:09 PM', isha:'7:38 PM'};
+        var IDS    = {fajr:'fajr-time', dhuhr:'dhuhr-time', asr:'asr-time', maghrib:'maghrib-time', isha:'isha-time'};
+        var CARDS  = {fajr:'card-fajr', dhuhr:'card-dhuhr', asr:'card-asr', maghrib:'card-maghrib', isha:'card-isha'};
 
-            function fmt(raw) {
-                var p=(raw||'0:00').split(' ')[0].split(':'), h=parseInt(p[0]), ap=h>=12?'PM':'AM';
-                return (h%12||12)+':'+p[1]+' '+ap;
-            }
-            var ids   = {fajr:'fajr-time', dhuhr:'dhuhr-time', asr:'asr-time', maghrib:'maghrib-time', isha:'isha-time'};
-            var cards = {fajr:'card-fajr', dhuhr:'card-dhuhr', asr:'card-asr', maghrib:'card-maghrib', isha:'card-isha'};
-            var nm    = new Date().getHours()*60 + new Date().getMinutes(), active='card-isha';
+        function fmt(raw) {
+            var t = (raw || '0:00').split(' ')[0].split(':');
+            var h = parseInt(t[0]), m = t[1];
+            return (h % 12 || 12) + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM');
+        }
+
+        function applyTimes(T, prefmt) {
+            var nm = new Date().getHours() * 60 + new Date().getMinutes();
+            var active = 'card-isha';
             ['fajr','dhuhr','asr','maghrib','isha'].forEach(function(k) {
-                var el=document.getElementById(ids[k]); if(el) el.textContent=fmt(T[k]);
-                var pp=(T[k]||'0:0').split(':').map(Number);
-                if (nm >= pp[0]*60+pp[1]) active=cards[k];
+                var val = prefmt ? T[k] : fmt(T[k]);
+                var el  = document.getElementById(IDS[k]);
+                if (el) el.textContent = val;
+                var clean = val.replace(' AM','').replace(' PM','');
+                var h24   = parseInt(clean.split(':')[0]);
+                if (val.indexOf('PM') > -1 && h24 < 12) h24 += 12;
+                if (val.indexOf('AM') > -1 && h24 === 12) h24 = 0;
+                if (nm >= h24 * 60 + parseInt(clean.split(':')[1])) active = CARDS[k];
             });
-            Object.values(cards).forEach(function(id) {
-                var el=document.getElementById(id); if(el) el.classList.toggle('active-prayer', id===active);
+            Object.keys(CARDS).forEach(function(k) {
+                var el = document.getElementById(CARDS[k]);
+                if (el) el.classList.toggle('active-prayer', CARDS[k] === active);
             });
-        })();
+        }
+
+        /* Afficher les heures statiques immédiatement */
+        applyTimes(STATIC, true);
+
+        /* Essayer Aladhan en arrière-plan */
+        var now = new Date();
+        var apiUrl = 'https://api.aladhan.com/v1/timings/' + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear() + '?latitude=49.8951&longitude=-97.1384&method=2';
+        fetch(apiUrl, {mode:'cors'})
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
+                if (d && d.code === 200 && d.data && d.data.timings) {
+                    var t = d.data.timings;
+                    applyTimes({fajr: t.Fajr, dhuhr: t.Dhuhr, asr: t.Asr, maghrib: t.Maghrib, isha: t.Isha}, false);
+                }
+            })
+            .catch(function() {});
 
         /* ── Compteurs animés ── */
         function animateCount(el, target) {
-            var s=performance.now();
+            var s = performance.now();
             (function u(n) {
-                var p=Math.min((n-s)/1500,1), e=1-Math.pow(1-p,3);
-                el.textContent=Math.round(e*target);
-                if(p<1) requestAnimationFrame(u);
+                var p = Math.min((n - s) / 1500, 1), e = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(e * target);
+                if (p < 1) requestAnimationFrame(u);
             })(performance.now());
         }
-        var sObs=new IntersectionObserver(function(entries) {
+        var sObs = new IntersectionObserver(function(entries) {
             entries.forEach(function(e) {
-                if(e.isIntersecting) { animateCount(e.target,parseInt(e.target.dataset.target)); sObs.unobserve(e.target); }
+                if (e.isIntersecting) { animateCount(e.target, parseInt(e.target.dataset.target)); sObs.unobserve(e.target); }
             });
-        }, {threshold:0.5});
+        }, {threshold: 0.5});
         document.querySelectorAll('[data-target]').forEach(function(el) { sObs.observe(el); });
     });
 
     /* ── Widget Don ── */
     var currentCurrency = 'CAD';
-    function setAmount(val,el) { document.getElementById('donateAmt').value=val; document.querySelectorAll('.amount-pill').forEach(function(p){p.classList.remove('selected');});el.classList.add('selected'); }
-    function setCurrency(cur) { currentCurrency=cur; document.getElementById('currencyTag').textContent=cur; ['CAD','USD'].forEach(function(c){ var b=document.getElementById('btn'+c); b.style.background=c===cur?'rgba(201,168,76,0.15)':'transparent'; b.style.borderColor=c===cur?'var(--gold)':'rgba(255,255,255,0.15)'; b.style.color=c===cur?'var(--gold)':'rgba(255,255,255,0.5)'; }); }    function processDonate() { var amt=parseFloat(document.getElementById('donateAmt').value); if(!amt||amt<=0){alert('Please enter a valid amount.');return;} alert('Thank you! '+currentCurrency+' $'+amt.toFixed(2)+'\nContact: rahmaislamiccentre@gmail.com'); }
+    function setAmount(val, el) {
+        document.getElementById('donateAmt').value = val;
+        document.querySelectorAll('.amount-pill').forEach(function(p) { p.classList.remove('selected'); });
+        el.classList.add('selected');
+    }
+    function setCurrency(cur) {
+        currentCurrency = cur;
+        document.getElementById('currencyTag').textContent = cur;
+        ['CAD','USD'].forEach(function(c) {
+            var b = document.getElementById('btn' + c);
+            b.style.background    = c === cur ? 'rgba(201,168,76,0.15)' : 'transparent';
+            b.style.borderColor   = c === cur ? 'var(--gold)' : 'rgba(255,255,255,0.15)';
+            b.style.color         = c === cur ? 'var(--gold)' : 'rgba(255,255,255,0.5)';
+        });
+    }
+    function processDonate() {
+        var amt = parseFloat(document.getElementById('donateAmt').value);
+        if (!amt || amt <= 0) { alert('Please enter a valid amount.'); return; }
+        alert('Thank you for your donation of ' + currentCurrency + ' $' + amt.toFixed(2) + '!\n\nPlease contact us at rahmaislamiccentre@gmail.com to complete your donation.');
+    }
     </script>
+
 </body>
 </html>

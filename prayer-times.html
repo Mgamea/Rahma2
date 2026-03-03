@@ -63,6 +63,85 @@
         @media (max-width:850px) { .tp-grid { grid-template-columns: repeat(3,1fr); } .tp-card:nth-child(3){ border-right:none; } .tp-card:nth-child(n+4){ border-top:1px solid var(--border); } .jumuah-box{ grid-template-columns:1fr; } }
         @media (max-width:520px) { .tp-grid { grid-template-columns: repeat(2,1fr); } .tp-card:nth-child(2n){ border-right:none; } .tp-card:nth-child(n+3){ border-top:1px solid var(--border); } .today-top{ flex-direction:column; align-items:flex-start; } .today-clock-wrap{ text-align:left; } }
     </style>
+
+    <!-- DROPDOWN NAV CSS -->
+    <style>
+    /* ── nav-links: chaque li devient relatif pour ancrer le dropdown ── */
+    .nav-links li { position: relative; }
+
+    /* ── Le dropdown ── */
+    .nav-drop {
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: calc(100% + 14px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+        min-width: 210px;
+        background: rgba(11,31,58,0.97);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(201,168,76,0.25);
+        border-top: 2px solid var(--gold);
+        z-index: 2000;
+        transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+        padding: 8px 0;
+    }
+
+    /* Petit pont invisible pour éviter le gap hover */
+    .nav-links li::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 14px;
+    }
+
+
+    /* Afficher au hover */
+    .nav-links li:hover > .nav-drop {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Items dans le dropdown */
+    .nav-drop a {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        font-family: 'DM Sans', sans-serif !important;
+        font-size: 0.76rem !important;
+        font-weight: 400 !important;
+        color: rgba(255,255,255,0.72) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.06em !important;
+        white-space: nowrap;
+        text-decoration: none;
+        transition: all 0.2s !important;
+        border-bottom: 1px solid rgba(201,168,76,0.07);
+    }
+    .nav-drop a:last-child { border-bottom: none; }
+    .nav-drop a::after { display: none !important; }  /* Supprimer la ligne soulignée du nav global */
+    .nav-drop a i {
+        width: 16px;
+        color: var(--gold);
+        font-size: 0.72rem;
+        opacity: 0.85;
+        flex-shrink: 0;
+    }
+    .nav-drop a:hover {
+        background: rgba(201,168,76,0.09) !important;
+        color: var(--gold-light) !important;
+        padding-left: 26px !important;
+    }
+    .nav-drop a:hover i { opacity: 1; }
+    </style>
+    <!-- /DROPDOWN NAV CSS -->
 </head>
 <body>
 <div id="loader"><div class="loader-text">RAHMA</div><div class="loader-bar"><div class="loader-fill"></div></div></div>
@@ -83,12 +162,12 @@
         <a href="index.html" class="logo-wrap"><img src="logo.png" alt="Rahma" class="logo-img"><div class="logo-text">Rahma Islamic Centre<span>Winnipeg, Canada</span></div></a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="prayer-times.html" class="active">Prayer Times</a></li>
-            <li><a href="programs.html">Programs &amp; Services</a></li>
-            <li><a href="education.html">Education</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="prayer-times.html" class="active">Prayer Times</a><div class="nav-drop"><a href="prayer-times.html#prayer"><i class="fas fa-clock"></i>Today's Prayer Times</a><a href="prayer-times.html#schedule"><i class="fas fa-calendar-alt"></i>Monthly Schedule</a><a href="prayer-times.html#jumuah"><i class="fas fa-mosque"></i>Jumu'ah Info</a></div></li>
+            <li><a href="programs.html">Programs &amp; Services</a><div class="nav-drop"><a href="programs.html"><i class="fas fa-th-large"></i>All Programs</a><a href="activities.html"><i class="fas fa-running"></i>Activities & Classes</a><a href="programs.html#foodbank"><i class="fas fa-hand-holding-heart"></i>Food Bank</a><a href="programs.html#counseling"><i class="fas fa-comments"></i>Spiritual Counseling</a></div></li>
+            <li><a href="education.html">Education</a><div class="nav-drop"><a href="education.html"><i class="fas fa-book-open"></i>All Classes</a><a href="education.html#adult-quran"><i class="fas fa-quran"></i>Adult Quran Class</a><a href="education.html#kids-quran"><i class="fas fa-child"></i>Kids Quran Class</a><a href="education.html#hifdh"><i class="fas fa-star"></i>Hifdh Program</a><a href="education.html#arabic"><i class="fas fa-language"></i>Arabic Class</a></div></li>
+            <li><a href="events.html">Events</a><div class="nav-drop"><a href="events.html"><i class="fas fa-calendar-star"></i>Upcoming Events</a><a href="events.html#ramadan"><i class="fas fa-moon"></i>Ramadan Programs</a><a href="events.html#eid"><i class="fas fa-gift"></i>Eid Celebrations</a><a href="newsletter.html"><i class="fas fa-envelope"></i>Newsletter</a></div></li>
+            <li><a href="about.html">About</a><div class="nav-drop"><a href="about.html#intro"><i class="fas fa-users"></i>Who We Are</a><a href="about.html#mission"><i class="fas fa-bullseye"></i>Our Mission</a><a href="about.html#values"><i class="fas fa-heart"></i>Core Values</a><a href="about.html#gallery"><i class="fas fa-images"></i>Gallery</a></div></li>
+            <li><a href="contact.html">Contact</a><div class="nav-drop"><a href="contact.html#form"><i class="fas fa-paper-plane"></i>Send a Message</a><a href="contact.html#location"><i class="fas fa-map-marker-alt"></i>Location & Hours</a><a href="donate.html"><i class="fas fa-hand-holding-usd"></i>Donate</a></div></li>
         </ul>
         <a href="donate.html" class="nav-donate">Donate</a>
         <div class="hamburger" id="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
@@ -194,120 +273,139 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#fa889b92979b9389969b979399999f948e889fba9d979b9396d4999597"><span class="__cf_email__" data-cfemail="6614070e0b070f150a070b0f0505030812140326010b070f0a4805090b">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
         <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
     </div></footer>
+    
     <script src="shared.js"></script>
     <script>
-/* ═══════════════════════════════════════════
-   PRAYER TIMES — Script complet
-═══════════════════════════════════════════ */
-
-/* 1. HORLOGE */
+/* ── 1. HORLOGE ── */
 (function tick(){
     var el = document.getElementById('todayClock');
-    if(el) el.textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});
+    if (el) el.textContent = new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', hour12:true});
     setTimeout(tick, 1000);
 })();
 
-/* 2. DATE */
+/* ── 2. DATE ── */
 (function(){
     var el = document.getElementById('todayDate');
-    if(el) el.textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    if (el) el.textContent = new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
 })();
 
-/* 3. HELPER */
-function addM(t,m){
-    var p=t.split(':').map(Number), tot=p[0]*60+p[1]+m;
-    return String(Math.floor(tot/60)%24).padStart(2,'0')+':'+String(tot%60).padStart(2,'0');
+/* ── 3. HELPER ── */
+function addM(t, m) {
+    var p = t.split(':').map(Number), tot = p[0]*60 + p[1] + m;
+    return String(Math.floor(tot/60) % 24).padStart(2,'0') + ':' + String(tot%60).padStart(2,'0');
+}
+function fmtTime(raw) {
+    if (!raw) return '—';
+    var t = raw.split(' ')[0].split(':'), h = parseInt(t[0]), m = t[1];
+    return (h % 12 || 12) + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM');
 }
 
-/* 4. LOAD TODAY */
-async function loadToday(){
-    var T=null;
-    try{
-        var r=await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
-        if(r.ok){var d=await r.json();if(d.times&&d.times.length>=6)
-            T={Fajr:d.times[0],Dhuhr:d.times[2],Asr:d.times[3],Maghrib:d.times[4],Isha:d.times[5],_src:'mawaqit'};}
-    }catch(e){}
-    if(!T){try{
-        var now=new Date();
-        var url='https://api.aladhan.com/v1/timings/'+now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear()+'?latitude=49.8951&longitude=-97.1384&method=2';
-        var res=await fetch(url),data=await res.json();
-        if(data.code===200) T=Object.assign({_src:'aladhan'},data.data.timings);
-    }catch(e){}}
-    if(!T) T={Fajr:'06:12',Dhuhr:'12:41',Asr:'15:34',Maghrib:'18:09',Isha:'19:38',_src:'static'};
+/* ── 4. LOAD TODAY ── */
+async function loadToday() {
+    var T = null;
 
-    var colors={mawaqit:'#4ade80',aladhan:'#fbbf24',static:'#9ca3af'};
-    var labels={mawaqit:'Mawaqit ✓',aladhan:'Aladhan API',static:'Calculated'};
-    var badge=document.getElementById('apiBadge');
-    if(badge) badge.innerHTML='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colors[T._src]+';margin-right:8px"></span>'+labels[T._src];
+    /* Aladhan API — calcul ISNA, compatible CORS */
+    try {
+        var now = new Date();
+        var url = 'https://api.aladhan.com/v1/timings/' + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear() + '?latitude=49.8951&longitude=-97.1384&method=2';
+        var res  = await fetch(url, {mode:'cors'});
+        var data = await res.json();
+        if (data.code === 200 && data.data && data.data.timings) {
+            T = data.data.timings;
+            T._src = 'aladhan';
+        }
+    } catch(e) {}
 
-    var prayers=[
-        {key:'Fajr',   id:'t-fajr',   card:'tp-fajr',   iq:'iq-fajr',   off:20},
-        {key:'Dhuhr',  id:'t-dhuhr',  card:'tp-dhuhr',  iq:'iq-dhuhr',  off:20},
-        {key:'Asr',    id:'t-asr',    card:'tp-asr',    iq:'iq-asr',    off:15},
-        {key:'Maghrib',id:'t-maghrib',card:'tp-maghrib',iq:'iq-maghrib',off:5},
-        {key:'Isha',   id:'t-isha',   card:'tp-isha',   iq:'iq-isha',   off:15},
+    /* Fallback statique Winnipeg */
+    if (!T) T = {Fajr:'06:12', Dhuhr:'12:41', Asr:'15:34', Maghrib:'18:09', Isha:'19:38', _src:'static'};
+
+    var colors = {aladhan:'#fbbf24', static:'#9ca3af'};
+    var labels = {aladhan:'Aladhan API', static:'Calculated (ISNA)'};
+    var badge  = document.getElementById('apiBadge');
+    if (badge) badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + (colors[T._src]||'#9ca3af') + ';margin-right:8px"></span>' + (labels[T._src]||'Calculated');
+
+    var prayers = [
+        {key:'Fajr',    id:'t-fajr',    card:'tp-fajr',    iq:'iq-fajr',    off:20},
+        {key:'Dhuhr',   id:'t-dhuhr',   card:'tp-dhuhr',   iq:'iq-dhuhr',   off:20},
+        {key:'Asr',     id:'t-asr',     card:'tp-asr',     iq:'iq-asr',     off:15},
+        {key:'Maghrib', id:'t-maghrib', card:'tp-maghrib', iq:'iq-maghrib', off:5},
+        {key:'Isha',    id:'t-isha',    card:'tp-isha',    iq:'iq-isha',    off:15},
     ];
-    var nm=new Date().getHours()*60+new Date().getMinutes(),active='tp-isha';
-    prayers.forEach(function(p){
-        if(!T[p.key])return;
-        var el=document.getElementById(p.id);
-        if(el){el.textContent=formatTime(T[p.key]);el.classList.remove('loading');}
-        var iq=document.getElementById(p.iq);
-        if(iq) iq.textContent='Iqamah: '+formatTime(addM(T[p.key],p.off));
-        var pp=T[p.key].split(':').map(Number);
-        if(nm>=pp[0]*60+pp[1]) active=p.card;
+
+    var nm = new Date().getHours()*60 + new Date().getMinutes();
+    var active = 'tp-isha';
+
+    prayers.forEach(function(p) {
+        var raw = (T[p.key] || '').split(' ')[0];
+        var el  = document.getElementById(p.id);
+        if (el) { el.textContent = fmtTime(T[p.key]); el.classList.remove('loading'); }
+        var iqEl = document.getElementById(p.iq);
+        if (iqEl && raw) iqEl.textContent = 'Iqamah: ' + fmtTime(addM(raw, p.off));
+        var parts = raw.split(':').map(Number);
+        if (parts.length >= 2 && nm >= parts[0]*60 + parts[1]) active = p.card;
     });
-    prayers.forEach(function(p){
-        var el=document.getElementById(p.card);
-        if(el) el.classList.toggle('active-prayer',p.card===active);
+
+    prayers.forEach(function(p) {
+        var el = document.getElementById(p.card);
+        if (el) el.classList.toggle('active-prayer', p.card === active);
     });
 }
 
-/* 5. TABLEAU MENSUEL */
-async function loadMonth(){
-    var picker=document.getElementById('monthPicker');
-    var mo=picker?parseInt(picker.value):new Date().getMonth()+1;
-    var yr=new Date().getFullYear();
-    var MO=['','January','February','March','April','May','June','July','August','September','October','November','December'];
-    var tbl=document.getElementById('prayerTable');
-    if(!tbl)return;
-    tbl.innerHTML='<tbody><tr><td colspan="7" style="padding:40px;text-align:center"><i class="fas fa-spinner fa-spin" style="color:var(--gold);font-size:1.5rem;display:block;margin-bottom:12px"></i>Loading '+MO[mo]+' '+yr+'...</td></tr></tbody>';
-    try{
-        var r=await fetch('https://api.aladhan.com/v1/calendar/'+yr+'/'+mo+'?latitude=49.8951&longitude=-97.1384&method=2');
-        var data=await r.json();
-        if(data.code!==200)throw new Error();
-        var today=new Date(),td=today.getDate(),tm=today.getMonth()+1,ty=today.getFullYear();
-        var h='<thead><tr class="month-row"><th colspan="7">'+MO[mo]+' '+yr+'</th></tr><tr><th>Date</th><th>Day</th><th>Fajr</th><th>Dhuhr / Jumu\'ah</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr></thead><tbody>';
-        data.data.forEach(function(day){
-            var g=day.date.gregorian,ti=day.timings,fri=g.weekday.en==='Friday';
-            var isToday=parseInt(g.day)===td&&mo===tm&&parseInt(g.year)===ty;
-            var cls=isToday?'today-row':fri?'friday-row':'';
-            var dhuhr=fri?'<span style="color:var(--gold);font-weight:700">Jumu\'ah<br><small style="font-weight:400;opacity:.8">12:30 / 1:20 PM</small></span>':formatTime(ti.Dhuhr);
-            h+='<tr class="'+cls+'"><td><strong>'+g.day+'</strong></td><td>'+g.weekday.en.slice(0,3)+'</td><td>'+formatTime(ti.Fajr)+'</td><td>'+dhuhr+'</td><td>'+formatTime(ti.Asr)+'</td><td>'+formatTime(ti.Maghrib)+'</td><td>'+formatTime(ti.Isha)+'</td></tr>';
+/* ── 5. CALENDRIER MENSUEL ── */
+async function loadMonth(month, year) {
+    var picker = document.getElementById('monthPicker');
+    if (!month) month = picker ? parseInt(picker.value) : new Date().getMonth() + 1;
+    if (!year)  year  = new Date().getFullYear();
+    var tbl = document.getElementById('prayerTable');
+    if (!tbl) return;
+
+    tbl.innerHTML = '<tbody><tr><td colspan="7" style="padding:40px;text-align:center"><i class="fas fa-spinner fa-spin" style="color:var(--gold);font-size:1.4rem;display:block;margin-bottom:12px"></i>Loading...</td></tr></tbody>';
+
+    try {
+        var url  = 'https://api.aladhan.com/v1/calendar/' + year + '/' + month + '?latitude=49.8951&longitude=-97.1384&method=2';
+        var res  = await fetch(url, {mode:'cors'});
+        var data = await res.json();
+        if (!data || data.code !== 200) throw new Error();
+
+        var MONTHS = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
+        var today  = new Date();
+        var h = '<thead><tr class="month-row"><th colspan="7">' + MONTHS[month] + ' ' + year + '</th></tr><tr><th>Date</th><th>Day</th><th>Fajr</th><th>Dhuhr</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr></thead><tbody>';
+
+        data.data.forEach(function(day) {
+            var g   = day.date.gregorian;
+            var ti  = day.timings;
+            var isFri   = g.weekday.en === 'Friday';
+            var isToday = parseInt(g.day) === today.getDate() && month === today.getMonth()+1 && parseInt(g.year) === today.getFullYear();
+            var cls = isToday ? 'today-row' : (isFri ? 'friday-row' : '');
+            var dhuhr = isFri ? '<span style="color:var(--gold);font-weight:700">Jumu\'ah<br><small style="font-weight:400;opacity:.8">12:30/1:20 PM</small></span>' : fmtTime(ti.Dhuhr);
+            h += '<tr class="' + cls + '"><td><strong>' + g.day + '</strong></td><td>' + g.weekday.en.slice(0,3) + '</td><td>' + fmtTime(ti.Fajr) + '</td><td>' + dhuhr + '</td><td>' + fmtTime(ti.Asr) + '</td><td>' + fmtTime(ti.Maghrib) + '</td><td>' + fmtTime(ti.Isha) + '</td></tr>';
         });
-        h+='</tbody><tfoot><tr><td colspan="7"><strong>Jumu\'ah</strong> @ Chalmers Community Centre — 480 Chalmers Ave &nbsp;|&nbsp; <strong style="color:var(--gold)">12:30 PM &amp; 1:20 PM</strong></td></tr></tfoot>';
-        tbl.innerHTML=h;
-    }catch(e){
-        tbl.innerHTML='<tbody><tr><td colspan="7" style="padding:40px;text-align:center;color:var(--muted)"><i class="fas fa-exclamation-circle" style="color:var(--gold);font-size:2rem;display:block;margin-bottom:12px"></i>Unable to load. <button onclick="loadMonth()" style="background:var(--navy);color:#fff;border:1px solid var(--gold);padding:8px 20px;cursor:pointer;margin-left:10px">Retry</button></td></tr></tbody>';
+
+        h += '</tbody><tfoot><tr><td colspan="7"><strong>Jumu\'ah</strong> @ Chalmers Community Centre — 480 Chalmers Ave &nbsp;|&nbsp; <strong style="color:var(--gold)">12:30 PM &amp; 1:20 PM</strong></td></tr></tfoot>';
+        tbl.innerHTML = h;
+
+    } catch(e) {
+        tbl.innerHTML = '<tbody><tr><td colspan="7" style="padding:30px;text-align:center;color:var(--muted)">Unable to load schedule. <button onclick="loadMonth(' + month + ',' + year + ')" style="background:var(--navy);color:#fff;border:1px solid var(--gold);padding:8px 20px;cursor:pointer;margin-left:10px">Retry</button></td></tr></tbody>';
     }
 }
 
-/* 6. INIT */
-window.addEventListener('DOMContentLoaded',function(){
-    var picker=document.getElementById('monthPicker');
-    if(picker){
-        picker.value=new Date().getMonth()+1;
-        picker.addEventListener('change',loadMonth);
+/* ── 6. INIT ── */
+window.addEventListener('DOMContentLoaded', function() {
+    var picker = document.getElementById('monthPicker');
+    if (picker) {
+        var m = new Date().getMonth() + 1;
+        picker.value = m;
+        picker.addEventListener('change', function() { loadMonth(parseInt(this.value)); });
     }
     loadToday();
-    loadMonth();
+    loadMonth(new Date().getMonth() + 1, new Date().getFullYear());
 });
-
     </script>
+
 </body>
 </html>
