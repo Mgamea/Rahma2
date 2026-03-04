@@ -273,139 +273,16 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#e496858c89858d978885898d8787818a909681a48389858d88ca878b89"><span class="__cf_email__" data-cfemail="cdbfaca5a0aca4bea1aca0a4aeaea8a3b9bfa88daaa0aca4a1e3aea2a0">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
-        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
-    </div></footer>
-    
+        <div class="footer-bottom">
+                <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
+                <span>Powered by Devodez Solutions</span>
+            </div>
+        </div>
+    </footer>
     <script src="shared.js"></script>
-    <script>
-/* ── 1. HORLOGE ── */
-(function tick(){
-    var el = document.getElementById('todayClock');
-    if (el) el.textContent = new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', hour12:true});
-    setTimeout(tick, 1000);
-})();
-
-/* ── 2. DATE ── */
-(function(){
-    var el = document.getElementById('todayDate');
-    if (el) el.textContent = new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
-})();
-
-/* ── 3. HELPER ── */
-function addM(t, m) {
-    var p = t.split(':').map(Number), tot = p[0]*60 + p[1] + m;
-    return String(Math.floor(tot/60) % 24).padStart(2,'0') + ':' + String(tot%60).padStart(2,'0');
-}
-function fmtTime(raw) {
-    if (!raw) return '—';
-    var t = raw.split(' ')[0].split(':'), h = parseInt(t[0]), m = t[1];
-    return (h % 12 || 12) + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM');
-}
-
-/* ── 4. LOAD TODAY ── */
-async function loadToday() {
-    var T = null;
-
-    /* Aladhan API — calcul ISNA, compatible CORS */
-    try {
-        var now = new Date();
-        var url = 'https://api.aladhan.com/v1/timings/' + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear() + '?latitude=49.8951&longitude=-97.1384&method=2';
-        var res  = await fetch(url, {mode:'cors'});
-        var data = await res.json();
-        if (data.code === 200 && data.data && data.data.timings) {
-            T = data.data.timings;
-            T._src = 'aladhan';
-        }
-    } catch(e) {}
-
-    /* Fallback statique Winnipeg */
-    if (!T) T = {Fajr:'06:12', Dhuhr:'12:41', Asr:'15:34', Maghrib:'18:09', Isha:'19:38', _src:'static'};
-
-    var colors = {aladhan:'#fbbf24', static:'#9ca3af'};
-    var labels = {aladhan:'Aladhan API', static:'Calculated (ISNA)'};
-    var badge  = document.getElementById('apiBadge');
-    if (badge) badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + (colors[T._src]||'#9ca3af') + ';margin-right:8px"></span>' + (labels[T._src]||'Calculated');
-
-    var prayers = [
-        {key:'Fajr',    id:'t-fajr',    card:'tp-fajr',    iq:'iq-fajr',    off:20},
-        {key:'Dhuhr',   id:'t-dhuhr',   card:'tp-dhuhr',   iq:'iq-dhuhr',   off:20},
-        {key:'Asr',     id:'t-asr',     card:'tp-asr',     iq:'iq-asr',     off:15},
-        {key:'Maghrib', id:'t-maghrib', card:'tp-maghrib', iq:'iq-maghrib', off:5},
-        {key:'Isha',    id:'t-isha',    card:'tp-isha',    iq:'iq-isha',    off:15},
-    ];
-
-    var nm = new Date().getHours()*60 + new Date().getMinutes();
-    var active = 'tp-isha';
-
-    prayers.forEach(function(p) {
-        var raw = (T[p.key] || '').split(' ')[0];
-        var el  = document.getElementById(p.id);
-        if (el) { el.textContent = fmtTime(T[p.key]); el.classList.remove('loading'); }
-        var iqEl = document.getElementById(p.iq);
-        if (iqEl && raw) iqEl.textContent = 'Iqamah: ' + fmtTime(addM(raw, p.off));
-        var parts = raw.split(':').map(Number);
-        if (parts.length >= 2 && nm >= parts[0]*60 + parts[1]) active = p.card;
-    });
-
-    prayers.forEach(function(p) {
-        var el = document.getElementById(p.card);
-        if (el) el.classList.toggle('active-prayer', p.card === active);
-    });
-}
-
-/* ── 5. CALENDRIER MENSUEL ── */
-async function loadMonth(month, year) {
-    var picker = document.getElementById('monthPicker');
-    if (!month) month = picker ? parseInt(picker.value) : new Date().getMonth() + 1;
-    if (!year)  year  = new Date().getFullYear();
-    var tbl = document.getElementById('prayerTable');
-    if (!tbl) return;
-
-    tbl.innerHTML = '<tbody><tr><td colspan="7" style="padding:40px;text-align:center"><i class="fas fa-spinner fa-spin" style="color:var(--gold);font-size:1.4rem;display:block;margin-bottom:12px"></i>Loading...</td></tr></tbody>';
-
-    try {
-        var url  = 'https://api.aladhan.com/v1/calendar/' + year + '/' + month + '?latitude=49.8951&longitude=-97.1384&method=2';
-        var res  = await fetch(url, {mode:'cors'});
-        var data = await res.json();
-        if (!data || data.code !== 200) throw new Error();
-
-        var MONTHS = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
-        var today  = new Date();
-        var h = '<thead><tr class="month-row"><th colspan="7">' + MONTHS[month] + ' ' + year + '</th></tr><tr><th>Date</th><th>Day</th><th>Fajr</th><th>Dhuhr</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr></thead><tbody>';
-
-        data.data.forEach(function(day) {
-            var g   = day.date.gregorian;
-            var ti  = day.timings;
-            var isFri   = g.weekday.en === 'Friday';
-            var isToday = parseInt(g.day) === today.getDate() && month === today.getMonth()+1 && parseInt(g.year) === today.getFullYear();
-            var cls = isToday ? 'today-row' : (isFri ? 'friday-row' : '');
-            var dhuhr = isFri ? '<span style="color:var(--gold);font-weight:700">Jumu\'ah<br><small style="font-weight:400;opacity:.8">12:30/1:20 PM</small></span>' : fmtTime(ti.Dhuhr);
-            h += '<tr class="' + cls + '"><td><strong>' + g.day + '</strong></td><td>' + g.weekday.en.slice(0,3) + '</td><td>' + fmtTime(ti.Fajr) + '</td><td>' + dhuhr + '</td><td>' + fmtTime(ti.Asr) + '</td><td>' + fmtTime(ti.Maghrib) + '</td><td>' + fmtTime(ti.Isha) + '</td></tr>';
-        });
-
-        h += '</tbody><tfoot><tr><td colspan="7"><strong>Jumu\'ah</strong> @ Chalmers Community Centre — 480 Chalmers Ave &nbsp;|&nbsp; <strong style="color:var(--gold)">12:30 PM &amp; 1:20 PM</strong></td></tr></tfoot>';
-        tbl.innerHTML = h;
-
-    } catch(e) {
-        tbl.innerHTML = '<tbody><tr><td colspan="7" style="padding:30px;text-align:center;color:var(--muted)">Unable to load schedule. <button onclick="loadMonth(' + month + ',' + year + ')" style="background:var(--navy);color:#fff;border:1px solid var(--gold);padding:8px 20px;cursor:pointer;margin-left:10px">Retry</button></td></tr></tbody>';
-    }
-}
-
-/* ── 6. INIT ── */
-window.addEventListener('DOMContentLoaded', function() {
-    var picker = document.getElementById('monthPicker');
-    if (picker) {
-        var m = new Date().getMonth() + 1;
-        picker.value = m;
-        picker.addEventListener('change', function() { loadMonth(parseInt(this.value)); });
-    }
-    loadToday();
-    loadMonth(new Date().getMonth() + 1, new Date().getFullYear());
-});
-    </script>
 
 </body>
 </html>

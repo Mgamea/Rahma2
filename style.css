@@ -387,3 +387,20 @@ body {
   background-size: 400px auto;
   background-attachment: fixed;
 }
+
+/* ===== FIX QR CODE + OVERFLOW MOBILE ===== */
+@media (max-width: 700px) {
+  /* QR code : passe en dessous, centré, sans bordure gauche */
+  .qr-col { border-left: none !important; padding-left: 0 !important; width: 100%; }
+
+  /* Newsletter prend toute la largeur */
+  .newsletter-section .container > div { flex-direction: column; }
+  .newsletter-inner { width: 100%; }
+  .newsletter-form { max-width: 100% !important; }
+}
+
+/* Empêcher tout débordement horizontal */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; max-width: 100vw; }
+img { max-width: 100%; }
+/* ===== /FIX QR CODE + OVERFLOW MOBILE ===== */

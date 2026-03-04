@@ -218,7 +218,7 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#6416050c09050d170805090d0707010a101601240309050d084a070b09"><span class="__cf_email__" data-cfemail="9eecfff6f3fff7edf2fff3f7fdfdfbf0eaecfbdef9f3fff7f2b0fdf1f3">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
         <div class="footer-bottom">
@@ -229,29 +229,10 @@
     </footer>
     <script src="shared.js"></script>
     <script>
-    /* ── Widget Don ── */
-    var doneCur = 'CAD';
-    function setCur(c) {
-        doneCur = c;
-        document.getElementById('curTag').textContent = c;
-        ['CAD','USD'].forEach(function(x) {
-            var b = document.getElementById('btn'+x);
-            b.classList.toggle('active', x === c);
-        });
-    }
-    function setAmt(v, el) {
-        document.getElementById('donateAmt').value = v;
-        document.querySelectorAll('.amt-btn').forEach(function(b) { b.classList.remove('selected'); });
-        el.classList.add('selected');
-    }
-    function clearAmts() {
-        document.querySelectorAll('.amt-btn').forEach(function(b) { b.classList.remove('selected'); });
-    }
-    function processDonate() {
-        var amt = parseFloat(document.getElementById('donateAmt').value);
-        if (!amt || amt <= 0) { alert('Please enter a valid amount.'); return; }
-        alert('Thank you! ' + doneCur + ' $' + amt.toFixed(2) + '\n\nContact: rahmaislamiccentre@gmail.com');
-    }
+    var doneCur='CAD';
+    function setCur(c){doneCur=c;document.getElementById('curTag').textContent=c;['CAD','USD'].forEach(function(x){var b=document.getElementById('btn'+x);b.classList.toggle('active',x===c);});}
+    function setAmt(v,el){document.getElementById('donateAmt').value=v;document.querySelectorAll('.amt-btn').forEach(function(b){b.classList.remove('selected');});el.classList.add('selected');}
+    function processDonate(){var amt=parseFloat(document.getElementById('donateAmt').value);if(!amt||amt<=0){alert('Please enter a valid amount.');return;}alert('Thank you! '+doneCur+' $'+amt.toFixed(2)+'\n\nContact: rahmaislamiccentre@gmail.com');}
     </script>
 
 </body>
