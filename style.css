@@ -164,6 +164,8 @@ section { padding: 80px 24px; }
 .footer-col .contact-li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.83rem; color: rgba(255,255,255,0.48); margin-bottom: 12px; }
 .footer-col .contact-li i { color: var(--gold); margin-top: 3px; flex-shrink: 0; }
 .footer-bottom { padding-top: 26px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: rgba(255,255,255,0.28); flex-wrap: wrap; gap: 10px; }
+.footer-col .contact-li a { color: rgba(255,255,255,0.48); text-decoration: none; transition: color 0.3s; }
+.footer-col .contact-li a:hover { color: var(--gold-light); }
 
 /* ===== REVEAL ANIMATION ===== */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }

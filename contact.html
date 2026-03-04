@@ -121,7 +121,7 @@
     </div>
     <nav class="navbar" id="navbar">
         <div class="navbar-inner">
-            <a href="index.html" class="logo-wrap"><img src="logo.png" alt="Rahma Logo" class="logo-img"><div class="logo-text">Rahma Islamic Centre<span>Winnipeg, Canada</span></div></a>
+            <a href="index.html" class="logo-wrap"><img src="logo.png" alt="Rahma Logo" class="logo-img"><div class="logo-text">Rahma Islamic Centre<span>Winnipeg, </span></div></a>
                         <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="prayer-times.html">Prayer Times</a><div class="nav-drop"><a href="prayer-times.html#prayer"><i class="fas fa-clock"></i>Today's Prayer Times</a><a href="prayer-times.html#schedule"><i class="fas fa-calendar-alt"></i>Monthly Schedule</a><a href="prayer-times.html#jumuah"><i class="fas fa-mosque"></i>Jumu'ah Info</a></div></li>
@@ -168,7 +168,7 @@
                     </div>
                     <div class="contact-detail">
                         <div class="contact-icon-wrap"><i class="fas fa-envelope"></i></div>
-                        <div><h3>Email</h3><p><a href="/cdn-cgi/l/email-protection#2755464f4a464e544b464a4e4444424953554267404a464e4b0944484a"><span class="__cf_email__" data-cfemail="2a584b42474b4359464b474349494f445e584f6a4d474b434604494547">[email&#160;protected]</span></a></p></div>
+                        <div><h3>Email</h3><p><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></p></div>
                     </div>
                     <div class="contact-detail">
                         <div class="contact-icon-wrap"><i class="fas fa-mosque"></i></div>
@@ -190,7 +190,7 @@
     </div></div></section>
     <footer class="footer"><div class="container">
         <div class="footer-grid">
-            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2016.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2018.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
             <div class="footer-col"><h4>Navigation</h4><ul>
                 <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
                 <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
@@ -203,11 +203,27 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#215340494c4048524d404c484242444f55534461464c40484d0f424e4c"><span class="__cf_email__" data-cfemail="1567747d78747c667974787c7676707b616770557278747c793b767a78">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-        <div class="footer-bottom"><span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span><span>Powered by Devodez Solutions</span></div>
-    </div></footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+        <div class="footer-bottom">
+                <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
+                <span>Powered by Devodez Solutions</span>
+            </div>
+        </div>
+    </footer>
+    <script src="shared.js"></script>
     <script>
-        document.getElemen
+    document.getElementById('contactForm') && document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var btn = document.getElementById('submitBtn');
+        btn.textContent = 'Sending…'; btn.disabled = true;
+        setTimeout(function() {
+            btn.textContent = '✓ Message Sent!';
+            btn.style.background = '#2d6a4f';
+        }, 900);
+    });
+    </script>
+
+</body>
+</html>
