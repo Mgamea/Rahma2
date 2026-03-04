@@ -351,10 +351,10 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#e496858c89858d978885898d8787818a909681a48389858d88ca878b89"><span class="__cf_email__" data-cfemail="a4d6c5ccc9c5cdd7c8c5c9cdc7c7c1cad0d6c1e4c3c9c5cdc88ac7cbc9">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#ed9f8c85808c849e818c80848e8e8883999f88ad8a808c8481c38e8280"><span class="__cf_email__" data-cfemail="b3c1d2dbded2dac0dfd2dedad0d0d6ddc7c1d6f3d4ded2dadf9dd0dcde">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
-        <div class="footer-bottom">
+                <div class="footer-bottom">
                 <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
                 <span>Powered by Devodez Solutions</span>
             </div>
@@ -365,10 +365,10 @@
     document.getElementById('newsletterForm') && document.getElementById('newsletterForm').addEventListener('submit', function(e) {
         e.preventDefault();
         var btn = document.getElementById('nlBtn');
+        if (!btn) return;
         btn.textContent = 'Subscribing…'; btn.disabled = true;
-        setTimeout(function() { btn.textContent = '✓ You\'re Subscribed!'; btn.style.background = '#2d6a4f'; }, 1000);
+        setTimeout(function() { btn.textContent = '✓ Subscribed!'; btn.style.background = '#2d6a4f'; }, 1000);
     });
     </script>
-
 </body>
 </html>

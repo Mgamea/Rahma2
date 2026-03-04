@@ -358,7 +358,7 @@
     <!-- NEWSLETTER + QR FUSIONNÉS -->
     <section class="newsletter-section">
         <div class="container">
-            <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;justify-content:space-between;">
+            <div class="nl-flex-wrap" style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;justify-content:space-between;">
 
                 <!-- Colonne gauche : newsletter -->
                 <div style="flex:1;min-width:260px;">
@@ -374,8 +374,8 @@
                     </div>
                 </div>
 
-                <!-- Colonne droite : QR code — masqué sur mobile -->
-                <div style="text-align:center;padding-left:40px;border-left:1px solid rgba(201,168,76,0.25);flex-shrink:0;" class="qr-col">
+                <!-- Colonne droite : QR code -->
+                <div class="qr-col" style="text-align:center;padding-left:40px;border-left:1px solid rgba(201,168,76,0.25);flex-shrink:0;">
                     <p style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;">Quick Registration</p>
                     <div style="display:inline-block;background:#fff;padding:12px;border-radius:8px;">
                         <img src="qr-register.jpeg" alt="QR Code Registration" style="width:130px;height:130px;display:block;">
@@ -403,16 +403,132 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#f98b98919498908a959894909a9a9c978d8b9cb99e94989095d79a9694"><span class="__cf_email__" data-cfemail="e99b88818488809a858884808a8a8c879d9b8ca98e84888085c78a8684">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#c4b6a5aca9a5adb7a8a5a9ada7a7a1aab0b6a184a3a9a5ada8eaa7aba9"><span class="__cf_email__" data-cfemail="5b293a33363a3228373a363238383e352f293e1b3c363a323775383436">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
-        <div class="footer-bottom">
+                <div class="footer-bottom">
                 <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
                 <span>Powered by Devodez Solutions</span>
             </div>
         </div>
     </footer>
     <script src="shared.js"></script>
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
 
+        /* ── Horloge et date ── */
+        function updateClock() {
+            var now  = new Date();
+            var timeEl = document.getElementById('currentTime');
+            var dateEl = document.getElementById('prayerDate');
+            if (timeEl) timeEl.textContent = now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', hour12:true});
+            if (dateEl) dateEl.textContent  = now.toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        /* ── Heures de prière — Mawaqit → Aladhan → static ── */
+        var STATIC = {fajr:'6:12 AM', dhuhr:'12:41 PM', asr:'3:34 PM', maghrib:'6:09 PM', isha:'7:38 PM'};
+        var IDS    = {fajr:'fajr-time', dhuhr:'dhuhr-time', asr:'asr-time', maghrib:'maghrib-time', isha:'isha-time'};
+        var CARDS  = {fajr:'card-fajr', dhuhr:'card-dhuhr', asr:'card-asr', maghrib:'card-maghrib', isha:'card-isha'};
+
+        function fmt24(raw) {
+            if (!raw) return '—';
+            var t = raw.split(' ')[0].split(':');
+            var h = parseInt(t[0]), m = t[1];
+            return (h % 12 || 12) + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM');
+        }
+
+        function applyTimes(T, prefmt) {
+            var nm = new Date().getHours() * 60 + new Date().getMinutes();
+            var active = 'card-isha';
+            ['fajr','dhuhr','asr','maghrib','isha'].forEach(function(k) {
+                var val = prefmt ? T[k] : fmt24(T[k]);
+                var el  = document.getElementById(IDS[k]);
+                if (el) el.textContent = val;
+                var clean = val.replace(' AM','').replace(' PM','').split(':');
+                var h24 = parseInt(clean[0]);
+                if (val.indexOf('PM') > -1 && h24 < 12) h24 += 12;
+                if (val.indexOf('AM') > -1 && h24 === 12) h24 = 0;
+                if (nm >= h24 * 60 + parseInt(clean[1] || 0)) active = CARDS[k];
+            });
+            Object.keys(CARDS).forEach(function(k) {
+                var el = document.getElementById(CARDS[k]);
+                if (el) el.classList.toggle('active-prayer', CARDS[k] === active);
+            });
+        }
+
+        /* Afficher les heures statiques immédiatement */
+        applyTimes(STATIC, true);
+
+        /* Mawaqit (API officielle Rahma Winnipeg) → Aladhan fallback */
+        (async function() {
+            var timings = null;
+            try {
+                var r = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
+                if (r.ok) {
+                    var d = await r.json();
+                    if (d.times && d.times.length >= 6) {
+                        timings = {fajr:d.times[0], dhuhr:d.times[2], asr:d.times[3], maghrib:d.times[4], isha:d.times[5]};
+                        applyTimes(timings, false);
+                        return;
+                    }
+                }
+            } catch(e) {}
+            /* Fallback Aladhan */
+            try {
+                var now = new Date();
+                var url = 'https://api.aladhan.com/v1/timings/'
+                    + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear()
+                    + '?latitude=49.8951&longitude=-97.1384&method=2';
+                var res = await fetch(url, {mode:'cors'});
+                var data = await res.json();
+                if (data.code === 200) {
+                    var t = data.data.timings;
+                    applyTimes({fajr:t.Fajr, dhuhr:t.Dhuhr, asr:t.Asr, maghrib:t.Maghrib, isha:t.Isha}, false);
+                }
+            } catch(e) {}
+        })();
+
+        /* ── Compteurs animés ── */
+        function animateCount(el, target) {
+            var s = performance.now();
+            (function u(n) {
+                var p = Math.min((n - s) / 1500, 1), e = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(e * target);
+                if (p < 1) requestAnimationFrame(u);
+            })(performance.now());
+        }
+        var sObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) { animateCount(e.target, parseInt(e.target.dataset.target)); sObs.unobserve(e.target); }
+            });
+        }, {threshold: 0.5});
+        document.querySelectorAll('[data-target]').forEach(function(el) { sObs.observe(el); });
+    });
+
+    /* ── Widget Don ── */
+    var currentCurrency = 'CAD';
+    function setAmount(val, el) {
+        document.getElementById('donateAmt').value = val;
+        document.querySelectorAll('.amount-pill').forEach(function(p) { p.classList.remove('selected'); });
+        el.classList.add('selected');
+    }
+    function setCurrency(cur) {
+        currentCurrency = cur;
+        document.getElementById('currencyTag').textContent = cur;
+        ['CAD','USD'].forEach(function(c) {
+            var b = document.getElementById('btn' + c); if (!b) return;
+            b.style.background    = c===cur ? 'rgba(201,168,76,0.15)' : 'transparent';
+            b.style.borderColor   = c===cur ? 'var(--gold)' : 'rgba(255,255,255,0.15)';
+            b.style.color         = c===cur ? 'var(--gold)' : 'rgba(255,255,255,0.5)';
+        });
+    }
+    function processDonate() {
+        var amt = parseFloat(document.getElementById('donateAmt').value);
+        if (!amt || amt <= 0) { alert('Please enter a valid amount.'); return; }
+        alert('JazakAllah Khayr! ' + currentCurrency + ' $' + amt.toFixed(2));
+    }
+    </script>
 </body>
 </html>
