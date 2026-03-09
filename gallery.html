@@ -201,9 +201,44 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#b7c5d6dfdad6dec4dbd6daded4d4d2d9c3c5d2f7d0dad6dedb99d4d8da"><span class="__cf_email__" data-cfemail="5b293a33363a3228373a363238383e352f293e1b3c363a323775383436">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-                        <div class="footer-bottom">
-                <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
-                       
+                                        <span>Powered by Devodez Solutions</span>
+            </div>
+        </div>
+    </footer>
+    <script src="shared.js"></script>
+    <script>
+    /* ── LIGHTBOX ── */
+    var _lbImgs = Array.from(document.querySelectorAll('.gallery-item-page img')).map(function(i){return i.src;});
+    var _lbIdx = 0;
+    function openLb(n) {
+        _lbIdx = n;
+        var lb = document.getElementById('lightbox');
+        var img = document.getElementById('lbImg');
+        if (!lb || !img) return;
+        img.src = _lbImgs[n] || '';
+        lb.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLb() {
+        var lb = document.getElementById('lightbox');
+        if (lb) lb.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+    function moveLb(dir) {
+        _lbIdx = (_lbIdx + dir + _lbImgs.length) % _lbImgs.length;
+        var img = document.getElementById('lbImg');
+        if (img) img.src = _lbImgs[_lbIdx] || '';
+    }
+    document.addEventListener('keydown', function(e) {
+        var lb = document.getElementById('lightbox');
+        if (!lb || lb.style.display === 'none') return;
+        if (e.key === 'Escape') closeLb();
+        if (e.key === 'ArrowLeft') moveLb(-1);
+        if (e.key === 'ArrowRight') moveLb(1);
+    });
+    </script>
+</body>
+</html>

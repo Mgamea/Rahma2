@@ -380,16 +380,14 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#5d2f3c35303c342e313c30343e3e3833292f381d3a303c3431733e3230"><span class="__cf_email__" data-cfemail="8bf9eae3e6eae2f8e7eae6e2e8e8eee5fff9eecbece6eae2e7a5e8e4e6">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-                        <div class="footer-bottom">
-                <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
-                <span>Powered by Devodez Solutions</span>
+                                        <span>Powered by Devodez Solutions</span>
             </div>
         </div>
     </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    <script src="shared.js"></script>
     <script>
     /* ── HORLOGE + DATE — PAGE HOME ── */
     (function tickClock(){
@@ -413,22 +411,16 @@
             var h = parseInt(t[0]), m = t[1];
             return (h % 12 || 12) + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM');
         }
-
         async function loadHomePrayers() {
             var T = null;
-
-            /* 1. Mawaqit */
             try {
                 var r = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
                 if (r.ok) {
                     var d = await r.json();
-                    if (d.times && d.times.length >= 6) {
+                    if (d.times && d.times.length >= 6)
                         T = {Fajr:d.times[0], Dhuhr:d.times[2], Asr:d.times[3], Maghrib:d.times[4], Isha:d.times[5]};
-                    }
                 }
             } catch(e) {}
-
-            /* 2. Aladhan fallback */
             if (!T) {
                 try {
                     var now = new Date();
@@ -440,13 +432,10 @@
                     if (data.code === 200) T = data.data.timings;
                 } catch(e) {}
             }
-
-            /* 3. Static fallback */
             if (!T) T = {Fajr:'06:12', Dhuhr:'12:41', Asr:'15:34', Maghrib:'18:09', Isha:'19:38'};
 
-            /* Appliquer aux IDs home */
-            var map = {Fajr:'fajr-time', Dhuhr:'dhuhr-time', Asr:'asr-time', Maghrib:'maghrib-time', Isha:'isha-time'};
-            var cardMap = {Fajr:'card-fajr', Dhuhr:'card-dhuhr', Asr:'card-asr', Maghrib:'card-maghrib', Isha:'card-isha'};
+            var map     = {Fajr:'fajr-time',   Dhuhr:'dhuhr-time',   Asr:'asr-time',   Maghrib:'maghrib-time',   Isha:'isha-time'};
+            var cardMap = {Fajr:'card-fajr',    Dhuhr:'card-dhuhr',   Asr:'card-asr',   Maghrib:'card-maghrib',   Isha:'card-isha'};
 
             var nm = new Date().getHours()*60 + new Date().getMinutes();
             var active = 'Isha';
@@ -455,19 +444,13 @@
                 var t24 = raw.split(' ')[0];
                 var el = document.getElementById(map[k]);
                 if (el) el.textContent = fmtTime(t24);
-                if (t24) {
-                    var p = t24.split(':').map(Number);
-                    if (nm >= p[0]*60 + p[1]) active = k;
-                }
+                if (t24) { var p = t24.split(':').map(Number); if (nm >= p[0]*60+p[1]) active = k; }
             });
-
-            /* Carte active */
             ['Fajr','Dhuhr','Asr','Maghrib','Isha'].forEach(function(k) {
                 var el = document.getElementById(cardMap[k]);
                 if (el) el.classList.toggle('active-prayer', k === active);
             });
         }
-
         document.addEventListener('DOMContentLoaded', loadHomePrayers);
     })();
 
@@ -485,4 +468,14 @@
                     var prog = Math.min((ts - start) / duration, 1);
                     el.textContent = Math.floor(prog * target);
                     if (prog < 1) requestAnimationFrame(step);
-                    else el.t
+                    else el.textContent = target;
+                };
+                requestAnimationFrame(step);
+                obs.unobserve(el);
+            });
+        }, {threshold: 0.5});
+        nums.forEach(function(el) { obs.observe(el); });
+    });
+    </script>
+</body>
+</html>
