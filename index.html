@@ -324,6 +324,28 @@
         </div>
     </nav>
 
+        <!-- ══ EID ANNOUNCEMENT STRIP ══ -->
+    <div id="eidStrip" style="position:relative;width:100%;z-index:1002;background:linear-gradient(90deg,#B8902A,#C9A84C,#E8C96A,#C9A84C,#B8902A);padding:0;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.3);">
+        <div style="max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:14px;padding:11px 20px;position:relative;">
+            <i class="fas fa-star-and-crescent" style="color:#0B1F3A;font-size:1rem;flex-shrink:0;"></i>
+            <span style="font-family:'Cinzel',serif;font-size:0.72rem;font-weight:700;letter-spacing:0.22em;color:#0B1F3A;text-transform:uppercase;white-space:nowrap;">Eid Al-Fitr Prayer</span>
+            <span style="width:1px;height:14px;background:rgba(11,31,58,0.25);flex-shrink:0;"></span>
+            <span style="font-family:'DM Sans',sans-serif;font-size:0.82rem;color:#0B1F3A;white-space:nowrap;">Register your family now — free &amp; open to all</span>
+            <a href="eid-registration.html" style="display:inline-flex;align-items:center;gap:7px;padding:6px 20px;background:#0B1F3A;color:#C9A84C;text-decoration:none;font-family:'Cinzel',serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border-radius:2px;flex-shrink:0;margin-left:8px;">
+                <i class="fas fa-user-plus"></i>&nbsp;Register
+            </a>
+            <button onclick="document.getElementById('eidStrip').style.display='none';document.body.style.paddingTop='0';" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(11,31,58,0.5);font-size:1.1rem;padding:4px;line-height:1;" title="Close">&#x2715;</button>
+        </div>
+    </div>
+    <style>
+        /* EID strip responsive */
+        @media (max-width: 680px) {
+            #eidStrip span:nth-child(4) { display: none; }
+            #eidStrip span:nth-child(3) { display: none; }
+        }
+    </style>
+
+
     <!-- HERO -->
     <section class="hero">
         <div class="hero-bg"></div>
@@ -467,26 +489,6 @@
     
     <!-- NEWSLETTER + QR FUSIONNÉS -->
     
-    <!-- ══ EID ANNOUNCEMENT STRIP ══ -->
-    <div id="eidStrip" style="position:relative;width:100%;z-index:1002;background:linear-gradient(90deg,#B8902A,#C9A84C,#E8C96A,#C9A84C,#B8902A);padding:0;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.3);">
-        <div style="max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:14px;padding:11px 20px;position:relative;">
-            <i class="fas fa-star-and-crescent" style="color:#0B1F3A;font-size:1rem;flex-shrink:0;"></i>
-            <span style="font-family:'Cinzel',serif;font-size:0.72rem;font-weight:700;letter-spacing:0.22em;color:#0B1F3A;text-transform:uppercase;white-space:nowrap;">Eid Al-Fitr Prayer</span>
-            <span style="width:1px;height:14px;background:rgba(11,31,58,0.25);flex-shrink:0;"></span>
-            <span style="font-family:'DM Sans',sans-serif;font-size:0.82rem;color:#0B1F3A;white-space:nowrap;">Register your family now — free &amp; open to all</span>
-            <a href="eid-registration.html" style="display:inline-flex;align-items:center;gap:7px;padding:6px 20px;background:#0B1F3A;color:#C9A84C;text-decoration:none;font-family:'Cinzel',serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border-radius:2px;flex-shrink:0;margin-left:8px;">
-                <i class="fas fa-user-plus"></i>&nbsp;Register
-            </a>
-            <button onclick="document.getElementById('eidStrip').style.display='none';document.body.style.paddingTop='0';" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(11,31,58,0.5);font-size:1.1rem;padding:4px;line-height:1;" title="Close">&#x2715;</button>
-        </div>
-    </div>
-    <style>
-        /* EID strip responsive */
-        @media (max-width: 680px) {
-            #eidStrip span:nth-child(4) { display: none; }
-            #eidStrip span:nth-child(3) { display: none; }
-        }
-    </style>
 
 
     <section class="newsletter-section">
