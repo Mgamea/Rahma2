@@ -467,25 +467,31 @@
     
     <!-- NEWSLETTER + QR FUSIONNÉS -->
     
-    <!-- ══ EID AL-FITR BANNER ══ -->
-    <section style="background:linear-gradient(135deg,#0B1F3A 0%,#0a1220 100%);padding:60px 24px;position:relative;overflow:hidden;">
-        <div style="position:absolute;top:-20px;right:5%;font-size:clamp(60px,12vw,120px);color:rgba(201,168,76,0.12);pointer-events:none;transform:rotate(-15deg);font-family:'Segoe UI Emoji',serif;line-height:1;">☽</div>
-        <div style="position:absolute;bottom:-10px;left:3%;font-size:clamp(40px,8vw,80px);color:rgba(201,168,76,0.08);pointer-events:none;transform:rotate(25deg) scaleX(-1);font-family:'Segoe UI Emoji',serif;">☽</div>
-        <div class="container" style="max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;position:relative;z-index:2;">
-            <div style="display:flex;align-items:center;gap:20px;">
-                <div style="width:64px;height:64px;background:linear-gradient(135deg,#C9A84C,#E8C96A);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <i class="fas fa-star-and-crescent" style="font-size:1.8rem;color:#0B1F3A;"></i>
-                </div>
-                <div>
-                    <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">UPCOMING EVENT</p>
-                    <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:300;color:#fff;margin:0;">Eid Al-Fitr <em style="color:var(--gold)">Prayer Registration</em></h3>
-                </div>
-            </div>
-            <a href="eid-registration.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#0B1F3A;text-decoration:none;font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;">
-                <i class="fas fa-user-plus"></i>&nbsp;Register Now
+    <!-- ══ EID ANNOUNCEMENT STRIP ══ -->
+    <div id="eidStrip" style="position:fixed;top:0;left:0;width:100%;z-index:1001;background:linear-gradient(90deg,#B8902A,#C9A84C,#E8C96A,#C9A84C,#B8902A);padding:0;overflow:hidden;transform:translateY(0);transition:transform 0.3s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3);">
+        <div style="max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:14px;padding:11px 20px;position:relative;">
+            <i class="fas fa-star-and-crescent" style="color:#0B1F3A;font-size:1rem;flex-shrink:0;"></i>
+            <span style="font-family:'Cinzel',serif;font-size:0.72rem;font-weight:700;letter-spacing:0.22em;color:#0B1F3A;text-transform:uppercase;white-space:nowrap;">Eid Al-Fitr Prayer</span>
+            <span style="width:1px;height:14px;background:rgba(11,31,58,0.25);flex-shrink:0;"></span>
+            <span style="font-family:'DM Sans',sans-serif;font-size:0.82rem;color:#0B1F3A;white-space:nowrap;">Register your family now — free &amp; open to all</span>
+            <a href="eid-registration.html" style="display:inline-flex;align-items:center;gap:7px;padding:6px 20px;background:#0B1F3A;color:#C9A84C;text-decoration:none;font-family:'Cinzel',serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border-radius:2px;flex-shrink:0;margin-left:8px;">
+                <i class="fas fa-user-plus"></i>&nbsp;Register
             </a>
+            <button onclick="document.getElementById('eidStrip').style.display='none';document.body.style.paddingTop='0';" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(11,31,58,0.5);font-size:1.1rem;padding:4px;line-height:1;" title="Close">&#x2715;</button>
         </div>
-    </section>
+    </div>
+    <style>
+        /* EID strip pushes navbar down */
+        #eidStrip ~ nav.navbar, #eidStrip + nav { top: 44px !important; }
+        body { padding-top: 44px; }
+        @media (max-width: 680px) {
+            #eidStrip span:nth-child(4) { display: none; }
+            #eidStrip span:nth-child(3) { display: none; }
+            body { padding-top: 40px; }
+            #eidStrip ~ nav.navbar { top: 38px !important; }
+        }
+    </style>
+
 
     <section class="newsletter-section">
         <div class="container">
@@ -534,14 +540,14 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:contact@rahmaonline.org">contact@rahmaonline.org</a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#e1828e8f95808295a19380898c808e8f8d888f84cf8e9386"><span class="__cf_email__" data-cfemail="ff9c90918b9e9c8bbf8d9e97929e90919396919ad1908d98">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
                                         <span>Powered by Devodez Solutions</span>
             </div>
         </div>
     </footer>
-    <script src="shared.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
     <script>
     /* ── HORLOGE + DATE — PAGE HOME ── */
     (function tickClock(){

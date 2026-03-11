@@ -88,7 +88,18 @@
         padding-left: 26px !important;
     }
     .nav-drop a:hover i { opacity: 1; }
-    </style>
+    
+        /* ── MOBILE MENU FALLBACK ── */
+        @media (max-width: 960px) {
+            .nav-links { display: none !important; }
+            .nav-donate { display: none !important; }
+            .hamburger { display: flex !important; flex-direction: column; gap: 6px; cursor: pointer; padding: 4px; }
+            .hamburger span { width: 26px; height: 1.5px; background: #C9A84C; display: block; transition: all 0.3s; }
+        }
+        .mobile-menu { display: none; position: fixed; inset: 0; z-index: 999; background: #1A2744; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+        .mobile-menu.active { display: flex !important; }
+        .mobile-menu a { font-family: 'Cinzel', serif; font-size: 1.3rem; color: #fff; text-decoration: none; letter-spacing: 0.1em; }
+</style>
     <!-- /DROPDOWN NAV CSS -->
 </head>
 <body>
@@ -127,11 +138,13 @@
 
         <!-- ══ EID AL-FITR — EN AVANT ══ -->
     <section id="eid" style="background:linear-gradient(160deg,#0a1220 0%,#0B1F3A 55%,#102040 100%);padding:100px 24px;position:relative;overflow:hidden;scroll-margin-top:80px;">
-        <!-- Lunes décoratives -->
-        <div style="position:absolute;top:20px;right:7%;font-size:clamp(70px,13vw,140px);color:rgba(201,168,76,0.09);pointer-events:none;transform:rotate(-20deg);font-family:'Segoe UI Emoji',serif;line-height:1;">☽</div>
-        <div style="position:absolute;bottom:15%;left:4%;font-size:clamp(45px,8vw,90px);color:rgba(201,168,76,0.06);pointer-events:none;transform:rotate(30deg) scaleX(-1);font-family:'Segoe UI Emoji',serif;">☽</div>
-        <div style="position:absolute;top:45%;right:18%;font-size:clamp(28px,4vw,56px);color:rgba(201,168,76,0.04);pointer-events:none;transform:rotate(50deg);font-family:'Segoe UI Emoji',serif;">☽</div>
-        <div style="position:absolute;top:15%;left:18%;font-size:clamp(22px,3vw,44px);color:rgba(201,168,76,0.035);pointer-events:none;transform:rotate(15deg);font-family:'Segoe UI Emoji',serif;">☽</div>
+        <!-- Lunes décoratives × 6 -->
+        <div style="position:absolute;top:15px;right:6%;font-size:clamp(90px,15vw,160px);color:rgba(201,168,76,0.38);pointer-events:none;transform:rotate(-20deg);font-family:'Segoe UI Emoji',serif;line-height:1;">☽</div>
+        <div style="position:absolute;bottom:10%;left:3%;font-size:clamp(55px,10vw,110px);color:rgba(201,168,76,0.28);pointer-events:none;transform:rotate(35deg) scaleX(-1);font-family:'Segoe UI Emoji',serif;">☽</div>
+        <div style="position:absolute;top:50%;right:20%;font-size:clamp(38px,6vw,76px);color:rgba(201,168,76,0.20);pointer-events:none;transform:rotate(50deg);font-family:'Segoe UI Emoji',serif;">☽</div>
+        <div style="position:absolute;top:14%;left:15%;font-size:clamp(28px,4.5vw,56px);color:rgba(201,168,76,0.18);pointer-events:none;transform:rotate(15deg);font-family:'Segoe UI Emoji',serif;">☽</div>
+        <div style="position:absolute;bottom:28%;left:28%;font-size:clamp(22px,3.5vw,44px);color:rgba(201,168,76,0.15);pointer-events:none;transform:rotate(-55deg) scaleX(-1);font-family:'Segoe UI Emoji',serif;">☽</div>
+        <div style="position:absolute;top:35%;right:8%;font-size:clamp(18px,2.8vw,36px);color:rgba(201,168,76,0.14);pointer-events:none;transform:rotate(70deg);font-family:'Segoe UI Emoji',serif;">☽</div>
         <div style="position:absolute;inset:0;background:url('pattern.png');background-size:400px;background-repeat:repeat;opacity:0.03;pointer-events:none;"></div>
         <div class="container" style="max-width:760px;margin:0 auto;text-align:center;position:relative;z-index:2;">
             <i class="fas fa-star-and-crescent" style="font-size:3.2rem;color:var(--gold);margin-bottom:20px;display:block;opacity:0.9;"></i>
@@ -218,7 +231,7 @@
                 <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:contact@rahmaonline.org">contact@rahmaonline.org</a></span></div>
             </div>
         </div>
-        <div class="        <div class="footer-bottom">
+        <div class="                <div class="footer-bottom">
             <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
             <span>Powered by Devodez Solutions</span>
         </div>
