@@ -59,10 +59,55 @@
         position: absolute;
         top: 30px; right: 8%;
         font-size: clamp(80px, 15vw, 160px);
-        color: rgba(201,168,76,0.07);
+        color: rgba(201,168,76,0.10);
         pointer-events: none;
         line-height: 1;
         transform: rotate(-20deg);
+        font-family: 'Segoe UI Emoji', serif;
+    }
+    .moon-2 {
+        position: absolute;
+        top: 55%; left: 4%;
+        font-size: clamp(50px, 9vw, 100px);
+        color: rgba(201,168,76,0.06);
+        pointer-events: none;
+        transform: rotate(30deg) scaleX(-1);
+        font-family: 'Segoe UI Emoji', serif;
+    }
+    .moon-3 {
+        position: absolute;
+        bottom: 12%; right: 15%;
+        font-size: clamp(35px, 6vw, 70px);
+        color: rgba(201,168,76,0.05);
+        pointer-events: none;
+        transform: rotate(-40deg);
+        font-family: 'Segoe UI Emoji', serif;
+    }
+    .moon-4 {
+        position: absolute;
+        top: 20%; left: 20%;
+        font-size: clamp(25px, 4vw, 50px);
+        color: rgba(201,168,76,0.04);
+        pointer-events: none;
+        transform: rotate(15deg);
+        font-family: 'Segoe UI Emoji', serif;
+    }
+    .moon-5 {
+        position: absolute;
+        bottom: 25%; left: 12%;
+        font-size: clamp(20px, 3vw, 40px);
+        color: rgba(201,168,76,0.035);
+        pointer-events: none;
+        transform: rotate(-10deg) scaleX(-1);
+        font-family: 'Segoe UI Emoji', serif;
+    }
+    .moon-6 {
+        position: absolute;
+        top: 40%; right: 22%;
+        font-size: clamp(18px, 2.5vw, 36px);
+        color: rgba(201,168,76,0.04);
+        pointer-events: none;
+        transform: rotate(55deg);
         font-family: 'Segoe UI Emoji', serif;
     }
     .hero-star-deco {
@@ -406,23 +451,7 @@
     }
     .guideline-item i { color: var(--gold); font-size: 0.75rem; margin-top: 3px; flex-shrink: 0; }
 
-    /* Admin link */
-    .admin-link-bar {
-        margin-top: 20px;
-        padding: 16px 20px;
-        background: rgba(11,31,58,0.06);
-        border: 1px solid rgba(201,168,76,0.15);
-        display: flex; align-items: center; justify-content: space-between;
-        font-size: 0.8rem; color: var(--muted);
-    }
-    .admin-link-bar a {
-        font-family: 'Cinzel', serif; font-size: 0.65rem;
-        letter-spacing: 0.12em; text-transform: uppercase;
-        color: var(--navy); text-decoration: none;
-        display: flex; align-items: center; gap: 6px;
-        transition: color 0.2s;
-    }
-    .admin-link-bar a:hover { color: var(--gold); }
+    
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1000px) {
@@ -475,6 +504,11 @@
     <!-- ═══ HERO ═══ -->
     <div class="eid-hero">
         <div class="hero-crescent">☽</div>
+        <div class="moon-2">☽</div>
+        <div class="moon-3">☽</div>
+        <div class="moon-4">☽</div>
+        <div class="moon-5">☽</div>
+        <div class="moon-6">☽</div>
         <div class="hero-star-deco">✦</div>
         <div class="eid-hero-content reveal">
             <div class="eid-badge"><i class="fas fa-star-and-crescent"></i> Event Registration</div>
@@ -655,13 +689,7 @@
                     <div class="guideline-item"><i class="fas fa-check"></i>Bring a prayer rug </div>
                     <div class="guideline-item"><i class="fas fa-check"></i>Parking available on Gateway Rec Centre</div>
                 </div>
-
-                <!-- Admin link -->
-                <div class="admin-link-bar reveal reveal-delay-3">
-                    <span>Manage registrations</span>
-                    <a href="eid-admin.html"><i class="fas fa-lock"></i> Admin Dashboard →</a>
-                </div>
-            </div>
+</div>
 
         </div>
     </section>
@@ -695,7 +723,7 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#7301121b1e121a001f121e1a1010161d07011633141e121a1f5d101c1e"><span class="__cf_email__" data-cfemail="493b28212428203a252824202a2a2c273d3b2c092e24282025672a2624">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:contact@rahmaonline.org">contact@rahmaonline.org</a></span></div>
             </div>
         </div>
         <div class="footer-bottom">

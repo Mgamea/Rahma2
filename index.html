@@ -505,7 +505,7 @@
             </div>
         </div>
     </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    <script src="shared.js"></script>
     <script>
     /* ── HORLOGE + DATE — PAGE HOME ── */
     (function tickClock(){
@@ -586,4 +586,14 @@
                     var prog = Math.min((ts - start) / duration, 1);
                     el.textContent = Math.floor(prog * target);
                     if (prog < 1) requestAnimationFrame(step);
-                    else 
+                    else el.textContent = target;
+                };
+                requestAnimationFrame(step);
+                obs.unobserve(el);
+            });
+        }, { threshold: 0.3 });
+        nums.forEach(function(n) { obs.observe(n); });
+    });
+</script>
+</body>
+</html>
