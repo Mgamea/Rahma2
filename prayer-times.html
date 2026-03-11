@@ -268,9 +268,9 @@
         <ul class="nav-links">
                 <li><a href="index.html" >Home</a><div class="nav-drop"><a href="index.html#about"><i class="fas fa-users"></i>Who We Are</a><a href="index.html#mission"><i class="fas fa-bullseye"></i>Our Mission</a><a href="index.html#values"><i class="fas fa-heart"></i>Core Values</a></div></li>
                 <li><a href="prayer-times.html" class="active">Prayer Times</a><div class="nav-drop"><a href="prayer-times.html#prayer"><i class="fas fa-clock"></i>Today's Prayer Times</a><a href="prayer-times.html#schedule"><i class="fas fa-calendar-alt"></i>Monthly Schedule</a><a href="prayer-times.html#jumuah"><i class="fas fa-mosque"></i>Jumu'ah Info</a></div></li>
-                <li><a href="programs.html" >Programs &amp; Services</a><div class="nav-drop"><a href="programs.html#counseling"><i class="fas fa-hands-praying"></i>Spiritual Counseling</a><a href="programs.html#foodbank"><i class="fas fa-hand-holding-heart"></i>Food Bank</a><a href="programs.html#dialogue"><i class="fas fa-comments"></i>Da'in &amp; Dialogue</a><a href="programs.html#nikah"><i class="fas fa-ring"></i>Marriage (Nikah)</a><a href="programs.html#funeral"><i class="fas fa-dove"></i>Funeral Support</a><a href="programs.html#workshops"><i class="fas fa-chalkboard-teacher"></i>Religious Workshops</a><a href="programs.html#hajj"><i class="fas fa-kaaba"></i>Hajj &amp; 'Umrah</a></div></li>
-                <li><a href="education.html" >Education</a><div class="nav-drop"><a href="education.html#adult-quran"><i class="fas fa-quran"></i>Adult Quran Class</a><a href="education.html#sisters-quran"><i class="fas fa-female"></i>Sisters' Quran Class</a><a href="education.html#arabic"><i class="fas fa-language"></i>Adult Arabic Class</a><a href="education.html#kids-quran"><i class="fas fa-child"></i>Kids Weekend Quran</a><a href="education.html#afterschool"><i class="fas fa-graduation-cap"></i>After School Study Club</a><a href="education.html#fajr-halaqa"><i class="fas fa-moon"></i>Fajr Halaqa</a><a href="education.html#tajweed"><i class="fas fa-book"></i>Adult Tajweed Literacy</a><a href="education.html#beginner-quran"><i class="fas fa-book-open"></i>Beginner Quran Class</a><a href="education.html#hifdh"><i class="fas fa-star"></i>Boys Hifdh Program</a><a href="education.html#hifdh-class"><i class="fas fa-star-half-alt"></i>Hifdh Class</a></div></li>
-                <li><a href="events.html" >Events</a><div class="nav-drop"><a href="events.html"><i class="fas fa-calendar-star"></i>Upcoming Events</a><a href="events.html#ramadan"><i class="fas fa-moon"></i>Ramadan Programs</a><a href="events.html#eid"><i class="fas fa-gift"></i>Eid Celebrations</a><a href="eid-registration.html"><i class="fas fa-star-and-crescent"></i>Eid Prayer Registration</a><a href="newsletter.html"><i class="fas fa-envelope"></i>Newsletter</a></div></li>
+                <li><a href="programs.html" >Programs &amp; Services</a><div class="nav-drop"><a href="programs.html"><i class="fas fa-th-large"></i>All Programs</a><a href="activities.html"><i class="fas fa-running"></i>Activities &amp; Classes</a><a href="programs.html#foodbank"><i class="fas fa-hand-holding-heart"></i>Food Bank</a><a href="programs.html#counseling"><i class="fas fa-comments"></i>Spiritual Counseling</a></div></li>
+                <li><a href="education.html" >Education</a><div class="nav-drop"><a href="education.html"><i class="fas fa-book-open"></i>All Classes</a><a href="education.html#adult-quran"><i class="fas fa-quran"></i>Adult Quran Class</a><a href="education.html#kids-quran"><i class="fas fa-child"></i>Kids Quran Class</a><a href="education.html#hifdh"><i class="fas fa-star"></i>Hifdh Program</a><a href="education.html#arabic"><i class="fas fa-language"></i>Arabic Class</a></div></li>
+                <li><a href="events.html" >Events</a><div class="nav-drop"><a href="events.html"><i class="fas fa-calendar-star"></i>Upcoming Events</a><a href="events.html#ramadan"><i class="fas fa-moon"></i>Ramadan Programs</a><a href="events.html#eid"><i class="fas fa-gift"></i>Eid Celebrations</a><a href="newsletter.html"><i class="fas fa-envelope"></i>Newsletter</a></div></li>
                 <li><a href="gallery.html" >Gallery</a></li>
                 <li><a href="contact.html" >Contact</a><div class="nav-drop"><a href="contact.html#form"><i class="fas fa-paper-plane"></i>Send a Message</a><a href="contact.html#location"><i class="fas fa-map-marker-alt"></i>Location &amp; Hours</a></div></li>
             </ul>
@@ -289,7 +289,7 @@
 </div>
 
 <!-- TODAY WIDGET -->
-<div class="today-widget" id="prayer" style="scroll-margin-top:80px">
+<div class="today-widget">
     <div class="today-widget-pattern"></div>
     <div class="today-inner">
         <div class="today-top">
@@ -316,7 +316,7 @@
             <div class="tp-card" id="tp-isha"><div class="tp-icon-ring"><i class="fas fa-star-and-crescent"></i></div><h3>Isha</h3><div class="tp-time loading" id="t-isha">—</div><div class="tp-iqamah" id="iq-isha"></div></div>
         </div>
 
-        <div class="jumuah-box" id="jumuah" style="scroll-margin-top:90px">
+        <div class="jumuah-box">
             <i class="fas fa-mosque jumuah-icon"></i>
             <div>
                 <h3>JUMU'AH PRAYER</h3>
@@ -333,7 +333,7 @@
 </div>
 
 <!-- MONTHLY SCHEDULE -->
-<section class="schedule-section" id="schedule" style="scroll-margin-top:80px">
+<section class="schedule-section">
     <div class="container">
         <div class="sched-head">
             <div>
@@ -341,7 +341,6 @@
                 <p style="font-size:0.85rem;color:var(--muted)">Athan times · Jumu'ah highlighted in gold</p>
             </div>
             <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-                <div id="currentMonthLabel" style="background:#fff;border:1px solid rgba(201,168,76,0.35);padding:10px 22px;font-family:'Cinzel',serif;font-size:0.82rem;letter-spacing:0.1em;color:#0B1F3A;min-width:170px;text-align:center;font-weight:600"></div>
                 <select id="monthPicker" class="month-sel">
                     <option value="1">January</option><option value="2">February</option><option value="3">March</option>
                     <option value="4">April</option><option value="5">May</option><option value="6">June</option>
@@ -370,7 +369,7 @@
             <div class="footer-col"><h4>Navigation</h4><ul>
                 <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
                 <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li><li><a href="contact.html">Contact</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
                 <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
@@ -379,7 +378,7 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#d1a3b0b9bcb0b8a2bdb0bcb8b2b2b4bfa5a3b491b6bcb0b8bdffb2bebc"><span class="__cf_email__" data-cfemail="0a786b62676b6379666b676369696f647e786f4a6d676b636624696567">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:contact@rahmaonline.org">contact@rahmaonline.org</a></span></div>
             </div>
         </div>
                         <div class="footer-bottom">
@@ -388,7 +387,7 @@
             </div>
         </div>
     </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    <script src="shared.js"></script>
     <script>
 /* ── HORLOGE ── */
 (function tick(){
@@ -460,17 +459,45 @@ async function loadMonth(month, year) {
     } catch(e) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:30px;">Unable to load.</td></tr>'; }
 }
 document.addEventListener('DOMContentLoaded', function() {
-    loadToday();
     var now = new Date();
-    loadMonth(now.getMonth()+1, now.getFullYear());
     var picker = document.getElementById('monthPicker');
-    var now2 = new Date();
-    var MONTHS = ['January','February','March','April','May','June',
-                  'July','August','September','October','November','December'];
-    function setMonthLabel(m, y) {
-        var el = document.getElementById('currentMonthLabel');
-        if (el) el.textContent = MONTHS[m-1] + '  ' + y;
-    }
     if (picker) {
         picker.value = now.getMonth() + 1;
-        setMonthLabel(now.getMonth()+1, 
+        picker.addEventListener('change', function() {
+            loadMonth(parseInt(picker.value), now.getFullYear());
+        });
+    }
+    loadToday();
+    loadMonth(now.getMonth() + 1, now.getFullYear());
+});
+</script>
+    <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
+        <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
+    </div></div></section>
+    <footer class="footer"><div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand"><span class="logo-text-footer">Rahma Islamic Centre</span><p>A vibrant Islamic center serving Muslims in Winnipeg since 2018.</p><div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+            <div class="footer-col"><h4>Navigation</h4><ul>
+                <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
+                <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="contact.html">Contact</a></li>
+            </ul></div>
+            <div class="footer-col"><h4>Programs</h4><ul>
+                <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
+                <li><a href="education.html">Hifdh Program</a></li><li><a href="programs.html">All Programs</a></li>
+            </ul></div>
+            <div class="footer-col"><h4>Contact</h4>
+                <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
+                <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:contact@rahmaonline.org">contact@rahmaonline.org</a></span></div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
+            <span>Powered by Devodez Solutions</span>
+        </div>
+    </div></footer>
+    <script src="shared.js"></script>
+</body>
+</html>
